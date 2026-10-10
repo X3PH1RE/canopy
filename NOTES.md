@@ -18,6 +18,7 @@
 - 2026-10-10T22:45:53+05:30: Scene objects use the layout's centered `x`/`z` coordinates directly. The renderer derives ground size from city bounds instead of assuming a separate world size.
 - 2026-10-10T23:13:34+05:30: Started Phase 2 with a plan split into interval commits: rate limiting/config, safe repo walking, metrics/build, analyze routes, then web progress UI.
 - 2026-10-10T23:13:34+05:30: Added `zod` for Phase 2 environment validation because the spec requires typed env parsing and startup failures for invalid values.
+- 2026-10-10T23:22:07+05:30: Added safe GitHub URL normalization, argument-array `git` process helpers with prompts disabled, JSON cache helpers, and repo file walking that filters vendored/media/lock/binary/oversize files.
 
 ## Commands
 
