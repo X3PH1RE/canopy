@@ -20,6 +20,7 @@
 - 2026-10-10T23:13:34+05:30: Added `zod` for Phase 2 environment validation because the spec requires typed env parsing and startup failures for invalid values.
 - 2026-10-10T23:22:07+05:30: Added safe GitHub URL normalization, argument-array `git` process helpers with prompts disabled, JSON cache helpers, and repo file walking that filters vendored/media/lock/binary/oversize files.
 - 2026-10-10T23:26:36+05:30: Added fallback metric parsing, relative JS/TS/Python import edges, and `CityData` assembly from walked files. Tree-sitter parsing is still pending inside Phase 2.
+- 2026-10-10T23:31:49+05:30: Added in-memory analyze jobs and API routes for `POST /api/analyze`, `GET /api/jobs/:id`, and `GET /api/city/:id`; tests use an injected analyzer so unit tests never clone public repos.
 
 ## Commands
 
