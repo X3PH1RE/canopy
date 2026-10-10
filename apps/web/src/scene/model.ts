@@ -14,6 +14,21 @@ export function buildingHeight(loc: number): number {
   return Math.max(0.3, Math.log2(loc + 1) * 1.2);
 }
 
+export function nextDisplayHeight(
+  currentHeight: number,
+  targetHeight: number,
+  delta: number,
+  shouldSnap: boolean,
+): number {
+  if (shouldSnap) {
+    return targetHeight;
+  }
+
+  const alpha = 1 - Math.exp(-10 * Math.min(delta, 0.05));
+  const nextHeight = currentHeight + (targetHeight - currentHeight) * alpha;
+  return Math.abs(nextHeight - targetHeight) < 0.01 ? targetHeight : nextHeight;
+}
+
 export function locAtFrame(series: Array<[number, number]>, frame: number): number {
   let loc = 0;
   for (const [changeFrame, changeLoc] of series) {
@@ -49,7 +64,7 @@ export function fileChangedRecently(
     return false;
   }
 
-  const startFrame = frame - windowSize;
+  const startFrame = frame - windowSize + 1;
   return (timeline.changeFrames[fileId] ?? []).some((changeFrame) => changeFrame <= frame && changeFrame >= startFrame);
 }
 

@@ -106,7 +106,7 @@ button:disabled {
 
 .stats-banner {
   left: 18px;
-  bottom: 18px;
+  top: 92px;
   display: grid;
   gap: 10px;
   padding: 10px 14px;

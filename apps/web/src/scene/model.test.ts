@@ -9,6 +9,7 @@ import {
   fileLocAtFrame,
   filePulseIntensity,
   locAtFrame,
+  nextDisplayHeight,
   sceneWorldSize,
 } from "./model";
 
@@ -137,6 +138,8 @@ describe("scene model helpers", () => {
     expect(fileChangedRecently(0, timeline, 12, 5)).toBe(false);
     expect(fileChangedRecently(1, timeline, 10, 5)).toBe(false);
     expect(fileChangedRecently(9, timeline, 10, 5)).toBe(false);
+    expect(fileChangedRecently(0, timeline, 11, 5)).toBe(false);
+    expect(fileChangedRecently(0, timeline, 12, 5)).toBe(false);
   });
 
   it("computes warm pulse intensity for recent timeline changes only", () => {
@@ -151,5 +154,11 @@ describe("scene model helpers", () => {
     expect(filePulseIntensity(0, timeline, 16, 5)).toBe(0);
     expect(filePulseIntensity(1, timeline, 12, 5)).toBe(0);
     expect(filePulseIntensity(0, null, 12, 5)).toBe(0);
+  });
+
+  it("snaps display height on the final timeline frame but eases during playback", () => {
+    expect(nextDisplayHeight(2, 10, 0.016, true)).toBe(10);
+    expect(nextDisplayHeight(2, 10, 0.016, false)).toBeGreaterThan(2);
+    expect(nextDisplayHeight(2, 10, 0.016, false)).toBeLessThan(10);
   });
 });

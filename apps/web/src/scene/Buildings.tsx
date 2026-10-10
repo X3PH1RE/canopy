@@ -10,6 +10,7 @@ import {
   fileCenter,
   fileLocAtFrame,
   filePulseIntensity,
+  nextDisplayHeight,
   type ViewMode,
 } from "./model";
 
@@ -79,6 +80,7 @@ function Building({
   const roofRef = useRef<Mesh>(null);
   const targetLoc = fileLocAtFrame(file, city.timeline, timelineFrame);
   const targetHeight = buildingHeight(targetLoc);
+  const isFinalTimelineFrame = Boolean(city.timeline && timelineFrame >= city.timeline.frameCount - 1);
   const initialHeight = useRef(targetHeight);
   const [x, z] = fileCenter(file);
   const visual = buildingVisual(file, city.files, viewMode);
@@ -103,10 +105,8 @@ function Building({
       return;
     }
 
-    const alpha = 1 - Math.exp(-10 * Math.min(delta, 0.05));
-    const nextHeight = body.scale.y + (targetHeight - body.scale.y) * alpha;
     const widthScale = isHovered ? 0.76 : 0.72;
-    body.scale.y = Math.abs(nextHeight - targetHeight) < 0.01 ? targetHeight : nextHeight;
+    body.scale.y = nextDisplayHeight(body.scale.y, targetHeight, delta, isFinalTimelineFrame);
     body.scale.x = file.w * widthScale;
     body.scale.z = file.d * widthScale;
     body.position.y = body.scale.y / 2;

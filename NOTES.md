@@ -34,6 +34,8 @@
 - 2026-10-11T01:14:00+05:30: Added timeline store state and pure sparse-series helpers for LOC lookup, exact final-frame LOC, and recent-change detection.
 - 2026-10-11T01:18:00+05:30: Added the bottom TimeSlider UI with play/pause, scrubber, current date display, and a 15-second playback clock.
 - 2026-10-11T01:21:00+05:30: Wired timeline frames into building target heights with smooth R3F interpolation and warm pulses for files changed in the last 5 frames.
+- 2026-10-11T01:23:00+05:30: Phase 4 acceptance passed on fresh-cache Express: 214 files, 2733 commits, 100 timeline frames, 208 files with change frames, sampled final-frame LOC matched static LOC.
+- 2026-10-11T01:30:00+05:30: Phase 4 review fixes: moved controls above the bottom timeline, snapped rendered heights on the final frame, and tightened changed-file pulses to exactly the last 5 frames.
 
 ## Commands
 
@@ -46,4 +48,4 @@
 ## Known limitations
 
 - The city currently renders generated sample data only. Real public GitHub repository analysis starts in Phase 2.
-- Phase 3 live checks pass for Express and Flask. Phase 4 timeline playback is in progress.
+- Phase 4 live timeline playback checks pass for Express. Search fly-to, drone mode, and offline pre-baked real samples are later phases.

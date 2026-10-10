@@ -44,20 +44,20 @@
 - Produces: `fileLocAtFrame(file, timeline, frame): number`
 - Produces: `fileChangedRecently(fileId, timeline, frame, windowSize): boolean`
 
-- [ ] **Step 1: Write failing timeline helper tests**
+- [x] **Step 1: Write failing timeline helper tests**
 
 Add tests that assert sparse LOC lookup before/after changes, final-frame LOC fallback to the static file LOC, and recent-change windows.
 
-- [ ] **Step 2: Run focused test to verify failure**
+- [x] **Step 2: Run focused test to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/web test -- src/scene/model.test.ts`
 Expected: FAIL because the helper exports do not exist.
 
-- [ ] **Step 3: Implement store state and pure helpers**
+- [x] **Step 3: Implement store state and pure helpers**
 
 Reset the timeline frame and playback flag in `setCity`. Clamp frame writes to valid timeline bounds. Implement pure helpers without React or Three dependencies.
 
-- [ ] **Step 4: Verify and checkpoint**
+- [x] **Step 4: Verify and checkpoint**
 
 Run `pnpm.cmd --filter @canopy/web test -- src/scene/model.test.ts`, `pnpm.cmd test`, `pnpm.cmd typecheck`, then commit and push `wip: phase 4 timeline helpers`.
 
@@ -73,24 +73,24 @@ Run `pnpm.cmd --filter @canopy/web test -- src/scene/model.test.ts`, `pnpm.cmd t
 **Interfaces:**
 - Produces: `<TimeSlider city={city} />`, hidden when `city.timeline` is `null`.
 
-- [ ] **Step 1: Write failing playback helper or component test**
+- [x] **Step 1: Write failing playback helper or component test**
 
 Assert the slider hides for `timeline: null`, shows the current frame date for timeline data, and toggles play state.
 
-- [ ] **Step 2: Run focused test to verify failure**
+- [x] **Step 2: Run focused test to verify failure**
 
 Run the focused web test command selected in Step 1.
 Expected: FAIL because `TimeSlider` does not exist or playback wiring is missing.
 
-- [ ] **Step 3: Implement TimeSlider**
+- [x] **Step 3: Implement TimeSlider**
 
 Render a compact bottom panel with a play/pause icon button, range input from `0` to `frameCount - 1`, and formatted current date. Keep copy short and controls stable.
 
-- [ ] **Step 4: Implement playback interval**
+- [x] **Step 4: Implement playback interval**
 
 Advance from frame `0` to `frameCount - 1` over about 15 seconds. Stop at the final frame. Use effect cleanup so changing city data or unmounting does not leave timers running.
 
-- [ ] **Step 5: Verify and checkpoint**
+- [x] **Step 5: Verify and checkpoint**
 
 Run focused web tests, `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, then commit and push `wip: phase 4 time slider`.
 
@@ -107,24 +107,24 @@ Run focused web tests, `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, 
 - Consumes: timeline store state and helper functions from Task 1.
 - Produces: smoothly lerped building heights during timeline frame changes.
 
-- [ ] **Step 1: Write failing visual helper tests**
+- [x] **Step 1: Write failing visual helper tests**
 
 Assert the final timeline frame returns `file.loc`, intermediate frames return sparse-series LOC, and pulse intensity only appears for recent changes.
 
-- [ ] **Step 2: Run focused test to verify failure**
+- [x] **Step 2: Run focused test to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/web test -- src/scene/model.test.ts`
 Expected: FAIL for missing or incomplete live-height/pulse helpers.
 
-- [ ] **Step 3: Implement live height calculation**
+- [x] **Step 3: Implement live height calculation**
 
 Buildings should use timeline LOC while a timeline exists, otherwise static LOC. Use React Three Fiber frame interpolation so heights lerp toward each target instead of snapping. Keep `x`, `z`, `w`, and `d` unchanged.
 
-- [ ] **Step 4: Implement recent-change pulse**
+- [x] **Step 4: Implement recent-change pulse**
 
 Buildings changed in the last 5 frames get a subtle warm emissive boost layered on top of the active view mode, without overwhelming Risk or Churn colors.
 
-- [ ] **Step 5: Verify and checkpoint**
+- [x] **Step 5: Verify and checkpoint**
 
 Run `pnpm.cmd --filter @canopy/web test -- src/scene/model.test.ts`, `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, then commit and push `wip: phase 4 live city playback`.
 
@@ -138,18 +138,26 @@ Run `pnpm.cmd --filter @canopy/web test -- src/scene/model.test.ts`, `pnpm.cmd t
 **Interfaces:**
 - Produces: recorded Phase 4 acceptance evidence.
 
-- [ ] **Step 1: Run full verification**
+- [x] **Step 1: Run full verification**
 
 Run `pnpm.cmd test`, `pnpm.cmd typecheck`, and `pnpm.cmd build`.
 
-- [ ] **Step 2: Run live timeline acceptance check**
+- [x] **Step 2: Run live timeline acceptance check**
 
 Analyze a fresh or cached `https://github.com/expressjs/express` city and verify `timeline.frameCount === 100`, final-frame LOC equals static LOC for sampled files, and at least one file has non-empty `changeFrames`.
 
-- [ ] **Step 3: Update docs and plan evidence**
+- [x] **Step 3: Update docs and plan evidence**
 
 Record commands and acceptance results in `NOTES.md` and this plan. Update `README.md` current status so Phase 4 is no longer listed as pending.
 
-- [ ] **Step 4: Final phase commit**
+- [x] **Step 4: Final phase commit**
 
 Commit and push `phase 4: add timeline playback`.
+
+## Acceptance Evidence
+
+- 2026-10-11T01:22+05:30: `pnpm.cmd test` passed 14 files / 55 tests.
+- 2026-10-11T01:22+05:30: `pnpm.cmd typecheck` passed for shared, server, and web packages.
+- 2026-10-11T01:22+05:30: `pnpm.cmd build` passed; Vite emitted only the existing large chunk warning.
+- 2026-10-11T01:23+05:30: Fresh-cache `expressjs/express` route analysis completed in 8048 ms; 214 files, 2733 commits, 355 authors, 100 timeline frames, 208 files with change frames, 25 sampled timeline series, and sampled final-frame LOC matched static LOC.
+- 2026-10-11T01:30+05:30: Final review fix pass completed; `pnpm.cmd test` passed 14 files / 56 tests, `pnpm.cmd typecheck` passed, and `pnpm.cmd build` passed with the existing large chunk warning.
