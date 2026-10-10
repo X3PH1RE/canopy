@@ -30,6 +30,7 @@
 - 2026-10-11T00:52:00+05:30: Added Language, Churn, Complexity, and Risk view modes with solarpunk ramps, emissive hot buildings, and richer inspect history metrics.
 - 2026-10-11T00:57:00+05:30: Phase 3 live checks passed: Express history parse 1.8s with 2733 commits/355 authors, Flask history parse 3.0s with 5000 capped commits/827 authors, both with timeline frames and non-zero risk/churn subsets.
 - 2026-10-11T01:03:00+05:30: Review fix: all-zero churn view now stays at the low sunlight ramp with no glow; added empty/malformed history parser coverage.
+- 2026-10-11T01:12:00+05:30: Started Phase 4 with client-side timeline playback. Phase 3 already emits timeline data, so Phase 4 focuses on UI, live heights, smooth interpolation, and changed-file pulses.
 
 ## Commands
 
@@ -42,4 +43,4 @@
 ## Known limitations
 
 - The city currently renders generated sample data only. Real public GitHub repository analysis starts in Phase 2.
-- Phase 3 live checks pass for Express and Flask. Timeline playback starts in Phase 4.
+- Phase 3 live checks pass for Express and Flask. Phase 4 timeline playback is in progress.
