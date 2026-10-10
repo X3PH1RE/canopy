@@ -22,6 +22,7 @@ interface BuildingsProps {
 export function Buildings({ city }: BuildingsProps) {
   const selectedId = useCityStore((state) => state.selectedId);
   const hoveredId = useCityStore((state) => state.hoveredId);
+  const activeBuildingId = useCityStore((state) => state.activeBuildingId);
   const viewMode = useCityStore((state) => state.viewMode);
   const timelineFrame = useCityStore((state) => state.timelineFrame);
   const setSelectedId = useCityStore((state) => state.setSelectedId);
@@ -45,6 +46,7 @@ export function Buildings({ city }: BuildingsProps) {
             file={file}
             isHovered={hoveredId === file.id}
             isSelected={selectedId === file.id}
+            isActive={activeBuildingId === file.id}
             key={file.id}
             onPointerOut={handlePointerMiss}
             onSelect={setSelectedId}
@@ -63,6 +65,7 @@ interface BuildingProps {
   file: FileNode;
   isHovered: boolean;
   isSelected: boolean;
+  isActive: boolean;
   onHover: (id: number | null) => void;
   onPointerOut: (event: ThreeEvent<PointerEvent>) => void;
   onSelect: (id: number | null) => void;
@@ -75,6 +78,7 @@ function Building({
   file,
   isHovered,
   isSelected,
+  isActive,
   onHover,
   onPointerOut,
   onSelect,
@@ -138,9 +142,9 @@ function Building({
       >
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial
-          color={isSelected ? theme.sun : visual.color}
-          emissive={isHovered || isSelected ? theme.glass : pulseIntensity > 0 ? theme.sun : visual.emissive}
-          emissiveIntensity={isSelected ? 0.28 : isHovered ? 0.16 : Math.max(visual.emissiveIntensity, pulseIntensity)}
+          color={isSelected ? theme.sun : isActive ? theme.gold : visual.color}
+          emissive={isHovered || isSelected || isActive ? theme.glass : pulseIntensity > 0 ? theme.sun : visual.emissive}
+          emissiveIntensity={isSelected ? 0.28 : isActive ? 0.22 : isHovered ? 0.16 : Math.max(visual.emissiveIntensity, pulseIntensity)}
           roughness={0.58}
           metalness={0.06}
         />

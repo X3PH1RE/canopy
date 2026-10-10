@@ -8,6 +8,15 @@ export interface DroneMovement {
   speed: number;
 }
 
+export interface GlideTargetFile {
+  id: number;
+  x: number;
+  z: number;
+  w: number;
+  d: number;
+  loc: number;
+}
+
 export function droneSpawnForWorld(worldSize: number): DroneWorldState {
   const offset = Math.max(18, Math.min(34, worldSize * 0.25));
   return {
@@ -33,5 +42,16 @@ export function movementVectorFromKeys(keys: KeySnapshot, yaw: number): DroneMov
     y: (keys.up ? 1 : 0) - (keys.down ? 1 : 0),
     z: normalizedX * sin + normalizedZ * cos,
     speed: keys.boost ? 16 : 9,
+  };
+}
+
+export function droneGlideTargetForFile(file: GlideTargetFile, liveHeight: number): DroneWorldState {
+  const offset = Math.max(file.w, file.d) * 0.65 + 3.5;
+  return {
+    x: file.x + offset,
+    y: Math.max(8, liveHeight + 3.2),
+    z: file.z + offset * 0.55,
+    yaw: Math.PI * 0.75,
+    speed: 0,
   };
 }

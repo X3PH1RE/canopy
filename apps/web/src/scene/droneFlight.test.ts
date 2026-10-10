@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { KeySnapshot } from "../input/keys";
-import { droneSpawnForWorld, movementVectorFromKeys } from "./droneFlight";
+import { droneGlideTargetForFile, droneSpawnForWorld, movementVectorFromKeys } from "./droneFlight";
 
 const baseKeys: KeySnapshot = {
   forward: false,
@@ -31,5 +31,16 @@ describe("drone flight helpers", () => {
     expect(movement.z).toBeCloseTo(-1 / Math.SQRT2, 5);
     expect(movement.y).toBe(1);
     expect(movement.speed).toBe(16);
+  });
+
+  it("places search glide targets outside the building footprint above the roof", () => {
+    const target = droneGlideTargetForFile(
+      { id: 1, x: 10, z: 20, w: 8, d: 6, loc: 127 },
+      12,
+    );
+
+    expect(target.x).toBeGreaterThan(10 + 4);
+    expect(target.y).toBeGreaterThan(12);
+    expect(target.z).toBeGreaterThan(20);
   });
 });

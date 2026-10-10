@@ -37,7 +37,9 @@ main {
 .top-bar,
 .stats-banner,
 .search-box,
-.inspect-panel {
+.inspect-panel,
+.fly-hud,
+.drone-popup {
   position: absolute;
   z-index: 10;
   border: 1px solid rgba(255, 255, 255, 0.24);
@@ -245,6 +247,66 @@ button:disabled {
   overflow: auto;
   padding: 18px;
   border-radius: 8px;
+}
+
+.fly-hud {
+  left: 18px;
+  bottom: 88px;
+  display: grid;
+  width: 330px;
+  gap: 8px;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.fly-hud strong,
+.drone-popup strong {
+  font-family: "Fraunces", Georgia, serif;
+}
+
+.fly-hud span,
+.drone-popup span,
+.drone-popup small {
+  color: #4d6762;
+  font-size: 0.84rem;
+}
+
+.fly-hud dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.fly-hud div {
+  border-top: 1px solid rgba(24, 50, 47, 0.16);
+  padding-top: 6px;
+}
+
+.fly-hud dt {
+  color: #55705f;
+  font-size: 0.72rem;
+}
+
+.fly-hud dd {
+  margin: 0;
+  color: #18322f;
+  font-family: "Fraunces", Georgia, serif;
+}
+
+.drone-popup {
+  display: grid;
+  width: 220px;
+  gap: 3px;
+  border-radius: 8px;
+  padding: 10px 12px;
+  pointer-events: none;
+}
+
+.drone-popup span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .progress-overlay {

@@ -48,6 +48,7 @@
 - 2026-10-11T02:10:00+05:30: Added Phase 5b spatial grid queries and drone collision push-out/sliding helpers; full tests/typecheck passed.
 - 2026-10-11T02:12:00+05:30: Added Phase 5b proximity dwell/release timing so nearby building popups can avoid fast-flyby noise; full tests/typecheck passed.
 - 2026-10-11T02:17:00+05:30: Added Phase 5b procedural drone, fly toggle, keyboard/mouse movement, collision sliding, and chase camera; full tests/typecheck/build passed.
+- 2026-10-11T02:20:00+05:30: Added Phase 5b drone proximity popup, active building highlight, Enter expand, fly HUD, and search glide; full tests/typecheck/build passed.
 
 ## Commands
 

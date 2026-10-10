@@ -187,23 +187,23 @@ Run `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, then commit and pus
 - Consumes: `updateProximity`, store `focusRequest`, and `activeBuildingId`.
 - Produces: `Enter` opens `InspectPanel` for the active building; `Escape` clears active building; search while flying glides the drone toward the focused file.
 
-- [ ] **Step 1: Write failing popup/glide tests for pure helpers if extracted**
+- [x] **Step 1: Write failing popup/glide tests for pure helpers if extracted**
 
 If glide target math is extracted, test that it offsets the target outside the building footprint and above the roof.
 
-- [ ] **Step 2: Implement popup and building highlight**
+- [x] **Step 2: Implement popup and building highlight**
 
 Show exactly one `DronePopup` for `activeBuildingId`, render concise path/metrics copy, and highlight the active building shell without changing selection.
 
-- [ ] **Step 3: Implement Expand and HUD**
+- [x] **Step 3: Implement Expand and HUD**
 
 Pressing `Enter` while a popup is active sets selected id and opens the existing inspect panel. Add `FlyHud` with mode hints and compact speed/altitude readouts.
 
-- [ ] **Step 4: Implement search glide in fly mode**
+- [x] **Step 4: Implement search glide in fly mode**
 
 When `focusRequest` changes during fly mode, steer the drone to a safe offset near the target building and keep collision active during the glide.
 
-- [ ] **Step 5: Verify and checkpoint**
+- [x] **Step 5: Verify and checkpoint**
 
 Run `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, then commit and push `wip: phase 5b popup hud glide`.
 

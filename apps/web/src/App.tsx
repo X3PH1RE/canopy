@@ -5,6 +5,7 @@ import { useCityStore } from "./store";
 import { InspectPanel } from "./ui/InspectPanel";
 import { ProgressOverlay } from "./ui/ProgressOverlay";
 import { SearchBox } from "./ui/SearchBox";
+import { FlyHud } from "./ui/FlyHud";
 import { TimeSlider } from "./ui/TimeSlider";
 import { Toolbar } from "./ui/Toolbar";
 import { UrlBar } from "./ui/UrlBar";
@@ -103,6 +104,7 @@ export function App() {
       <SearchBox city={city} />
       {error ? <div className="scene-placeholder">{error}</div> : <City />}
       <ProgressOverlay job={job} rateLimitMessage={rateLimitMessage} />
+      <FlyHud />
       <TimeSlider city={city} />
       <InspectPanel city={city} selectedId={selectedId} />
     </main>
