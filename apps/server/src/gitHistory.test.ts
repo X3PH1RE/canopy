@@ -14,6 +14,11 @@ describe("parseGitHistoryLog", () => {
     });
     expect(parsed.commits[1]?.changes.map((change) => change.path)).toEqual(["src/a.ts", "src/b.py"]);
   });
+
+  it("tolerates empty output and malformed commit headers", () => {
+    expect(parseGitHistoryLog("").commits).toEqual([]);
+    expect(parseGitHistoryLog("@@missing-parts\n1\t0\tsrc/a.ts\n").commits).toEqual([]);
+  });
 });
 
 describe("buildHistorySummary", () => {

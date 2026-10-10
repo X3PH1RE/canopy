@@ -77,4 +77,16 @@ describe("scene model helpers", () => {
     });
     expect(buildingVisual(files[2]!, files, "risk").emissiveIntensity).toBeGreaterThan(0.2);
   });
+
+  it("keeps all-zero churn repos at the low sunlight ramp without glow", () => {
+    const files = [
+      { ...file, id: 1, churn: 0 },
+      { ...file, id: 2, churn: 0 },
+    ];
+
+    expect(buildingVisual(files[0]!, files, "churn")).toMatchObject({
+      color: "#f4ecd8",
+      emissiveIntensity: 0,
+    });
+  });
 });

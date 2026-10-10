@@ -78,6 +78,10 @@ function percentileFor(file: FileNode, files: FileNode[], metric: (file: FileNod
 
   const value = metric(file);
   const sorted = files.map(metric).sort((a, b) => a - b);
+  if (sorted[0] === sorted[sorted.length - 1]) {
+    return 0;
+  }
+
   const first = sorted.findIndex((item) => item === value);
   let last = first;
   for (let index = first + 1; index < sorted.length; index += 1) {
