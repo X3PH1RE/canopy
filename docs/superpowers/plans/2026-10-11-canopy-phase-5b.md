@@ -229,7 +229,7 @@ Start the app, inspect desktop and mobile screenshots, and verify the WebGL canv
 
 Record commands and acceptance results in `NOTES.md` and this plan. Update `README.md` current status so drone mode is no longer pending.
 
-- [ ] **Step 4: Final phase commit**
+- [x] **Step 4: Final phase commit**
 
 Commit and push `phase 5b: add drone mode`.
 
