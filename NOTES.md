@@ -45,6 +45,7 @@
 - 2026-10-11T01:57:00+05:30: Phase 5 review fixes: exact function search now outranks broad path substrings, disabled roads skip edge work, and the inspect panel scrolls before reaching the timeline.
 - 2026-10-11T02:05:00+05:30: Started Phase 5b with a drone mode plan split into input/world state, collision, proximity, controller, popup/HUD/search glide, then acceptance.
 - 2026-10-11T02:08:00+05:30: Added Phase 5b input focus guards and mutable world snapshots for live building boxes/imported-by counts; full tests/typecheck passed.
+- 2026-10-11T02:10:00+05:30: Added Phase 5b spatial grid queries and drone collision push-out/sliding helpers; full tests/typecheck passed.
 
 ## Commands
 

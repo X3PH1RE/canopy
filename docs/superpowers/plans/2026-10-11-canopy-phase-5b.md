@@ -90,20 +90,20 @@ Run `pnpm.cmd --filter @canopy/web test -- src/input/keys.test.ts src/scene/worl
 - Produces: `querySpatialGrid(grid: SpatialGrid, x: number, z: number, radius: number): BuildingBox[]`
 - Produces: `resolveDroneCollision(position: Vector3Like, velocity: Vector3Like, boxes: BuildingBox[], radius: number): CollisionResult`
 
-- [ ] **Step 1: Write failing spatial-grid tests**
+- [x] **Step 1: Write failing spatial-grid tests**
 
 Assert query returns boxes in intersecting cells, excludes far boxes, push-out resolves overlap, and sliding preserves tangential velocity.
 
-- [ ] **Step 2: Run focused test to verify failure**
+- [x] **Step 2: Run focused test to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/web test -- src/scene/spatialGrid.test.ts`
 Expected: FAIL because `spatialGrid.ts` does not exist.
 
-- [ ] **Step 3: Implement spatial grid and collision**
+- [x] **Step 3: Implement spatial grid and collision**
 
 Use integer `x:z` cell keys, query by radius bounds, and resolve horizontal sphere-vs-box overlap only when drone altitude intersects the building height.
 
-- [ ] **Step 4: Verify and checkpoint**
+- [x] **Step 4: Verify and checkpoint**
 
 Run `pnpm.cmd --filter @canopy/web test -- src/scene/spatialGrid.test.ts`, `pnpm.cmd test`, `pnpm.cmd typecheck`, then commit and push `wip: phase 5b spatial collision`.
 
