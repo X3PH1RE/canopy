@@ -1,4 +1,4 @@
-import type { CityData, FileNode } from "@canopy/shared";
+import type { CityData, FileNode, Timeline } from "@canopy/shared";
 import { languageColors, theme, viewRamps } from "../theme";
 
 export type ViewMode = "language" | "churn" | "complexity" | "risk";
@@ -12,6 +12,45 @@ export interface BuildingVisual {
 
 export function buildingHeight(loc: number): number {
   return Math.max(0.3, Math.log2(loc + 1) * 1.2);
+}
+
+export function locAtFrame(series: Array<[number, number]>, frame: number): number {
+  let loc = 0;
+  for (const [changeFrame, changeLoc] of series) {
+    if (changeFrame > frame) {
+      break;
+    }
+    loc = changeLoc;
+  }
+
+  return loc;
+}
+
+export function fileLocAtFrame(file: FileNode, timeline: Timeline | null, frame: number): number {
+  if (!timeline) {
+    return file.loc;
+  }
+
+  const clampedFrame = Math.max(0, Math.min(timeline.frameCount - 1, Math.round(frame)));
+  if (clampedFrame >= timeline.frameCount - 1) {
+    return file.loc;
+  }
+
+  return locAtFrame(timeline.locSeries[file.id] ?? [], clampedFrame);
+}
+
+export function fileChangedRecently(
+  fileId: number,
+  timeline: Timeline | null,
+  frame: number,
+  windowSize: number,
+): boolean {
+  if (!timeline) {
+    return false;
+  }
+
+  const startFrame = frame - windowSize;
+  return (timeline.changeFrames[fileId] ?? []).some((changeFrame) => changeFrame <= frame && changeFrame >= startFrame);
 }
 
 export function fileCenter(file: FileNode): [number, number] {

@@ -1,6 +1,15 @@
 import { describe, expect, it } from "vitest";
-import type { CityData, FileNode } from "@canopy/shared";
-import { buildingHeight, buildingVisual, fileById, fileCenter, sceneWorldSize } from "./model";
+import type { CityData, FileNode, Timeline } from "@canopy/shared";
+import {
+  buildingHeight,
+  buildingVisual,
+  fileById,
+  fileCenter,
+  fileChangedRecently,
+  fileLocAtFrame,
+  locAtFrame,
+  sceneWorldSize,
+} from "./model";
 
 const file: FileNode = {
   id: 1,
@@ -88,5 +97,44 @@ describe("scene model helpers", () => {
       color: "#f4ecd8",
       emissiveIntensity: 0,
     });
+  });
+
+  it("looks up sparse timeline LOC at and between change points", () => {
+    expect(locAtFrame([], 10)).toBe(0);
+    expect(locAtFrame([[12, 24]], 8)).toBe(0);
+    expect(locAtFrame([[12, 24]], 12)).toBe(24);
+    expect(locAtFrame([[0, 4], [10, 18], [20, 12]], 19)).toBe(18);
+    expect(locAtFrame([[0, 4], [10, 18], [20, 12]], 21)).toBe(12);
+  });
+
+  it("uses static LOC exactly on the final timeline frame", () => {
+    const timeline: Timeline = {
+      frameCount: 4,
+      frameDates: [
+        "2024-01-01T00:00:00.000Z",
+        "2024-01-02T00:00:00.000Z",
+        "2024-01-03T00:00:00.000Z",
+        "2024-01-04T00:00:00.000Z",
+      ],
+      locSeries: [[[0, 4], [2, 120]]],
+      changeFrames: [[0, 2]],
+    };
+
+    expect(fileLocAtFrame({ ...file, id: 0, loc: 127 }, timeline, 0)).toBe(4);
+    expect(fileLocAtFrame({ ...file, id: 0, loc: 127 }, timeline, 3)).toBe(127);
+  });
+
+  it("detects files changed within the recent timeline window", () => {
+    const timeline: Timeline = {
+      frameCount: 12,
+      frameDates: Array.from({ length: 12 }, (_, index) => `2024-01-${String(index + 1).padStart(2, "0")}T00:00:00.000Z`),
+      locSeries: [[], []],
+      changeFrames: [[1, 6], [2]],
+    };
+
+    expect(fileChangedRecently(0, timeline, 10, 5)).toBe(true);
+    expect(fileChangedRecently(0, timeline, 12, 5)).toBe(false);
+    expect(fileChangedRecently(1, timeline, 10, 5)).toBe(false);
+    expect(fileChangedRecently(9, timeline, 10, 5)).toBe(false);
   });
 });
