@@ -24,6 +24,7 @@
 - 2026-10-10T23:36:09+05:30: Wired the web URL bar to the analyze API with job polling, `/api/limits`, Vite dev proxying, progress overlay, and friendly rate-limit panel.
 - 2026-10-11T00:27:00+05:30: Pinned `web-tree-sitter@0.25.10` with `tree-sitter-wasms@0.1.13` for Phase 2 because newer `web-tree-sitter@0.26.x` has a known ABI mismatch with the WASM package. Added `@types/emscripten@1.41.6` for strict TypeScript declarations.
 - 2026-10-11T00:27:00+05:30: Switched real city assembly to tree-sitter-backed metrics for TS/JS/Python/Go/Java when grammar loading succeeds, with per-file fallback to heuristics.
+- 2026-10-11T00:31:00+05:30: Phase 2 acceptance passed: Express fresh-cache analysis 6.9s, Flask 10.3s, cache hits and rate-limit behavior verified by Fastify injection.
 
 ## Commands
 
