@@ -54,6 +54,7 @@
 - 2026-10-11T03:16:00+05:30: Completed Phase 5b and made the formal phase commit. One minor remains deferred: spatial grid rebuild frequency during fly mode.
 - 2026-10-11T03:18:00+05:30: Started Phase 6 with a cut-list polish plan for nature/solar, legend/shortcuts, loading copy, frosted panels, and district labels.
 - 2026-10-11T03:22:00+05:30: Added Phase 6 deterministic instanced trees, roof solar panels, and a light rail pulse ring; tests 24 files/86 tests and typecheck passed.
+- 2026-10-11T03:26:00+05:30: Added Phase 6 view legend and focus-safe keyboard shortcuts for 1-4 view modes, roads, and timeline playback; tests 26 files/89 tests, typecheck, and build passed.
 
 ## Commands
 

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { getCity, getJob, getLimits, loadSampleCity, RateLimitError, startAnalysis, type JobResponse, type LimitState } from "./api";
+import { shortcutActionForKey } from "./input/shortcuts";
 import { City } from "./scene/City";
 import { useCityStore } from "./store";
 import { InspectPanel } from "./ui/InspectPanel";
+import { LegendPanel } from "./ui/LegendPanel";
 import { ProgressOverlay } from "./ui/ProgressOverlay";
 import { SearchBox } from "./ui/SearchBox";
 import { FlyHud } from "./ui/FlyHud";
@@ -19,6 +21,9 @@ export function App() {
   const isTimelinePlaying = useCityStore((state) => state.isTimelinePlaying);
   const setCity = useCityStore((state) => state.setCity);
   const setError = useCityStore((state) => state.setError);
+  const setShowRoads = useCityStore((state) => state.setShowRoads);
+  const showRoads = useCityStore((state) => state.showRoads);
+  const setViewMode = useCityStore((state) => state.setViewMode);
   const setTimelineFrame = useCityStore((state) => state.setTimelineFrame);
   const setTimelinePlaying = useCityStore((state) => state.setTimelinePlaying);
   const [isLoading, setIsLoading] = useState(false);
@@ -96,6 +101,27 @@ export function App() {
     return () => window.clearInterval(timer);
   }, [city, isTimelinePlaying, timelineFrame, setTimelineFrame, setTimelinePlaying]);
 
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      const action = shortcutActionForKey(event.key, event.target);
+      if (!action) {
+        return;
+      }
+
+      if (action.type === "viewMode") {
+        setViewMode(action.viewMode);
+      } else if (action.type === "toggleRoads") {
+        setShowRoads(!useCityStore.getState().showRoads);
+      } else if (city?.timeline) {
+        event.preventDefault();
+        setTimelinePlaying(!useCityStore.getState().isTimelinePlaying);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [city?.timeline, setShowRoads, setTimelinePlaying, setViewMode, showRoads]);
+
   return (
     <main aria-label="Canopy canvas" data-files={city?.stats.fileCount ?? 0}>
       <UrlBar city={city} isLoading={isLoading} limits={limits} onAnalyze={analyzeRepo} onLoadSample={loadCity} />
@@ -104,6 +130,7 @@ export function App() {
       {error ? <div className="scene-placeholder">{error}</div> : <City />}
       <ProgressOverlay job={job} rateLimitMessage={rateLimitMessage} />
       <FlyHud />
+      {city ? <LegendPanel /> : null}
       <TimeSlider city={city} />
       <InspectPanel city={city} selectedId={selectedId} />
     </main>

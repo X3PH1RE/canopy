@@ -80,20 +80,20 @@ Run `pnpm.cmd --filter @canopy/web test -- src/scene/nature.test.ts`, `pnpm.cmd 
 - Produces: `shortcutActionForKey(key, target): ShortcutAction | null`
 - Produces: `<Legend />`
 
-- [ ] **Step 1: Write failing legend and shortcut tests**
+- [x] **Step 1: Write failing legend and shortcut tests**
 
 Assert each view mode returns accurate legend items and shortcuts ignore editable targets while mapping `1..4`, `R`, and `Space`.
 
-- [ ] **Step 2: Run focused tests to verify failure**
+- [x] **Step 2: Run focused tests to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/web test -- src/ui/legend.test.ts src/input/shortcuts.test.ts`
 Expected: FAIL because modules do not exist.
 
-- [ ] **Step 3: Implement helpers, Legend component, and keyboard hook**
+- [x] **Step 3: Implement helpers, Legend component, and keyboard hook**
 
 Wire shortcuts in `App`: `1..4` view modes, `R` roads, and `Space` timeline play/pause when a timeline exists.
 
-- [ ] **Step 4: Verify and checkpoint**
+- [x] **Step 4: Verify and checkpoint**
 
 Run focused tests, `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, then commit and push `wip: phase 6 legend shortcuts`.
 
