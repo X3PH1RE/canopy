@@ -52,6 +52,7 @@
 - 2026-10-11T03:06:00+05:30: Phase 5b acceptance passed: tests 21 files/81 tests, typecheck, build, and browser preview with clean console plus desktop/mobile screenshots. Startup `/api/limits` fetch was removed so sample/preview load stays quiet; analyze still refreshes limits when needed.
 - 2026-10-11T03:15:00+05:30: Phase 5b review fixes: orbit focus now ignores fly-mode focus requests, OrbitControls target syncs on fly exit, search glide waits for normal proximity dwell, and UI pointer drags no longer rotate the drone; tests 23 files/84 tests, typecheck, and build passed.
 - 2026-10-11T03:16:00+05:30: Completed Phase 5b and made the formal phase commit. One minor remains deferred: spatial grid rebuild frequency during fly mode.
+- 2026-10-11T03:18:00+05:30: Started Phase 6 with a cut-list polish plan for nature/solar, legend/shortcuts, loading copy, frosted panels, and district labels.
 
 ## Commands
 
