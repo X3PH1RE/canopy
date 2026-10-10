@@ -118,20 +118,20 @@ Run `pnpm.cmd --filter @canopy/web test -- src/scene/spatialGrid.test.ts`, `pnpm
 - Produces: `updateProximity(state: ProximityState, input: ProximityInput): ProximityState`
 - Produces: dwell constants `PROXIMITY_DWELL_MS = 250` and `PROXIMITY_RELEASE_MS = 300`.
 
-- [ ] **Step 1: Write failing proximity tests**
+- [x] **Step 1: Write failing proximity tests**
 
 Assert one popup activates after dwell, fast flybys do not activate, leaving range hides after release, and switching nearest buildings resets dwell.
 
-- [ ] **Step 2: Run focused test to verify failure**
+- [x] **Step 2: Run focused test to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/web test -- src/scene/proximity.test.ts`
 Expected: FAIL because `proximity.ts` does not exist.
 
-- [ ] **Step 3: Implement proximity state machine**
+- [x] **Step 3: Implement proximity state machine**
 
 Track candidate id/time and active id; require speed below threshold and a stable nearest id for 250 ms before activation.
 
-- [ ] **Step 4: Verify and checkpoint**
+- [x] **Step 4: Verify and checkpoint**
 
 Run `pnpm.cmd --filter @canopy/web test -- src/scene/proximity.test.ts`, `pnpm.cmd test`, `pnpm.cmd typecheck`, then commit and push `wip: phase 5b proximity`.
 

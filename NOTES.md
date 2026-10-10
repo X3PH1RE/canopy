@@ -46,6 +46,7 @@
 - 2026-10-11T02:05:00+05:30: Started Phase 5b with a drone mode plan split into input/world state, collision, proximity, controller, popup/HUD/search glide, then acceptance.
 - 2026-10-11T02:08:00+05:30: Added Phase 5b input focus guards and mutable world snapshots for live building boxes/imported-by counts; full tests/typecheck passed.
 - 2026-10-11T02:10:00+05:30: Added Phase 5b spatial grid queries and drone collision push-out/sliding helpers; full tests/typecheck passed.
+- 2026-10-11T02:12:00+05:30: Added Phase 5b proximity dwell/release timing so nearby building popups can avoid fast-flyby noise; full tests/typecheck passed.
 
 ## Commands
 
