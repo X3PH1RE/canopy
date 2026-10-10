@@ -56,6 +56,7 @@
 - 2026-10-11T03:22:00+05:30: Added Phase 6 deterministic instanced trees, roof solar panels, and a light rail pulse ring; tests 24 files/86 tests and typecheck passed.
 - 2026-10-11T03:26:00+05:30: Added Phase 6 view legend and focus-safe keyboard shortcuts for 1-4 view modes, roads, and timeline playback; tests 26 files/89 tests, typecheck, and build passed.
 - 2026-10-11T03:32:00+05:30: Added Phase 6 seed-to-tree loading copy, district labels, stronger frosted glass panels, and responsive mobile controls; tests 27 files/91 tests, typecheck, build, and browser preview passed with clean console.
+- 2026-10-11T03:40:00+05:30: Phase 6 review fixes: complete language legend, repeat-safe shortcuts, live-height solar panels, and mobile legend/timeline spacing; tests 27 files/93 tests, typecheck, build, and browser preview passed with clean console.
 
 ## Commands
 

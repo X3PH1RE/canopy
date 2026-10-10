@@ -12,6 +12,9 @@ export function legendForViewMode(viewMode: ViewMode): LegendItem[] {
       { label: "TypeScript", color: languageColors.typescript },
       { label: "JavaScript", color: languageColors.javascript },
       { label: "Python", color: languageColors.python },
+      { label: "Go", color: languageColors.go },
+      { label: "Java", color: languageColors.java },
+      { label: "Markdown", color: languageColors.markdown },
       { label: "Other", color: languageColors.other },
     ];
   }

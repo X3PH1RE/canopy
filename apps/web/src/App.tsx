@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCity, getJob, getLimits, loadSampleCity, RateLimitError, startAnalysis, type JobResponse, type LimitState } from "./api";
-import { shortcutActionForKey } from "./input/shortcuts";
+import { shouldHandleShortcutEvent } from "./input/shortcuts";
 import { City } from "./scene/City";
 import { useCityStore } from "./store";
 import { InspectPanel } from "./ui/InspectPanel";
@@ -103,7 +103,7 @@ export function App() {
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      const action = shortcutActionForKey(event.key, event.target);
+      const action = shouldHandleShortcutEvent(event);
       if (!action) {
         return;
       }

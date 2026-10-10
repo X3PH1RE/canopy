@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { shortcutActionForKey } from "./shortcuts";
+import { shouldHandleShortcutEvent, shortcutActionForKey } from "./shortcuts";
 
 function target(tagName: string): EventTarget {
   return {
@@ -22,5 +22,10 @@ describe("keyboard shortcuts", () => {
   it("ignores shortcuts while typing", () => {
     expect(shortcutActionForKey("1", target("input"))).toBeNull();
     expect(shortcutActionForKey("r", target("textarea"))).toBeNull();
+  });
+
+  it("ignores repeated keydown events", () => {
+    expect(shouldHandleShortcutEvent({ key: "r", repeat: true, target: target("body") })).toBeNull();
+    expect(shouldHandleShortcutEvent({ key: "r", repeat: false, target: target("body") })).toEqual({ type: "toggleRoads" });
   });
 });

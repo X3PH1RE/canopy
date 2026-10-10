@@ -52,11 +52,15 @@ export function solarPanelsForFiles(files: FileNode[]): SolarPanelPlacement[] {
     .map((file) => ({
       fileId: file.id,
       x: file.x,
-      y: buildingHeight(file.loc) + 0.16,
+      y: solarPanelY(buildingHeight(file.loc)),
       z: file.z,
       width: round(Math.max(2.2, file.w * 0.5)),
       depth: round(Math.max(1.4, file.d * 0.32)),
     }));
+}
+
+export function solarPanelY(liveHeight: number): number {
+  return round(liveHeight + 0.16);
 }
 
 function insideBuildingBuffer(file: FileNode, x: number, z: number, buffer: number): boolean {

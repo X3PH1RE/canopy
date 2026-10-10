@@ -6,6 +6,20 @@ export type ShortcutAction =
   | { type: "toggleRoads" }
   | { type: "togglePlayback" };
 
+export interface ShortcutEventLike {
+  key: string;
+  repeat: boolean;
+  target: EventTarget | null;
+}
+
+export function shouldHandleShortcutEvent(event: ShortcutEventLike): ShortcutAction | null {
+  if (event.repeat) {
+    return null;
+  }
+
+  return shortcutActionForKey(event.key, event.target);
+}
+
 export function shortcutActionForKey(key: string, target: EventTarget | null): ShortcutAction | null {
   if (isEditableTarget(target)) {
     return null;

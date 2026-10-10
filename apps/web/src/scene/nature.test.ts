@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { CityData, FileNode } from "@canopy/shared";
-import { solarPanelsForFiles, treePlacementsForCity } from "./nature";
+import { solarPanelsForFiles, solarPanelY, treePlacementsForCity } from "./nature";
 
 const baseFile: FileNode = {
   id: 1,
@@ -71,5 +71,9 @@ describe("nature placement", () => {
 
     expect(panels.map((panel) => panel.fileId)).toEqual([2]);
     expect(panels[0]).toMatchObject({ x: 20, z: 4, width: 6 });
+  });
+
+  it("uses live building height for solar panel placement", () => {
+    expect(solarPanelY(4)).toBe(4.16);
   });
 });

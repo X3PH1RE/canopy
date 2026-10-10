@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef } from "react";
 import { Color, Object3D, type InstancedMesh } from "three";
 import type { CityData } from "@canopy/shared";
 import { theme } from "../theme";
-import { solarPanelsForFiles, treePlacementsForCity } from "./nature";
+import { solarPanelY, solarPanelsForFiles, treePlacementsForCity } from "./nature";
+import { canopyWorldState } from "./worldState";
 
 interface NatureLayerProps {
   city: CityData;
@@ -60,7 +61,7 @@ export function NatureLayer({ city, worldSize }: NatureLayerProps) {
       {panels.map((panel) => (
         <mesh
           key={panel.fileId}
-          position={[panel.x, panel.y, panel.z]}
+          position={[panel.x, solarPanelY(canopyWorldState.liveHeights.get(panel.fileId) ?? panel.y), panel.z]}
           rotation={[-0.08, 0, Math.PI / 14]}
           receiveShadow
         >
