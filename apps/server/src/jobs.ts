@@ -19,7 +19,11 @@ export interface JobQueue {
   get: (id: string) => JobState | undefined;
 }
 
-export function createJobQueue(analyzer: AnalyzeRepository): JobQueue {
+interface JobQueueOptions {
+  onDone?: (repoUrl: string, city: CityData) => void;
+}
+
+export function createJobQueue(analyzer: AnalyzeRepository, options: JobQueueOptions = {}): JobQueue {
   const jobs = new Map<string, JobState>();
   let nextId = 1;
 
@@ -38,7 +42,7 @@ export function createJobQueue(analyzer: AnalyzeRepository): JobQueue {
   return {
     start(repoUrl) {
       const job = createJob();
-      void runJob(job, repoUrl, analyzer);
+      void runJob(job, repoUrl, analyzer, options);
       return job;
     },
     addDone(city) {
@@ -55,7 +59,12 @@ export function createJobQueue(analyzer: AnalyzeRepository): JobQueue {
   };
 }
 
-async function runJob(job: JobState, repoUrl: string, analyzer: AnalyzeRepository): Promise<void> {
+async function runJob(
+  job: JobState,
+  repoUrl: string,
+  analyzer: AnalyzeRepository,
+  options: JobQueueOptions,
+): Promise<void> {
   try {
     job.status = "running";
     job.stage = "cloning";
@@ -64,6 +73,7 @@ async function runJob(job: JobState, repoUrl: string, analyzer: AnalyzeRepositor
     job.status = "done";
     job.stage = "done";
     job.progress = 1;
+    options.onDone?.(repoUrl, job.city);
   } catch (error) {
     job.status = "error";
     job.stage = "error";

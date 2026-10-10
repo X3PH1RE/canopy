@@ -29,8 +29,12 @@ export function buildServer(options: ServerOptions = {}): FastifyInstance {
       windowMs: config.rateLimit.windowMs,
       windowMinutes: config.rateLimit.windowMinutes,
     });
-  const jobs = createJobQueue(analyzer);
   const memoryCache = new Map<string, CityData>();
+  const jobs = createJobQueue(analyzer, {
+    onDone: (repoUrl, city) => {
+      memoryCache.set(repoUrl, city);
+    },
+  });
   const app = Fastify({ logger: false, trustProxy: config.trustProxy });
 
   app.get("/api/health", async () => {
@@ -87,7 +91,6 @@ export function buildServer(options: ServerOptions = {}): FastifyInstance {
     }
 
     const job = jobs.start(normalizedUrl);
-    void waitForCache(job.id, normalizedUrl, jobs, memoryCache);
     return { jobId: job.id };
   });
 
@@ -154,15 +157,3 @@ function readRepoUrl(body: unknown): string | null {
   return typeof repoUrl === "string" ? repoUrl : null;
 }
 
-async function waitForCache(
-  jobId: string,
-  repoUrl: string,
-  jobs: ReturnType<typeof createJobQueue>,
-  memoryCache: Map<string, CityData>,
-): Promise<void> {
-  await Promise.resolve();
-  const job = jobs.get(jobId);
-  if (job?.status === "done" && job.city) {
-    memoryCache.set(repoUrl, job.city);
-  }
-}

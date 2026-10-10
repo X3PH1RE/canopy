@@ -45,6 +45,7 @@ export async function cloneOrFetchRepo(repoUrl: string, cacheRoot: string): Prom
   let truncated = true;
   try {
     await runGit(["-C", repoDir, "fetch", "--depth", "1000", "--no-tags", "origin"]);
+    await runGit(["-C", repoDir, "checkout", "--force", "FETCH_HEAD"]);
   } catch {
     await runGit(["clone", "--depth", "1000", "--single-branch", "--no-tags", repo.url, repoDir], 90_000);
   }
