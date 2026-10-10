@@ -59,8 +59,8 @@ const SKIP_EXTENSIONS = new Set([
 const LOCK_FILES = new Set(["package-lock.json", "pnpm-lock.yaml", "yarn.lock", "Cargo.lock", "poetry.lock"]);
 
 export async function walkRepoFiles(repoDir: string, options: WalkOptions = {}): Promise<WalkResult> {
-  const output = await runGit(["-C", repoDir, "ls-files"]);
-  const paths = output.split(/\r?\n/).filter(Boolean);
+  const output = await runGit(["-C", repoDir, "ls-files", "-z"]);
+  const paths = parseGitFileList(output);
   const entries = await Promise.all(
     paths.map(async (filePath) => ({
       path: filePath,
@@ -69,6 +69,10 @@ export async function walkRepoFiles(repoDir: string, options: WalkOptions = {}):
   );
 
   return collectWalkFiles(entries, options);
+}
+
+export function parseGitFileList(output: string): string[] {
+  return output.split("\0").filter(Boolean);
 }
 
 export function collectWalkFiles(entries: WalkEntry[], options: WalkOptions = {}): WalkResult {

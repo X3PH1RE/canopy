@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { normalizeRepoUrl } from "./clone";
-import { collectWalkFiles, shouldSkipPath } from "./walk";
+import { collectWalkFiles, parseGitFileList, shouldSkipPath } from "./walk";
 
 describe("normalizeRepoUrl", () => {
   it("accepts public GitHub HTTPS URLs and normalizes names", () => {
@@ -65,5 +65,14 @@ describe("collectWalkFiles", () => {
     );
 
     expect(result).toEqual({ files: [], truncated: false });
+  });
+});
+
+describe("parseGitFileList", () => {
+  it("preserves unicode paths from nul-delimited git output", () => {
+    expect(parseGitFileList("src/index.ts\0examples/文件.txt\0")).toEqual([
+      "src/index.ts",
+      "examples/文件.txt",
+    ]);
   });
 });
