@@ -269,16 +269,19 @@ button:disabled {
   font-size: 0.86rem;
 }
 
-.function-list {
+.function-list,
+.dependency-list {
   margin-top: 16px;
 }
 
-.function-list h3 {
+.function-list h3,
+.dependency-list h3 {
   margin: 0 0 8px;
   font-size: 0.9rem;
 }
 
-.function-list ol {
+.function-list ol,
+.dependency-list ol {
   display: grid;
   gap: 6px;
   margin: 0;
@@ -286,7 +289,8 @@ button:disabled {
   list-style: none;
 }
 
-.function-list li {
+.function-list li,
+.dependency-list li {
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -294,15 +298,27 @@ button:disabled {
   padding-top: 6px;
 }
 
-.function-list span {
+.function-list span,
+.dependency-list span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.function-list small {
+.function-list small,
+.dependency-list small {
   flex: 0 0 auto;
   color: #55705f;
+}
+
+.dependency-list p {
+  margin: 0;
+  color: #4d6762;
+  font-size: 0.84rem;
+}
+
+.dependency-list div + div {
+  margin-top: 12px;
 }
 
 .scene-placeholder {

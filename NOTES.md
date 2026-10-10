@@ -37,6 +37,7 @@
 - 2026-10-11T01:23:00+05:30: Phase 4 acceptance passed on fresh-cache Express: 214 files, 2733 commits, 100 timeline frames, 208 files with change frames, sampled final-frame LOC matched static LOC.
 - 2026-10-11T01:30:00+05:30: Phase 4 review fixes: moved controls above the bottom timeline, snapped rendered heights on the final frame, and tightened changed-file pulses to exactly the last 5 frames.
 - 2026-10-11T01:36:00+05:30: Started Phase 5 with a plan for dependency lists, road toggles/highlights, search, and camera fly-to. Existing Phase 2 dependency extraction and basic road rendering are being extended rather than replaced.
+- 2026-10-11T01:40:00+05:30: Added client dependency graph helpers and InspectPanel imports/imported-by lists with deduped, sorted file entries.
 
 ## Commands
 
