@@ -131,7 +131,7 @@ Refine panels with stronger frosted contrast, add labels for top-level districts
 
 Run `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, and browser screenshot/console checks on desktop/mobile.
 
-- [ ] **Step 5: Final phase commit**
+- [x] **Step 5: Final phase commit**
 
 Commit and push `phase 6: add solarpunk polish`.
 
