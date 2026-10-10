@@ -107,10 +107,39 @@ button:disabled {
 .stats-banner {
   left: 18px;
   bottom: 18px;
-  display: flex;
-  gap: 14px;
+  display: grid;
+  gap: 10px;
   padding: 10px 14px;
   border-radius: 8px;
+}
+
+.stats-line {
+  display: flex;
+  gap: 14px;
+}
+
+.segmented-control {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  min-width: 360px;
+  border-radius: 8px;
+  background: rgba(31, 58, 46, 0.1);
+  padding: 4px;
+}
+
+.segmented-control button {
+  min-height: 30px;
+  border-radius: 6px;
+  padding: 0 10px;
+  background: transparent;
+  color: #1f3a2e;
+  font-size: 0.86rem;
+}
+
+.segmented-control button.is-active {
+  background: #f2a900;
+  color: #1f3a2e;
 }
 
 .inspect-panel {
@@ -197,6 +226,48 @@ button:disabled {
   margin: 0;
   font-family: "Fraunces", Georgia, serif;
   font-size: 1.2rem;
+}
+
+.inspect-date {
+  margin-top: 14px;
+  margin-bottom: 0;
+  font-size: 0.86rem;
+}
+
+.function-list {
+  margin-top: 16px;
+}
+
+.function-list h3 {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+}
+
+.function-list ol {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.function-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid rgba(24, 50, 47, 0.14);
+  padding-top: 6px;
+}
+
+.function-list span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.function-list small {
+  flex: 0 0 auto;
+  color: #55705f;
 }
 
 .scene-placeholder {

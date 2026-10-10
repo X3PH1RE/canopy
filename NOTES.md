@@ -27,6 +27,7 @@
 - 2026-10-11T00:31:00+05:30: Phase 2 acceptance passed: Express fresh-cache analysis 6.9s, Flask 10.3s, cache hits and rate-limit behavior verified by Fastify injection.
 - 2026-10-11T00:40:00+05:30: Started Phase 3 and added the capped single-pass git history parser/summary builder for churn inputs and timeline samples.
 - 2026-10-11T00:46:00+05:30: Added percentile-based risk scoring and wired git history into `CityData` assembly for commit counts, authors, churn, last modified dates, timeline, and risk.
+- 2026-10-11T00:52:00+05:30: Added Language, Churn, Complexity, and Risk view modes with solarpunk ramps, emissive hot buildings, and richer inspect history metrics.
 
 ## Commands
 

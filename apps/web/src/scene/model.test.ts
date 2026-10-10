@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { CityData, FileNode } from "@canopy/shared";
-import { buildingHeight, fileById, fileCenter, sceneWorldSize } from "./model";
+import { buildingHeight, buildingVisual, fileById, fileCenter, sceneWorldSize } from "./model";
 
 const file: FileNode = {
   id: 1,
@@ -49,5 +49,32 @@ describe("scene model helpers", () => {
     ];
 
     expect(fileById(files, 42)?.name).toBe("selected.ts");
+  });
+
+  it("uses language colors in language view", () => {
+    expect(buildingVisual(file, [file], "language")).toMatchObject({
+      color: "#5fa8a0",
+      roofColor: "#5a9a52",
+      emissiveIntensity: 0,
+    });
+  });
+
+  it("maps churn, complexity, and risk modes to solarpunk ramps", () => {
+    const files = [
+      { ...file, id: 1, churn: 0, complexity: 1, risk: 0, loc: 40 },
+      { ...file, id: 2, churn: 5, complexity: 10, risk: 0.5, loc: 80 },
+      { ...file, id: 3, churn: 10, complexity: 20, risk: 1, loc: 160 },
+    ];
+
+    expect(buildingVisual(files[2]!, files, "churn").color).toBe("#ff8a1f");
+    expect(buildingVisual(files[2]!, files, "churn").emissiveIntensity).toBeGreaterThan(
+      buildingVisual(files[0]!, files, "churn").emissiveIntensity,
+    );
+    expect(buildingVisual(files[2]!, files, "complexity").color).toBe("#6b3f7a");
+    expect(buildingVisual(files[2]!, files, "risk")).toMatchObject({
+      color: "#c4452d",
+      roofColor: "#d9cdb4",
+    });
+    expect(buildingVisual(files[2]!, files, "risk").emissiveIntensity).toBeGreaterThan(0.2);
   });
 });
