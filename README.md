@@ -1,12 +1,12 @@
-# Code City
+# Canopy
 
 Your codebase, as a city you can fly through.
 
-Paste a public GitHub repository URL and Code City will analyze its files, history, dependencies, and risk hotspots, then render the result as a navigable 3D city. Phase 0 currently provides the runnable TypeScript workspace foundation.
+Paste a public GitHub repository URL and Canopy will analyze its files, history, dependencies, and risk hotspots, then render the result as a navigable 3D city. Phase 0 currently provides the runnable TypeScript workspace foundation.
 
 ## Project Overview
 
-- **Project name:** Code City
+- **Project name:** Canopy
 - **Short description:** A visual codebase explorer where folders become districts, files become buildings, git history becomes a time slider, and risky code glows.
 - **Team:** TODO
 - **Working demo:** Local demo with `pnpm dev`; full 3D city comes in later phases.
@@ -43,8 +43,8 @@ pnpm build
 
 ## Current Status
 
-- Working features: pnpm workspace, shared `CityData` types, Fastify `/api/health`, Vite React shell, strict TypeScript checks, and Vitest setup.
-- Known limitations: The app does not yet analyze repositories or render a city. That starts in Phase 1 and Phase 2. `pnpm dev` may print a Vite optimizer warning from the local sandbox workaround.
+- Working features: pnpm workspace, shared `CityData` types, Fastify `/api/health`, deterministic fake city generation, treemap layout tests, generated sample data, an initial Vite React shell, strict TypeScript checks, and Vitest setup.
+- Known limitations: The app does not yet render the 3D city or analyze real repositories. The 3D scene is in progress for Phase 1; real repository analysis starts in Phase 2. `pnpm dev` may print a Vite optimizer warning from the local sandbox workaround.
 - Libraries, APIs, and public datasets used: Fastify, Vite, React, TypeScript, Vitest, and tsx. No external datasets are used in Phase 0.
 
 See [AI_USAGE.md](AI_USAGE.md) for AI assistance and [CHANGELOG.md](CHANGELOG.md) for the development record.

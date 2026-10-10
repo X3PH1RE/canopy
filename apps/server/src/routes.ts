@@ -1,6 +1,6 @@
 import Fastify from "fastify";
 import type { FastifyInstance } from "fastify";
-import type { CityData } from "@code-city/shared";
+import type { CityData } from "@canopy/shared";
 
 export function buildServer(): FastifyInstance {
   const app = Fastify({ logger: false });

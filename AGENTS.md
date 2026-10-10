@@ -1,4 +1,4 @@
-# Code City agent guide
+# Canopy agent guide
 
 1. Work in order: Phase 0, then 1, then 2, and so on. Each phase has acceptance checks. Do not start the next phase until they pass.
 2. After every phase, make a git commit with the message `phase N: <short summary>`.

@@ -1,5 +1,5 @@
 {
-  "name": "@code-city/web",
+  "name": "@canopy/web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -10,7 +10,10 @@
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit"
   },
   "dependencies": {
-    "@code-city/shared": "workspace:*",
+    "@canopy/shared": "workspace:*",
+    "@fontsource/dm-sans": "5.1.0",
+    "@fontsource/fraunces": "5.1.0",
+    "zustand": "5.0.2",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },

@@ -1,19 +1,22 @@
 {
-  "name": "@code-city/server",
+  "name": "@canopy/server",
   "version": "0.0.0",
   "private": true,
   "type": "commonjs",
   "scripts": {
     "dev": "tsc -p tsconfig.json && node dist/apps/server/src/index.js",
     "build": "tsc -p tsconfig.json",
+    "make:fake": "tsc -p tsconfig.json && node scripts/makeFake.mjs",
     "test": "vitest --run --config ../../vitest.config.mjs --configLoader native",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@code-city/shared": "workspace:*",
+    "@canopy/shared": "workspace:*",
+    "d3-hierarchy": "3.1.2",
     "fastify": "latest"
   },
   "devDependencies": {
+    "@types/d3-hierarchy": "3.1.7",
     "@types/node": "20.17.10",
     "typescript": "^5.6.3",
     "vitest": "3.2.4"

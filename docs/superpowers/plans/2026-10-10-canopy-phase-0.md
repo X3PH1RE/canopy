@@ -1,8 +1,8 @@
-# Code City Phase 0 Implementation Plan
+# Canopy Phase 0 Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build the Phase 0 foundation for Code City: a pnpm TypeScript workspace with shared types, a Fastify health server, a Vite React shell, documentation, and runnable checks.
+**Goal:** Build the Phase 0 foundation for Canopy: a pnpm TypeScript workspace with shared types, a Fastify health server, a Vite React shell, documentation, and runnable checks.
 
 **Architecture:** The repository is a pnpm workspace with one shared package and two apps. `packages/shared` owns the CityData contract; `apps/server` owns HTTP startup and exports a testable Fastify builder; `apps/web` owns the blank desktop shell and imports a shared type.
 
@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - Build project implementation from scratch at the event.
-- Use the exact stack defined for Code City Phase 0: TypeScript, pnpm workspaces, Vite + React 18, Fastify, and Vitest.
+- Use the exact stack defined for Canopy Phase 0: TypeScript, pnpm workspaces, Vite + React 18, Fastify, and Vitest.
 - TypeScript strict mode everywhere.
 - Shared types live in `packages/shared/src/types.ts` and are imported by both server and web.
 - Keep dependencies few and purposeful.
@@ -46,7 +46,7 @@
 - Modify: `.gitignore`
 
 **Interfaces:**
-- Produces: `@code-city/shared` package exporting `CityData`, `FileNode`, `FunctionInfo`, `District`, `Edge`, and `Timeline`.
+- Produces: `@canopy/shared` package exporting `CityData`, `FileNode`, `FunctionInfo`, `District`, `Edge`, and `Timeline`.
 - Consumes: No earlier task outputs.
 
 - [ ] **Step 1: Write the failing shared contract test**
@@ -89,7 +89,7 @@ describe("CityData contract", () => {
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `pnpm --filter @code-city/shared typecheck`
+Run: `pnpm --filter @canopy/shared typecheck`
 Expected: FAIL because pnpm dependencies or the shared type module are not present yet.
 
 - [ ] **Step 3: Add workspace configuration and shared types**
@@ -98,10 +98,10 @@ Create the files listed above. In `types.ts`, copy the CityData contract from th
 
 - [ ] **Step 4: Run shared checks**
 
-Run: `pnpm --filter @code-city/shared test`
+Run: `pnpm --filter @canopy/shared test`
 Expected: PASS.
 
-Run: `pnpm --filter @code-city/shared typecheck`
+Run: `pnpm --filter @canopy/shared typecheck`
 Expected: PASS.
 
 ### Task 2: Fastify Health Server
@@ -114,7 +114,7 @@ Expected: PASS.
 - Create: `apps/server/src/routes.test.ts`
 
 **Interfaces:**
-- Consumes: `@code-city/shared` type export.
+- Consumes: `@canopy/shared` type export.
 - Produces: `buildServer(): FastifyInstance` and `GET /api/health -> { ok: true }`.
 
 - [ ] **Step 1: Write the failing route test**
@@ -140,7 +140,7 @@ describe("health route", () => {
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `pnpm --filter @code-city/server test`
+Run: `pnpm --filter @canopy/server test`
 Expected: FAIL because `buildServer` is not implemented.
 
 - [ ] **Step 3: Implement the server**
@@ -149,10 +149,10 @@ Expected: FAIL because `buildServer` is not implemented.
 
 - [ ] **Step 4: Run server checks**
 
-Run: `pnpm --filter @code-city/server test`
+Run: `pnpm --filter @canopy/server test`
 Expected: PASS.
 
-Run: `pnpm --filter @code-city/server typecheck`
+Run: `pnpm --filter @canopy/server typecheck`
 Expected: PASS.
 
 ### Task 3: Vite Web Shell
@@ -169,16 +169,16 @@ Expected: PASS.
 - Create: `apps/web/vite.config.mjs`
 
 **Interfaces:**
-- Consumes: `@code-city/shared` type export.
+- Consumes: `@canopy/shared` type export.
 - Produces: Vite app on port `5173` with a blank dark page that imports a shared type.
 
 - [ ] **Step 1: Write the failing web app import**
 
-Create `apps/web/src/App.tsx` with a `CityData` type import and a minimal component. Before the package files exist, `pnpm typecheck --filter @code-city/web` should fail.
+Create `apps/web/src/App.tsx` with a `CityData` type import and a minimal component. Before the package files exist, `pnpm typecheck --filter @canopy/web` should fail.
 
 - [ ] **Step 2: Run typecheck to verify it fails**
 
-Run: `pnpm --filter @code-city/web typecheck`
+Run: `pnpm --filter @canopy/web typecheck`
 Expected: FAIL because the web package is not configured.
 
 - [ ] **Step 3: Add Vite React shell**
@@ -187,10 +187,10 @@ Create the files listed above. The app renders a blank dark full-screen shell an
 
 - [ ] **Step 4: Run web checks**
 
-Run: `pnpm --filter @code-city/web typecheck`
+Run: `pnpm --filter @canopy/web typecheck`
 Expected: PASS.
 
-Run: `pnpm --filter @code-city/web build`
+Run: `pnpm --filter @canopy/web build`
 Expected: PASS.
 
 ### Task 4: Documentation, Dev Script, And Phase Commit
@@ -213,7 +213,7 @@ Root `package.json` includes `dev`, `test`, `typecheck`, and `build` scripts usi
 
 - [ ] **Step 2: Update docs**
 
-Update README setup and status, replace AI usage placeholder with the Phase 0 Codex entry, add a changelog entry with the actual timestamp, and replace `AGENTS.md` with the Code City section 0 agent rules from the pasted spec.
+Update README setup and status, replace AI usage placeholder with the Phase 0 Codex entry, add a changelog entry with the actual timestamp, and replace `AGENTS.md` with the Canopy section 0 agent rules from the pasted spec.
 
 - [ ] **Step 3: Run Phase 0 verification**
 
@@ -234,6 +234,6 @@ Expected: response body is `{ "ok": true }`, and Vite reports local server on po
 Run:
 
 ```bash
-git add package.json pnpm-workspace.yaml tsconfig.base.json vitest.config.ts .gitignore AGENTS.md README.md CHANGELOG.md AI_USAGE.md NOTES.md docs/superpowers/plans/2026-10-10-code-city-phase-0.md packages apps
+git add package.json pnpm-workspace.yaml tsconfig.base.json vitest.config.ts .gitignore AGENTS.md README.md CHANGELOG.md AI_USAGE.md NOTES.md docs/superpowers/plans/2026-10-10-canopy-phase-0.md packages apps
 git commit -m "phase 0: scaffold workspace"
 ```

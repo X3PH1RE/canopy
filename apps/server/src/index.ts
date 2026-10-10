@@ -7,7 +7,7 @@ const server = buildServer();
 async function main() {
   try {
     await server.listen({ port, host });
-    console.log(`Code City server listening on http://${host}:${port}`);
+    console.log(`Canopy server listening on http://${host}:${port}`);
   } catch (error) {
     server.log.error(error);
     process.exit(1);
