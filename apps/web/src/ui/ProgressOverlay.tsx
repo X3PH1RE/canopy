@@ -1,4 +1,5 @@
 import type { JobResponse } from "../api";
+import { loadingCopyForStage } from "./loading";
 
 interface ProgressOverlayProps {
   job: JobResponse | null;
@@ -19,10 +20,12 @@ export function ProgressOverlay({ job, rateLimitMessage }: ProgressOverlayProps)
     return null;
   }
 
+  const copy = loadingCopyForStage(job.stage);
+
   return (
     <section className="progress-overlay" role="status">
-      <strong>{job.status === "error" ? "Analysis stopped" : "Growing your city"}</strong>
-      <p>{job.status === "error" ? job.error ?? "Something went wrong." : job.stage}</p>
+      <strong>{job.status === "error" ? "Analysis stopped" : copy.title}</strong>
+      <p>{job.status === "error" ? job.error ?? "Something went wrong." : copy.detail}</p>
       <div className="progress-track">
         <span style={{ width: `${Math.round(job.progress * 100)}%` }} />
       </div>

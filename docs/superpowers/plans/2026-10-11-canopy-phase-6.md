@@ -114,20 +114,20 @@ Run focused tests, `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, then
 - Produces: `loadingCopyForStage(stage): { title; detail }`
 - Produces: subtle district labels with camera-distance fading.
 
-- [ ] **Step 1: Write failing loading-copy tests**
+- [x] **Step 1: Write failing loading-copy tests**
 
 Assert queued/cloning/parsing/layout/error stages return useful seed-to-tree copy and unknown stages are human-readable.
 
-- [ ] **Step 2: Run focused test to verify failure**
+- [x] **Step 2: Run focused test to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/web test -- src/ui/loading.test.ts`
 Expected: FAIL because `loading.ts` does not exist.
 
-- [ ] **Step 3: Implement loading copy, glass refinements, and district labels**
+- [x] **Step 3: Implement loading copy, glass refinements, and district labels**
 
 Refine panels with stronger frosted contrast, add labels for top-level districts, and keep text compact at 1080p.
 
-- [ ] **Step 4: Run full acceptance**
+- [x] **Step 4: Run full acceptance**
 
 Run `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, and browser screenshot/console checks on desktop/mobile.
 
@@ -137,4 +137,7 @@ Commit and push `phase 6: add solarpunk polish`.
 
 ## Acceptance Evidence
 
-- Pending.
+- 2026-10-11T03:30+05:30: `pnpm.cmd test` passed 27 files / 91 tests.
+- 2026-10-11T03:31+05:30: `pnpm.cmd typecheck` passed for shared, server, and web packages.
+- 2026-10-11T03:31+05:30: `pnpm.cmd build` passed; Vite emitted only the existing large chunk warning.
+- 2026-10-11T03:32+05:30: Production preview browser smoke passed at `http://localhost:4173/?phase6=final`: 0 console errors/warnings, desktop screenshot `.playwright-mcp/phase6-final-desktop.png`, mobile screenshot `.playwright-mcp/phase6-final-mobile.png`, legend visible, nature/solar layer visible, and mobile controls no longer cropped.
