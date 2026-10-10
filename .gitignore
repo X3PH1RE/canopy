@@ -8,10 +8,13 @@
 
 # Common dependencies, build output, caches, and local tooling.
 node_modules/
+.superpowers/
 .next/
 dist/
 build/
 coverage/
+*.tsbuildinfo
+apps/server/cache/
 .venv/
 venv/
 __pycache__/
@@ -21,4 +24,3 @@ __pycache__/
 Thumbs.db
 *.log
 
-# Add entries appropriate to your chosen language or framework.

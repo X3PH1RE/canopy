@@ -4,11 +4,9 @@ Use Codex during the hackathon and briefly document its actual contribution here
 
 ## Event build log
 
-No participant AI usage has been recorded yet. Replace the placeholder row as you build. Mark human review as pending until someone has reviewed the contribution.
-
 | Date and time with timezone | Tool / model, if known | Task | Assistance and affected files | Human review / corrections | Validation and result |
 | --- | --- | --- | --- | --- | --- |
-| TODO | Codex | TODO | TODO | Pending | TODO |
+| 2026-10-10T21:34:26+05:30 | Codex | Phase 0 scaffold | Created the pnpm workspace, shared TypeScript contract, Fastify health route, Vite React shell, tests, docs, and implementation plan. Affected `package.json`, `pnpm-workspace.yaml`, `tsconfig.base.json`, `vitest.config.mjs`, `packages/shared`, `apps/server`, `apps/web`, `README.md`, `CHANGELOG.md`, `AI_USAGE.md`, `AGENTS.md`, `NOTES.md`, and `docs/superpowers/plans/2026-10-10-code-city-phase-0.md`. | Pending human review. Corrections made during development: fixed pnpm manifest workspace dependency misuse, Vitest include patterns, Windows pnpm shim usage, TypeScript 7 incompatibility, workspace type resolution, and a `tsx` startup failure in this environment. | Red checks confirmed missing implementation. Final checks passed: `pnpm test`, `pnpm typecheck`, `pnpm build`, `pnpm dev`, and `GET /api/health`. |
 
 ## Template preparation
 

@@ -1,56 +1,50 @@
-# DevDay Exchange Community Hackathon: Kochi
+# Code City
 
-A repository template for participants at the 10–11 October 2026 hackathon. It contains event rules and documentation scaffolding; build your project from scratch at the event.
+Your codebase, as a city you can fly through.
 
-**[Event and registration on Luma](https://luma.com/z10nz8gp)** · **[Event rules](RULES.md)** · **[Agent instructions](AGENTS.md)**
+Paste a public GitHub repository URL and Code City will analyze its files, history, dependencies, and risk hotspots, then render the result as a navigable 3D city. Phase 0 currently provides the runnable TypeScript workspace foundation.
 
-## Event details
+## Project Overview
 
-| Detail | Information |
-| --- | --- |
-| Venue | JAIN University, Kochi |
-| Location | [Open the venue map](https://maps.app.goo.gl/Eme7gR7NDXSNRANu5) |
-| Rooms | 2008 and 2009 |
-| Check-in | 10 October 2026, 6:00 PM IST |
-| Kick-off | 10 October 2026, 6:30 PM IST |
-| Wrap-up | 11 October 2026, by 10:00 AM IST |
-| Participation | Solo or a team of up to 4 participants |
-| Theme | Open — build anything you like |
+- **Project name:** Code City
+- **Short description:** A visual codebase explorer where folders become districts, files become buildings, git history becomes a time slider, and risky code glows.
+- **Team:** TODO
+- **Working demo:** Local demo with `pnpm dev`; full 3D city comes in later phases.
+- **Technology stack:** TypeScript, pnpm workspaces, Fastify, Vite, React 18, Vitest.
 
-Keep your approved Luma QR code ready for entry, and bring your laptop and charger. Eligible checked-in participants will receive Codex credits and OpenAI API credits.
+## Run The Project
 
-## Use this template
+### Prerequisites
 
-1. Select **Use this template → Create a new repository** on GitHub. Create your own project repository and clone it.
-2. Read [RULES.md](RULES.md) and [AGENTS.md](AGENTS.md) before building. Begin project implementation at the event.
-3. Fill in the project overview below as you build. Use any suitable language or framework, keeping the implementation simple.
-4. Record meaningful changes in [CHANGELOG.md](CHANGELOG.md) and your Codex usage in [AI_USAGE.md](AI_USAGE.md). Commit after completed milestones; aim for a meaningful checkpoint about every 30 minutes.
-5. Complete [SUBMISSION.md](SUBMISSION.md) with your code repository, short project description, and working demo. Follow submission instructions announced by the organizers.
+- Node.js 20.19 or newer
+- pnpm 9 or newer
 
-This template has no application code or required technology stack. The documentation and commit cadence are repository workflow guidance; the event participation rules are in [RULES.md](RULES.md).
+### Install
 
-## Project overview — complete during the event
+```bash
+pnpm install
+```
 
-- **Project name:** TODO
-- **Short description:** TODO — what it does, who it helps, and why it matters.
-- **Team:** TODO — participant names and GitHub handles; maximum 4 members.
-- **Working demo:** TODO — link or local demo instructions.
-- **Technology stack:** TODO
+### Start
 
-### Run the project
+```bash
+pnpm dev
+```
 
-Replace these placeholders with commands that actually work for your project:
+The server listens on `http://localhost:8787` and the web app listens on `http://localhost:5173`.
 
-1. Prerequisites and versions: TODO
-2. Dependency installation: TODO
-3. Environment setup: TODO — list required variable names and provide a sanitized `.env.example` if needed.
-4. Start the project: TODO
-5. Run checks or tests: TODO
+### Checks
 
-### Current status
+```bash
+pnpm test
+pnpm typecheck
+pnpm build
+```
 
-- Working features: TODO
-- Known limitations: TODO
-- Libraries, APIs, and public datasets used: TODO — include source links and applicable attribution.
+## Current Status
+
+- Working features: pnpm workspace, shared `CityData` types, Fastify `/api/health`, Vite React shell, strict TypeScript checks, and Vitest setup.
+- Known limitations: The app does not yet analyze repositories or render a city. That starts in Phase 1 and Phase 2. `pnpm dev` may print a Vite optimizer warning from the local sandbox workaround.
+- Libraries, APIs, and public datasets used: Fastify, Vite, React, TypeScript, Vitest, and tsx. No external datasets are used in Phase 0.
 
 See [AI_USAGE.md](AI_USAGE.md) for AI assistance and [CHANGELOG.md](CHANGELOG.md) for the development record.
