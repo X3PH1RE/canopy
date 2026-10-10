@@ -113,6 +113,41 @@ button:disabled {
   border-radius: 8px;
 }
 
+.time-slider {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  bottom: 18px;
+  display: grid;
+  grid-template-columns: auto minmax(360px, 42vw) minmax(104px, auto);
+  gap: 12px;
+  align-items: center;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: rgba(255, 248, 224, 0.82);
+  color: #18322f;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 18px 50px rgba(24, 50, 47, 0.18);
+}
+
+.time-slider input[type="range"] {
+  min-height: 24px;
+  accent-color: #f2a900;
+}
+
+.time-slider time {
+  min-width: 104px;
+  color: #4d6762;
+  font-weight: 600;
+  text-align: right;
+}
+
+.time-play {
+  min-width: 70px;
+}
+
 .stats-line {
   display: flex;
   gap: 14px;

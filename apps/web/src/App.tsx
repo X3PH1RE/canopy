@@ -4,15 +4,21 @@ import { City } from "./scene/City";
 import { useCityStore } from "./store";
 import { InspectPanel } from "./ui/InspectPanel";
 import { ProgressOverlay } from "./ui/ProgressOverlay";
+import { TimeSlider } from "./ui/TimeSlider";
 import { Toolbar } from "./ui/Toolbar";
 import { UrlBar } from "./ui/UrlBar";
+import { nextPlaybackFrame } from "./ui/timeline";
 
 export function App() {
   const city = useCityStore((state) => state.city);
   const error = useCityStore((state) => state.error);
   const selectedId = useCityStore((state) => state.selectedId);
+  const timelineFrame = useCityStore((state) => state.timelineFrame);
+  const isTimelinePlaying = useCityStore((state) => state.isTimelinePlaying);
   const setCity = useCityStore((state) => state.setCity);
   const setError = useCityStore((state) => state.setError);
+  const setTimelineFrame = useCityStore((state) => state.setTimelineFrame);
+  const setTimelinePlaying = useCityStore((state) => state.setTimelinePlaying);
   const [isLoading, setIsLoading] = useState(false);
   const [job, setJob] = useState<JobResponse | null>(null);
   const [limits, setLimits] = useState<LimitState | null>(null);
@@ -74,12 +80,28 @@ export function App() {
     void getLimits().then(setLimits).catch(() => setLimits(null));
   }, []);
 
+  useEffect(() => {
+    if (!city?.timeline || !isTimelinePlaying) {
+      return undefined;
+    }
+
+    const frameMs = 15_000 / Math.max(1, city.timeline.frameCount - 1);
+    const timer = window.setInterval(() => {
+      const next = nextPlaybackFrame(useCityStore.getState().timelineFrame, city.timeline!.frameCount);
+      setTimelineFrame(next.frame);
+      setTimelinePlaying(next.isPlaying);
+    }, frameMs);
+
+    return () => window.clearInterval(timer);
+  }, [city, isTimelinePlaying, timelineFrame, setTimelineFrame, setTimelinePlaying]);
+
   return (
     <main aria-label="Canopy canvas" data-files={city?.stats.fileCount ?? 0}>
       <UrlBar city={city} isLoading={isLoading} limits={limits} onAnalyze={analyzeRepo} onLoadSample={loadCity} />
       <Toolbar city={city} />
       {error ? <div className="scene-placeholder">{error}</div> : <City />}
       <ProgressOverlay job={job} rateLimitMessage={rateLimitMessage} />
+      <TimeSlider city={city} />
       <InspectPanel city={city} selectedId={selectedId} />
     </main>
   );

@@ -32,6 +32,7 @@
 - 2026-10-11T01:03:00+05:30: Review fix: all-zero churn view now stays at the low sunlight ramp with no glow; added empty/malformed history parser coverage.
 - 2026-10-11T01:12:00+05:30: Started Phase 4 with client-side timeline playback. Phase 3 already emits timeline data, so Phase 4 focuses on UI, live heights, smooth interpolation, and changed-file pulses.
 - 2026-10-11T01:14:00+05:30: Added timeline store state and pure sparse-series helpers for LOC lookup, exact final-frame LOC, and recent-change detection.
+- 2026-10-11T01:18:00+05:30: Added the bottom TimeSlider UI with play/pause, scrubber, current date display, and a 15-second playback clock.
 
 ## Commands
 
