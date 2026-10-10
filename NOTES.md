@@ -28,6 +28,8 @@
 - 2026-10-11T00:40:00+05:30: Started Phase 3 and added the capped single-pass git history parser/summary builder for churn inputs and timeline samples.
 - 2026-10-11T00:46:00+05:30: Added percentile-based risk scoring and wired git history into `CityData` assembly for commit counts, authors, churn, last modified dates, timeline, and risk.
 - 2026-10-11T00:52:00+05:30: Added Language, Churn, Complexity, and Risk view modes with solarpunk ramps, emissive hot buildings, and richer inspect history metrics.
+- 2026-10-11T00:57:00+05:30: Phase 3 live checks passed: Express history parse 1.8s with 2733 commits/355 authors, Flask history parse 3.0s with 5000 capped commits/827 authors, both with timeline frames and non-zero risk/churn subsets.
+- 2026-10-11T01:03:00+05:30: Review fix: all-zero churn view now stays at the low sunlight ramp with no glow; added empty/malformed history parser coverage.
 
 ## Commands
 
@@ -40,4 +42,4 @@
 ## Known limitations
 
 - The city currently renders generated sample data only. Real public GitHub repository analysis starts in Phase 2.
-- Phase 2 live checks pass for Express and Flask. Git history, churn/risk scoring, and timeline playback start in Phase 3.
+- Phase 3 live checks pass for Express and Flask. Timeline playback starts in Phase 4.

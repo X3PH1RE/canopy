@@ -42,24 +42,24 @@
 - Produces: `buildHistorySummary(log: ParsedGitHistoryLog, files: HistoryFileInput[]): GitHistorySummary`
 - Produces: `analyzeGitHistory(repoDir: string, files: HistoryFileInput[]): Promise<GitHistorySummary | null>`
 
-- [ ] **Step 1: Write failing parser tests**
+- [x] **Step 1: Write failing parser tests**
 
 Cover a small hand-written log with two authors, repeated file changes, a binary numstat line, an old commit outside the 90-day churn window, and one current file not present in history.
 
-- [ ] **Step 2: Run the focused test to verify failure**
+- [x] **Step 2: Run the focused test to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/server test -- src/gitHistory.test.ts`
 Expected: FAIL because `gitHistory.ts` does not exist.
 
-- [ ] **Step 3: Implement the parser and summary builder**
+- [x] **Step 3: Implement the parser and summary builder**
 
 Parse commits beginning with `@@sha|author|unixTime`, skip binary `-` numstat rows, normalize paths to POSIX separators, compute per-file authors/commit timestamps/last modified/running LOC, and generate a 100-frame timeline only when history has at least two commits and a positive time span.
 
-- [ ] **Step 4: Implement the git command wrapper**
+- [x] **Step 4: Implement the git command wrapper**
 
 Run exactly one history command through the existing `runGit`: `git -C <repoDir> log --max-count=5000 --reverse --no-renames --numstat --format=@@%H|%an|%at`. Return `null` if the command fails.
 
-- [ ] **Step 5: Verify and checkpoint**
+- [x] **Step 5: Verify and checkpoint**
 
 Run `pnpm.cmd --filter @canopy/server test -- src/gitHistory.test.ts`, `pnpm.cmd test`, `pnpm.cmd typecheck`, then commit and push `wip: phase 3 git history`.
 
@@ -78,28 +78,28 @@ Run `pnpm.cmd --filter @canopy/server test -- src/gitHistory.test.ts`, `pnpm.cmd
 - Produces: `scoreRisks(files: RiskInput[]): Map<number, number>`
 - Produces: `buildCityFromWalk(input)` filling `churn`, `authorCount`, `lastModified`, repo `commitCount`, repo `authorCount`, `timeline`, and `risk`.
 
-- [ ] **Step 1: Write failing risk tests**
+- [x] **Step 1: Write failing risk tests**
 
 Assert percentile ranking, weighted formula, tiny-file zeroing, and the single-author high-churn boost.
 
-- [ ] **Step 2: Write failing build integration tests**
+- [x] **Step 2: Write failing build integration tests**
 
 Assert `buildCityFromWalk` accepts injected history, fills per-file history fields, sets repo stats, returns a non-null timeline when available, and leaves defaults when history is missing.
 
-- [ ] **Step 3: Run focused tests to verify failure**
+- [x] **Step 3: Run focused tests to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/server test -- src/risk.test.ts src/build.test.ts`
 Expected: FAIL because `risk.ts` does not exist and `buildCityFromWalk` still emits zero history.
 
-- [ ] **Step 4: Implement risk scoring and build integration**
+- [x] **Step 4: Implement risk scoring and build integration**
 
 Use percentile rank within the loaded repo for churn, complexity, and LOC. Compute `risk = 0.40 * pct(churn) + 0.35 * pct(complexity) + 0.25 * pct(loc)`, boost `authorCount === 1` files in the top 20 percent of churn by 1.15, and clamp to 1.
 
-- [ ] **Step 5: Wire real repo history in the default analyzer**
+- [x] **Step 5: Wire real repo history in the default analyzer**
 
 Pass `repoDir` into `buildCityFromWalk` from `routes.ts` so real analyses call `analyzeGitHistory`. Keep tests able to inject summary data so unit tests never clone public repos.
 
-- [ ] **Step 6: Verify and checkpoint**
+- [x] **Step 6: Verify and checkpoint**
 
 Run `pnpm.cmd --filter @canopy/server test -- src/risk.test.ts src/gitHistory.test.ts src/build.test.ts src/routes.test.ts`, `pnpm.cmd test`, `pnpm.cmd typecheck`, then commit and push `wip: phase 3 risk scoring`.
 
@@ -120,28 +120,28 @@ Run `pnpm.cmd --filter @canopy/server test -- src/risk.test.ts src/gitHistory.te
 - Produces: `type ViewMode = "language" | "churn" | "complexity" | "risk"`
 - Produces: `buildingVisual(file, files, viewMode): { color: string; roofColor: string; emissive: string; emissiveIntensity: number }`
 
-- [ ] **Step 1: Write failing scene model tests**
+- [x] **Step 1: Write failing scene model tests**
 
 Assert language colors, churn sunlight ramp, complexity mint-to-plum ramp, risk drought ramp, and stronger emissive for hot values.
 
-- [ ] **Step 2: Run focused tests to verify failure**
+- [x] **Step 2: Run focused tests to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/web test -- src/scene/model.test.ts`
 Expected: FAIL because `buildingVisual` and `ViewMode` are not implemented.
 
-- [ ] **Step 3: Implement store and visual helpers**
+- [x] **Step 3: Implement store and visual helpers**
 
 Add `viewMode` and `setViewMode` to the store. Add exact Phase 3 ramp tokens in `theme.ts`, percentile helpers in `model.ts`, and keep helper tests pure.
 
-- [ ] **Step 4: Wire toolbar controls and building colors**
+- [x] **Step 4: Wire toolbar controls and building colors**
 
 Render a compact segmented control for Language, Churn, Complexity, and Risk. Buildings read `viewMode` from the store and use `buildingVisual` for body, roof, and emissive values.
 
-- [ ] **Step 5: Enrich inspect metrics**
+- [x] **Step 5: Enrich inspect metrics**
 
 Show churn, author count, last modified date, and the top five complex functions in `InspectPanel` without changing selection behavior.
 
-- [ ] **Step 6: Verify and checkpoint**
+- [x] **Step 6: Verify and checkpoint**
 
 Run `pnpm.cmd --filter @canopy/web test -- src/scene/model.test.ts`, `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, then commit and push `wip: phase 3 view modes`.
 
@@ -155,18 +155,27 @@ Run `pnpm.cmd --filter @canopy/web test -- src/scene/model.test.ts`, `pnpm.cmd t
 **Interfaces:**
 - Produces: recorded Phase 3 acceptance evidence.
 
-- [ ] **Step 1: Run full verification**
+- [x] **Step 1: Run full verification**
 
 Run `pnpm.cmd test`, `pnpm.cmd typecheck`, and `pnpm.cmd build`.
 
-- [ ] **Step 2: Run live history acceptance checks**
+- [x] **Step 2: Run live history acceptance checks**
 
 Analyze fresh-cache `https://github.com/expressjs/express` and `https://github.com/pallets/flask`; verify history parsing completes under 10 seconds for the capped command, repo stats have non-zero commits/authors, risk has a believable non-zero subset, and mode-ready fields are present.
 
-- [ ] **Step 3: Update docs and plan evidence**
+- [x] **Step 3: Update docs and plan evidence**
 
 Record commands and acceptance results in `NOTES.md` and this plan. Update `README.md` current status so Phase 3 is no longer listed as pending.
 
-- [ ] **Step 4: Final phase commit**
+- [x] **Step 4: Final phase commit**
 
 Commit and push `phase 3: add churn risk views`.
+
+## Acceptance Evidence
+
+- 2026-10-11T00:44+05:30: `pnpm.cmd test` passed 13 files / 44 tests after server risk integration.
+- 2026-10-11T00:45+05:30: `pnpm.cmd typecheck` passed after strict tuple fixture fix.
+- 2026-10-11T00:51+05:30: `pnpm.cmd build` passed; Vite emitted only the existing large chunk warning.
+- 2026-10-11T00:52+05:30: `pnpm.cmd test` passed 13 files / 46 tests after web view-mode wiring.
+- 2026-10-11T00:57+05:30: Fresh-cache `expressjs/express` check completed in 8454 ms; history parse 1806 ms, 214 files, 2733 commits, 355 authors, 100 timeline frames, 136 non-zero-risk files, 18 churned files, max risk 0.994.
+- 2026-10-11T00:57+05:30: Fresh-cache `pallets/flask` check completed in 19367 ms; history parse 3031 ms, 227 files, 5000 capped commits, 827 authors, 100 timeline frames, 152 non-zero-risk files, 34 churned files, max risk 0.997.
