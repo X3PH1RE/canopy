@@ -36,6 +36,7 @@
 - 2026-10-11T01:21:00+05:30: Wired timeline frames into building target heights with smooth R3F interpolation and warm pulses for files changed in the last 5 frames.
 - 2026-10-11T01:23:00+05:30: Phase 4 acceptance passed on fresh-cache Express: 214 files, 2733 commits, 100 timeline frames, 208 files with change frames, sampled final-frame LOC matched static LOC.
 - 2026-10-11T01:30:00+05:30: Phase 4 review fixes: moved controls above the bottom timeline, snapped rendered heights on the final frame, and tightened changed-file pulses to exactly the last 5 frames.
+- 2026-10-11T01:36:00+05:30: Started Phase 5 with a plan for dependency lists, road toggles/highlights, search, and camera fly-to. Existing Phase 2 dependency extraction and basic road rendering are being extended rather than replaced.
 
 ## Commands
 
@@ -48,4 +49,4 @@
 ## Known limitations
 
 - The city currently renders generated sample data only. Real public GitHub repository analysis starts in Phase 2.
-- Phase 4 live timeline playback checks pass for Express. Search fly-to, drone mode, and offline pre-baked real samples are later phases.
+- Phase 4 live timeline playback checks pass for Express. Phase 5 navigation and dependency exploration are in progress.
