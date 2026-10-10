@@ -17,6 +17,7 @@
 - 2026-10-10T22:45:53+05:30: Kept Vite dependency optimization enabled for dev and moved its cache into the workspace. Disabling the optimizer made R3F/Zustand load raw CommonJS React modules in the browser; preserving symlinks caused esbuild to attempt reads outside the workspace.
 - 2026-10-10T22:45:53+05:30: Scene objects use the layout's centered `x`/`z` coordinates directly. The renderer derives ground size from city bounds instead of assuming a separate world size.
 - 2026-10-10T23:13:34+05:30: Started Phase 2 with a plan split into interval commits: rate limiting/config, safe repo walking, metrics/build, analyze routes, then web progress UI.
+- 2026-10-10T23:13:34+05:30: Added `zod` for Phase 2 environment validation because the spec requires typed env parsing and startup failures for invalid values.
 
 ## Commands
 

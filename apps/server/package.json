@@ -13,7 +13,8 @@
   "dependencies": {
     "@canopy/shared": "workspace:*",
     "d3-hierarchy": "3.1.2",
-    "fastify": "latest"
+    "fastify": "latest",
+    "zod": "3.24.1"
   },
   "devDependencies": {
     "@types/d3-hierarchy": "3.1.7",

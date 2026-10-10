@@ -1,8 +1,9 @@
 import { buildServer } from "./routes";
+import { loadConfig } from "./config";
 
 const port = Number.parseInt(process.env.PORT ?? "8787", 10);
 const host = process.env.HOST ?? "0.0.0.0";
-const server = buildServer();
+const server = buildServer({ config: loadConfig() });
 
 async function main() {
   try {
