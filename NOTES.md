@@ -58,6 +58,7 @@
 - 2026-10-11T03:32:00+05:30: Added Phase 6 seed-to-tree loading copy, district labels, stronger frosted glass panels, and responsive mobile controls; tests 27 files/91 tests, typecheck, build, and browser preview passed with clean console.
 - 2026-10-11T03:40:00+05:30: Phase 6 review fixes: complete language legend, repeat-safe shortcuts, live-height solar panels, and mobile legend/timeline spacing; tests 27 files/93 tests, typecheck, build, and browser preview passed with clean console.
 - 2026-10-11T03:41:00+05:30: Completed Phase 6 and made the formal phase commit.
+- 2026-10-11T03:52:00+05:30: Fixed analyze-route failures caused by stale/local preview routing: preview now proxies `/api`, API 404s explain the server/proxy issue, and failed analyzes keep the existing city visible with an alert.
 
 ## Commands
 
@@ -69,5 +70,5 @@
 
 ## Known limitations
 
-- The city currently renders generated sample data only. Real public GitHub repository analysis starts in Phase 2.
-- Phase 5 navigation and dependency exploration checks pass for Express. Drone mode and offline pre-baked real samples are later phases.
+- Public GitHub analysis needs network access and a fresh `pnpm dev` server on port 8787; restricted networks can still fail during `git fetch`.
+- Phase 5b deferred one polish item: spatial grid rebuild frequency during fly mode.

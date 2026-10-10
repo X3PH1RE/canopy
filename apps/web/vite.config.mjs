@@ -1,6 +1,10 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
+const apiProxy = {
+  "/api": "http://localhost:8787",
+};
+
 export default defineConfig(({ command }) => ({
   plugins: [react()],
   cacheDir: "../../node_modules/.vite/apps-web",
@@ -16,8 +20,10 @@ export default defineConfig(({ command }) => ({
       : undefined,
   server: {
     port: 5173,
-    proxy: {
-      "/api": "http://localhost:8787",
-    },
+    proxy: apiProxy,
+  },
+  preview: {
+    port: 4173,
+    proxy: apiProxy,
   },
 }));

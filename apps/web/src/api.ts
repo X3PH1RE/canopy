@@ -89,10 +89,18 @@ export async function getLimits(fetcher: Fetcher = defaultFetcher): Promise<Limi
 async function readJson<T>(response: Response, message: string): Promise<T> {
   if (!response.ok) {
     const body = await tryReadError(response);
-    throw new Error(body ?? `${message} (${response.status})`);
+    throw new Error(formatApiError(body, message, response.status));
   }
 
   return response.json() as Promise<T>;
+}
+
+function formatApiError(body: string | null, message: string, status: number) {
+  if (body?.startsWith("Route ") && body.includes(" not found")) {
+    return "The Canopy API route was not found. Start the server and web app together with pnpm dev, or use a preview server that proxies /api to localhost:8787.";
+  }
+
+  return body ?? `${message} (${status})`;
 }
 
 async function tryReadError(response: Response): Promise<string | null> {

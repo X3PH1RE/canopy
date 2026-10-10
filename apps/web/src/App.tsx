@@ -34,6 +34,7 @@ export function App() {
   async function loadCity() {
     setIsLoading(true);
     setJob(null);
+    setError(null);
     setRateLimitMessage(null);
     try {
       setCity(await loadSampleCity());
@@ -47,6 +48,7 @@ export function App() {
   async function analyzeRepo(repoUrl: string) {
     setIsLoading(true);
     setJob({ status: "queued", stage: "queued", progress: 0 });
+    setError(null);
     setRateLimitMessage(null);
     try {
       const started = await startAnalysis(repoUrl);
@@ -57,6 +59,7 @@ export function App() {
         setRateLimitMessage(analyzeError.message);
         setLimits(await getLimits());
       } else {
+        setJob(null);
         setError(analyzeError instanceof Error ? analyzeError.message : "Could not analyze repository");
       }
     } finally {
@@ -127,7 +130,13 @@ export function App() {
       <UrlBar city={city} isLoading={isLoading} limits={limits} onAnalyze={analyzeRepo} onLoadSample={loadCity} />
       <Toolbar city={city} />
       <SearchBox city={city} />
-      {error ? <div className="scene-placeholder">{error}</div> : <City />}
+      {error && !city ? <div className="scene-placeholder">{error}</div> : <City />}
+      {error && city ? (
+        <div className="error-toast" role="alert">
+          <strong>Could not grow city</strong>
+          <p>{error}</p>
+        </div>
+      ) : null}
       <ProgressOverlay job={job} rateLimitMessage={rateLimitMessage} />
       <FlyHud />
       {city ? <LegendPanel /> : null}

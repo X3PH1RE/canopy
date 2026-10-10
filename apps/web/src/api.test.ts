@@ -27,6 +27,18 @@ describe("api client", () => {
     );
   });
 
+  it("explains missing API proxy responses", async () => {
+    const fetcher = async () =>
+      new Response(JSON.stringify({ message: "Route POST:/api/analyze not found" }), {
+        status: 404,
+        headers: { "content-type": "application/json" },
+      });
+
+    await expect(startAnalysis("https://github.com/expressjs/express", fetcher)).rejects.toThrow(
+      "The Canopy API route was not found",
+    );
+  });
+
   it("loads job, city, and limit state", async () => {
     const fetcher = async (input: RequestInfo | URL) => {
       const url = String(input);

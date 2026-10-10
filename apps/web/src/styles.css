@@ -39,6 +39,7 @@ main {
 .inspect-panel,
 .fly-hud,
 .drone-popup,
+.error-toast,
 .legend-panel {
   position: absolute;
   z-index: 10;
@@ -349,7 +350,7 @@ button:disabled {
   position: absolute;
   z-index: 12;
   left: 50%;
-  top: 108px;
+  bottom: 96px;
   width: 320px;
   transform: translateX(-50%);
   border: 1px solid rgba(255, 255, 255, 0.28);
@@ -382,6 +383,24 @@ button:disabled {
   height: 100%;
   border-radius: inherit;
   background: #ffc83d;
+}
+
+.error-toast {
+  left: 50%;
+  bottom: 96px;
+  width: min(460px, calc(100vw - 36px));
+  transform: translateX(-50%);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.error-toast strong {
+  font-family: "Fraunces", Georgia, serif;
+}
+
+.error-toast p {
+  margin: 4px 0 0;
+  color: #4d6762;
 }
 
 .rate-limit-panel {
@@ -539,6 +558,15 @@ button:disabled {
     right: 10px;
     bottom: 12px;
     width: auto;
+  }
+
+  .progress-overlay,
+  .error-toast {
+    left: 10px;
+    right: 10px;
+    bottom: 92px;
+    width: auto;
+    transform: none;
   }
 
   .time-slider {
