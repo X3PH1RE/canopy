@@ -142,6 +142,7 @@ async function analyzeRepository(repoUrl: string, cacheRoot: string): Promise<Ci
       headSha: cloned.headSha,
       truncated: cloned.truncated || walked.truncated,
     },
+    repoDir: cloned.repoDir,
     files: walked.files,
   });
   await writeCachedCity(cacheRoot, key, city);

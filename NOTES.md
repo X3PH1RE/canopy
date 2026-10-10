@@ -26,6 +26,7 @@
 - 2026-10-11T00:27:00+05:30: Switched real city assembly to tree-sitter-backed metrics for TS/JS/Python/Go/Java when grammar loading succeeds, with per-file fallback to heuristics.
 - 2026-10-11T00:31:00+05:30: Phase 2 acceptance passed: Express fresh-cache analysis 6.9s, Flask 10.3s, cache hits and rate-limit behavior verified by Fastify injection.
 - 2026-10-11T00:40:00+05:30: Started Phase 3 and added the capped single-pass git history parser/summary builder for churn inputs and timeline samples.
+- 2026-10-11T00:46:00+05:30: Added percentile-based risk scoring and wired git history into `CityData` assembly for commit counts, authors, churn, last modified dates, timeline, and risk.
 
 ## Commands
 
