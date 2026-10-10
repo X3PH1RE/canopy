@@ -19,6 +19,7 @@
 - 2026-10-10T23:13:34+05:30: Started Phase 2 with a plan split into interval commits: rate limiting/config, safe repo walking, metrics/build, analyze routes, then web progress UI.
 - 2026-10-10T23:13:34+05:30: Added `zod` for Phase 2 environment validation because the spec requires typed env parsing and startup failures for invalid values.
 - 2026-10-10T23:22:07+05:30: Added safe GitHub URL normalization, argument-array `git` process helpers with prompts disabled, JSON cache helpers, and repo file walking that filters vendored/media/lock/binary/oversize files.
+- 2026-10-10T23:26:36+05:30: Added fallback metric parsing, relative JS/TS/Python import edges, and `CityData` assembly from walked files. Tree-sitter parsing is still pending inside Phase 2.
 
 ## Commands
 
