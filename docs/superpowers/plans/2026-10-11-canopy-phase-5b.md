@@ -48,33 +48,33 @@
 - Produces: `updateLiveBuildingHeight(fileId: number, height: number): void`
 - Produces: `canopyWorldState` with `buildingBoxes`, `liveHeights`, `importedByCounts`, and `drone`.
 
-- [ ] **Step 1: Write failing input tests**
+- [x] **Step 1: Write failing input tests**
 
 Assert editable targets include `input`, `textarea`, `select`, and `[contenteditable=true]`; assert key tracker normalizes casing and clears on blur.
 
-- [ ] **Step 2: Run input tests to verify failure**
+- [x] **Step 2: Run input tests to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/web test -- src/input/keys.test.ts`
 Expected: FAIL because `keys.ts` does not exist.
 
-- [ ] **Step 3: Implement input helpers and hook**
+- [x] **Step 3: Implement input helpers and hook**
 
 Implement the pure guard/tracker first, then `useKeyControls` with document `keydown`, `keyup`, and window `blur` listeners.
 
-- [ ] **Step 4: Write failing world-state tests**
+- [x] **Step 4: Write failing world-state tests**
 
 Assert city sync builds one box per file, imported-by counts invert edges, and live height updates change a box's `maxY`.
 
-- [ ] **Step 5: Run world-state tests to verify failure**
+- [x] **Step 5: Run world-state tests to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/web test -- src/scene/worldState.test.ts`
 Expected: FAIL because `worldState.ts` does not exist.
 
-- [ ] **Step 6: Implement world-state helpers and building wiring**
+- [x] **Step 6: Implement world-state helpers and building wiring**
 
 Populate boxes from file center/width/depth and `buildingHeight(file.loc)`, then update each building height from `Buildings` during timeline animation.
 
-- [ ] **Step 7: Verify and checkpoint**
+- [x] **Step 7: Verify and checkpoint**
 
 Run `pnpm.cmd --filter @canopy/web test -- src/input/keys.test.ts src/scene/worldState.test.ts`, `pnpm.cmd test`, `pnpm.cmd typecheck`, then commit and push `wip: phase 5b input world state`.
 

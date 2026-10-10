@@ -13,6 +13,7 @@ import {
   nextDisplayHeight,
   type ViewMode,
 } from "./model";
+import { syncCityWorldState, updateLiveBuildingHeight } from "./worldState";
 
 interface BuildingsProps {
   city: CityData;
@@ -25,6 +26,10 @@ export function Buildings({ city }: BuildingsProps) {
   const timelineFrame = useCityStore((state) => state.timelineFrame);
   const setSelectedId = useCityStore((state) => state.setSelectedId);
   const setHoveredId = useCityStore((state) => state.setHoveredId);
+
+  useEffect(() => {
+    syncCityWorldState(city);
+  }, [city]);
 
   function handlePointerMiss(event: ThreeEvent<PointerEvent>) {
     event.stopPropagation();
@@ -111,6 +116,7 @@ function Building({
     body.scale.z = file.d * widthScale;
     body.position.y = body.scale.y / 2;
     roof.position.y = body.scale.y + 0.06;
+    updateLiveBuildingHeight(file.id, body.scale.y);
   });
 
   return (
