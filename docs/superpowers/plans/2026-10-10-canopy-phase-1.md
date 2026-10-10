@@ -81,20 +81,20 @@ Self-critique: This follows the spec's solarpunk direction rather than the gener
 - Consumes: `FileNode` and `District` from `@canopy/shared`.
 - Produces: `layoutCity(files: LayoutInputFile[], options?: LayoutOptions): LayoutResult` where `LayoutInputFile` is `{ path: string; loc: number; functionCount: number }`, `LayoutOptions` is `{ size?: number; padding?: number }`, and `LayoutResult` is `{ files: LayoutFile[]; districts: District[] }`.
 
-- [ ] **Step 1: Write failing layout tests**
+- [x] **Step 1: Write failing layout tests**
 
 Add tests for deterministic output, no overlapping file rectangles, and district bounds covering their children.
 
-- [ ] **Step 2: Run tests to verify failure**
+- [x] **Step 2: Run tests to verify failure**
 
 Run: `pnpm --filter @canopy/server test -- src/layout.test.ts`
 Expected: FAIL because `layoutCity` does not exist.
 
-- [ ] **Step 3: Implement layout**
+- [x] **Step 3: Implement layout**
 
 Use `d3-hierarchy` treemap with stable path sorting, square world bounds, and small padding. Treat building area as `functionCount + 2`.
 
-- [ ] **Step 4: Verify layout**
+- [x] **Step 4: Verify layout**
 
 Run: `pnpm --filter @canopy/server test -- src/layout.test.ts`
 Expected: PASS.
@@ -112,25 +112,25 @@ Expected: PASS.
 - Consumes: `layoutCity`.
 - Produces: `makeFakeCity(seed?: number): CityData` and `pnpm --filter @canopy/server make:fake`.
 
-- [ ] **Step 1: Write failing fake-data tests**
+- [x] **Step 1: Write failing fake-data tests**
 
 Test that `makeFakeCity(42)` creates about 300 files, stable first paths, valid ids, matching stats, at least one edge, and non-empty districts.
 
-- [ ] **Step 2: Run tests to verify failure**
+- [x] **Step 2: Run tests to verify failure**
 
 Run: `pnpm --filter @canopy/server test -- src/fakeCity.test.ts`
 Expected: FAIL because `makeFakeCity` does not exist.
 
-- [ ] **Step 3: Implement fake-data generation**
+- [x] **Step 3: Implement fake-data generation**
 
 Use a seeded random generator, realistic folder families, language spread, metrics, simple relative dependency edges, and call `layoutCity`.
 
-- [ ] **Step 4: Generate the sample**
+- [x] **Step 4: Generate the sample**
 
 Run: `pnpm --filter @canopy/server make:fake`
 Expected: creates `apps/web/public/samples/fake.json`.
 
-- [ ] **Step 5: Verify fake data**
+- [x] **Step 5: Verify fake data**
 
 Run: `pnpm --filter @canopy/server test -- src/fakeCity.test.ts`
 Expected: PASS.
@@ -151,20 +151,20 @@ Expected: PASS.
 - Consumes: `CityData`.
 - Produces: `loadSampleCity(): Promise<CityData>` and a zustand store with `city`, `selectedId`, `hoveredId`, and setter actions.
 
-- [ ] **Step 1: Write the loader before implementation**
+- [x] **Step 1: Write the loader before implementation**
 
 Create `api.ts` with the intended exported signature and import it from `App.tsx`; typecheck should fail before the function exists.
 
-- [ ] **Step 2: Run typecheck to verify failure**
+- [x] **Step 2: Run typecheck to verify failure**
 
 Run: `pnpm --filter @canopy/web typecheck`
 Expected: FAIL while the loader/store files are incomplete.
 
-- [ ] **Step 3: Implement loader, store, and UI shell**
+- [x] **Step 3: Implement loader, store, and UI shell**
 
 Load `/samples/fake.json`, render URL/sample toolbar, stats banner, and an inspect panel for selected buildings.
 
-- [ ] **Step 4: Verify web shell**
+- [x] **Step 4: Verify web shell**
 
 Run: `pnpm --filter @canopy/web typecheck`
 Expected: PASS.
@@ -185,19 +185,19 @@ Expected: PASS.
 - Consumes: city/store state from Task 3.
 - Produces: full-screen Canvas with district plates, instanced-like building meshes, simple roads, orbit controls, hover highlighting, and click selection.
 
-- [ ] **Step 1: Add scene imports before dependencies**
+- [x] **Step 1: Add scene imports before dependencies**
 
 Import `City` from `App.tsx` and run typecheck to confirm missing scene/dependencies fail.
 
-- [ ] **Step 2: Install 3D dependencies**
+- [x] **Step 2: Install 3D dependencies**
 
 Run: `pnpm install` after adding pinned dependencies to `apps/web/package.json`: `three`, `@react-three/fiber`, `@react-three/drei`, `zustand`, `@fontsource/fraunces`, `@fontsource/dm-sans`.
 
-- [ ] **Step 3: Implement scene components**
+- [x] **Step 3: Implement scene components**
 
 Map file height as `Math.max(0.3, Math.log2(loc + 1) * 1.2)`, color by language, show district plates, roads, sky/fog/lights, and orbit controls.
 
-- [ ] **Step 4: Verify app build**
+- [x] **Step 4: Verify app build**
 
 Run: `pnpm test`, `pnpm typecheck`, and `pnpm build`.
 Expected: PASS.
@@ -214,20 +214,20 @@ Expected: PASS.
 - Consumes: completed Phase 1 app.
 - Produces: updated docs and commit `phase 1: render static city`.
 
-- [ ] **Step 1: Browser smoke test**
+- [x] **Step 1: Browser smoke test**
 
 Run `pnpm dev`, open `http://localhost:5173`, verify the page returns HTTP 200, the canvas mounts, and `/api/health` returns `{ "ok": true }`.
 
-- [ ] **Step 2: Update docs**
+- [x] **Step 2: Update docs**
 
 Record implemented Phase 1 behavior, validation commands, dependencies, and known limitations.
 
-- [ ] **Step 3: Final verification**
+- [x] **Step 3: Final verification**
 
 Run: `pnpm test`, `pnpm typecheck`, `pnpm build`.
 Expected: PASS.
 
-- [ ] **Step 4: Commit and push**
+- [x] **Step 4: Commit and push**
 
 Run:
 

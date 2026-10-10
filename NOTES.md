@@ -13,6 +13,9 @@
 - 2026-10-10T21:34:26+05:30: Vite dev disables dependency optimization because the optimizer tries to read above the workspace in this sandbox. Vite prints a warning recommending `noDiscovery`, but that setting did not stop the failing optimizer path here.
 - 2026-10-10T22:30:32+05:30: Renamed the project identity from Code City to Canopy across package names, imports, docs, UI text, and sample metadata.
 - 2026-10-10T22:30:32+05:30: Phase 1 is partially implemented: deterministic layout, fake city generation, sample JSON, and the initial web data-loading shell are in place. The 3D scene remains next.
+- 2026-10-10T22:45:53+05:30: Completed Phase 1 with a static React Three Fiber city from generated sample data, including orbit controls, hover state, click selection, and a minimal inspect panel.
+- 2026-10-10T22:45:53+05:30: Kept Vite dependency optimization enabled for dev and moved its cache into the workspace. Disabling the optimizer made R3F/Zustand load raw CommonJS React modules in the browser; preserving symlinks caused esbuild to attempt reads outside the workspace.
+- 2026-10-10T22:45:53+05:30: Scene objects use the layout's centered `x`/`z` coordinates directly. The renderer derives ground size from city bounds instead of assuming a separate world size.
 
 ## Commands
 
@@ -24,4 +27,4 @@
 
 ## Known limitations
 
-- `pnpm dev` starts successfully, but Vite prints an optimizer warning because dependency optimization is disabled for this sandbox.
+- The city currently renders generated sample data only. Real public GitHub repository analysis starts in Phase 2.

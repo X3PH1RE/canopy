@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { loadSampleCity } from "./api";
+import { City } from "./scene/City";
 import { useCityStore } from "./store";
 import { InspectPanel } from "./ui/InspectPanel";
 import { Toolbar } from "./ui/Toolbar";
@@ -32,9 +33,7 @@ export function App() {
     <main aria-label="Canopy canvas" data-files={city?.stats.fileCount ?? 0}>
       <UrlBar city={city} isLoading={isLoading} onLoadSample={loadCity} />
       <Toolbar city={city} />
-      <div className="scene-placeholder">
-        {error ? <p>{error}</p> : <p>{city ? "City data loaded" : "Loading sample city"}</p>}
-      </div>
+      {error ? <div className="scene-placeholder">{error}</div> : <City />}
       <InspectPanel city={city} selectedId={selectedId} />
     </main>
   );

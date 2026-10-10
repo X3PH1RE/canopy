@@ -13,6 +13,7 @@ node_modules/
 dist/
 build/
 coverage/
+.playwright-mcp/
 *.tsbuildinfo
 apps/server/cache/
 .venv/

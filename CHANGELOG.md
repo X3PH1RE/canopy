@@ -4,6 +4,13 @@ Record each meaningful project change during the event, newest first. Update thi
 
 ## Event build log
 
+## 2026-10-10T22:45:53+05:30 - Phase 1 static 3D city
+
+- Changed: Added the React Three Fiber scene with district plates, file buildings, dependency road lines, orbit controls, hover highlighting, click selection, scene model tests, Vite optimizer configuration, centered-layout scene mapping, id-based inspect lookup, and Phase 1 demo documentation.
+- Why: Complete the Phase 1 goal of rendering a navigable static Canopy from generated `CityData`.
+- Validation: `pnpm --filter @canopy/web test -- src/scene/model.test.ts` passed 4 tests. `pnpm test` passed 11 tests, `pnpm typecheck` passed, and `pnpm build` passed. Browser smoke test confirmed `GET http://localhost:5173` returned HTTP 200, `GET http://localhost:8787/api/health` returned `{"ok":true}`, the canvas mounted with nonblank pixels, and clicking the canvas selected a building in the inspect panel.
+- Limitations: The scene still uses generated sample data only. Real repository analysis, URL submission, timeline playback, and production risk rules are deferred to later phases.
+
 ## 2026-10-10T22:30:32+05:30 - Rename app to Canopy and start Phase 1
 
 - Changed: Renamed visible app and workspace package identity from Code City to Canopy, updated imports to `@canopy/*`, refreshed the lockfile, added the Phase 1 plan, implemented deterministic layout tests/helpers, fake city generation, sample JSON, and the initial web loader/UI shell.

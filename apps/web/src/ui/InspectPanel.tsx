@@ -1,4 +1,5 @@
 import type { CityData } from "@canopy/shared";
+import { fileById } from "../scene/model";
 
 interface InspectPanelProps {
   city: CityData | null;
@@ -6,7 +7,7 @@ interface InspectPanelProps {
 }
 
 export function InspectPanel({ city, selectedId }: InspectPanelProps) {
-  const file = selectedId === null ? null : city?.files[selectedId] ?? null;
+  const file = selectedId === null || !city ? null : fileById(city.files, selectedId) ?? null;
 
   if (!file) {
     return (
