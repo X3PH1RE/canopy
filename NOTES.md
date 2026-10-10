@@ -41,6 +41,8 @@
 - 2026-10-11T01:43:00+05:30: Added road visibility toggle, lifted dependency arcs, and selected-file road highlighting for incoming and outgoing edges.
 - 2026-10-11T01:46:00+05:30: Added file/function search with ranked results and selection wiring that queues camera focus requests.
 - 2026-10-11T01:50:00+05:30: Added deterministic camera focus math, SearchBox/InspectPanel focus requests, and smooth OrbitControls fly-to animation.
+- 2026-10-11T01:52:00+05:30: Phase 5 acceptance passed on fresh-cache Express: 214 files, 95 dependency edges, dependency lists present, and search returned the expected owning file.
+- 2026-10-11T01:57:00+05:30: Phase 5 review fixes: exact function search now outranks broad path substrings, disabled roads skip edge work, and the inspect panel scrolls before reaching the timeline.
 
 ## Commands
 
@@ -53,4 +55,4 @@
 ## Known limitations
 
 - The city currently renders generated sample data only. Real public GitHub repository analysis starts in Phase 2.
-- Phase 4 live timeline playback checks pass for Express. Phase 5 navigation and dependency exploration are in progress.
+- Phase 5 navigation and dependency exploration checks pass for Express. Drone mode and offline pre-baked real samples are later phases.

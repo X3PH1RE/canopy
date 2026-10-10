@@ -44,6 +44,16 @@ describe("searchCity", () => {
     });
   });
 
+  it("ranks exact function matches before broad file path substring matches", () => {
+    const results = searchCity(cityFixture(), "createApp");
+
+    expect(results[0]).toMatchObject({
+      fileId: 0,
+      label: "createApp",
+      kind: "function",
+    });
+  });
+
   it("caps results to the requested limit", () => {
     expect(searchCity(cityFixture(), "src", 2)).toHaveLength(2);
   });
@@ -61,6 +71,7 @@ function cityFixture(): CityData {
     { ...baseFile, id: 1, path: "src/router.ts", name: "router.ts" },
     { ...baseFile, id: 2, path: "src/router/index.ts", name: "index.ts" },
     { ...baseFile, id: 3, path: "src/http/router-utils.ts", name: "router-utils.ts" },
+    { ...baseFile, id: 4, path: "src/tools/createapp-helper.ts", name: "createapp-helper.ts" },
   ];
 
   return {

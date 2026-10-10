@@ -240,7 +240,9 @@ button:disabled {
   right: 18px;
   top: 92px;
   width: 300px;
+  max-height: calc(100vh - 192px);
   min-height: 220px;
+  overflow: auto;
   padding: 18px;
   border-radius: 8px;
 }

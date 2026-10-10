@@ -2,7 +2,7 @@
 
 Your codebase, as a city you can fly through.
 
-Paste a public GitHub repository URL and Canopy will analyze its files, dependencies, churn, risk hotspots, and history, then render the result as a navigable 3D city with timeline playback.
+Paste a public GitHub repository URL and Canopy will analyze its files, dependencies, churn, risk hotspots, and history, then render the result as a navigable 3D city with timeline playback, dependency roads, and search fly-to.
 
 ## Project Overview
 
@@ -43,8 +43,8 @@ pnpm build
 
 ## Current Status
 
-- Working features: pnpm workspace, shared `CityData` types, Fastify `/api/health`, `/api/limits`, in-memory analyze jobs, safe GitHub URL validation, repo clone/fetch cache, repo walking filters, tree-sitter metrics with heuristic fallback, relative JS/TS/Python dependency edges, git history parsing, timeline data, churn/risk scoring, Language/Churn/Complexity/Risk view modes, deterministic fake city generation, treemap layout tests, generated sample data, a full-screen 3D city scene, district plates, dependency roads, orbit controls, hover highlighting, click selection, live time-slider playback with smooth building growth and changed-file pulses, inspect panel metrics, URL submission UI, progress overlay, friendly rate-limit panel, strict TypeScript checks, and Vitest setup.
-- Known limitations: search fly-to, drone mode, and offline pre-baked real samples are later phases.
+- Working features: pnpm workspace, shared `CityData` types, Fastify `/api/health`, `/api/limits`, in-memory analyze jobs, safe GitHub URL validation, repo clone/fetch cache, repo walking filters, tree-sitter metrics with heuristic fallback, relative JS/TS/Python dependency edges, git history parsing, timeline data, churn/risk scoring, Language/Churn/Complexity/Risk view modes, deterministic fake city generation, treemap layout tests, generated sample data, a full-screen 3D city scene, district plates, toggleable dependency roads with selection highlights, orbit controls, camera fly-to, file/function search, hover highlighting, click selection, live time-slider playback with smooth building growth and changed-file pulses, inspect panel metrics and dependency lists, URL submission UI, progress overlay, friendly rate-limit panel, strict TypeScript checks, and Vitest setup.
+- Known limitations: drone mode and offline pre-baked real samples are later phases.
 - Libraries, APIs, and public datasets used: Fastify, Vite, React, React Three Fiber, Drei, Three.js, Zustand, TypeScript, Vitest, d3-hierarchy, web-tree-sitter, tree-sitter-wasms, and fontsource packages. No external datasets are used.
 
 See [AI_USAGE.md](AI_USAGE.md) for AI assistance and [CHANGELOG.md](CHANGELOG.md) for the development record.

@@ -30,7 +30,7 @@ export function searchCity(city: CityData, query: string, limit = 8): SearchResu
     }
 
     for (const fn of file.functions ?? []) {
-      const functionScore = scoreText(fn.name, needle, 50);
+      const functionScore = scoreFunction(fn.name, needle);
       if (functionScore !== null) {
         results.push({
           fileId: file.id,
@@ -75,16 +75,16 @@ function scoreFile(filePath: string, fileName: string, needle: string): number |
   return null;
 }
 
-function scoreText(value: string, needle: string, baseScore: number): number | null {
+function scoreFunction(value: string, needle: string): number | null {
   const haystack = value.toLowerCase();
   if (haystack === needle) {
-    return baseScore;
+    return 5;
   }
   if (haystack.startsWith(needle)) {
-    return baseScore + 5;
+    return 25;
   }
   if (haystack.includes(needle)) {
-    return baseScore + 10;
+    return 45;
   }
   return null;
 }

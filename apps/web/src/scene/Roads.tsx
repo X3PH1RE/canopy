@@ -11,15 +11,16 @@ interface RoadsProps {
 export function Roads({ city }: RoadsProps) {
   const showRoads = useCityStore((state) => state.showRoads);
   const selectedId = useCityStore((state) => state.selectedId);
+
+  if (!showRoads) {
+    return null;
+  }
+
   const roadEdges = selectedId === null
     ? city.edges.slice(0, 320)
     : city.edges.filter((edge) => edgeMatchesSelection(edge, selectedId)).concat(
       city.edges.filter((edge) => !edgeMatchesSelection(edge, selectedId)).slice(0, 180),
     );
-
-  if (!showRoads) {
-    return null;
-  }
 
   return (
     <group>
