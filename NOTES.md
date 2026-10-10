@@ -53,6 +53,7 @@
 - 2026-10-11T03:15:00+05:30: Phase 5b review fixes: orbit focus now ignores fly-mode focus requests, OrbitControls target syncs on fly exit, search glide waits for normal proximity dwell, and UI pointer drags no longer rotate the drone; tests 23 files/84 tests, typecheck, and build passed.
 - 2026-10-11T03:16:00+05:30: Completed Phase 5b and made the formal phase commit. One minor remains deferred: spatial grid rebuild frequency during fly mode.
 - 2026-10-11T03:18:00+05:30: Started Phase 6 with a cut-list polish plan for nature/solar, legend/shortcuts, loading copy, frosted panels, and district labels.
+- 2026-10-11T03:22:00+05:30: Added Phase 6 deterministic instanced trees, roof solar panels, and a light rail pulse ring; tests 24 files/86 tests and typecheck passed.
 
 ## Commands
 

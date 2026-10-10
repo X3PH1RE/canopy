@@ -6,6 +6,7 @@ import { Buildings } from "./Buildings";
 import { CameraRig } from "./CameraRig";
 import { Districts } from "./Districts";
 import { DroneController } from "./DroneController";
+import { NatureLayer } from "./NatureLayer";
 import { sceneWorldSize } from "./model";
 import { Roads } from "./Roads";
 
@@ -40,6 +41,7 @@ export function City() {
           />
           <hemisphereLight color={theme.skyTop} groundColor={theme.ground} intensity={0.9} />
           <Districts city={city} worldSize={worldSize} />
+          <NatureLayer city={city} worldSize={worldSize} />
           <Roads city={city} />
           <Buildings city={city} />
           <DroneController city={city} worldSize={worldSize} />

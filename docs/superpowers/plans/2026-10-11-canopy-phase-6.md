@@ -46,20 +46,20 @@
 - Produces: `solarPanelsForFiles(files): SolarPanelPlacement[]`
 - Produces: `<Nature city={city} worldSize={worldSize} />`
 
-- [ ] **Step 1: Write failing placement tests**
+- [x] **Step 1: Write failing placement tests**
 
 Assert tree placement is deterministic, avoids building footprints, caps count, and solar panels choose high-LOC large roofs.
 
-- [ ] **Step 2: Run focused test to verify failure**
+- [x] **Step 2: Run focused test to verify failure**
 
 Run: `pnpm.cmd --filter @canopy/web test -- src/scene/nature.test.ts`
 Expected: FAIL because `nature.ts` does not exist.
 
-- [ ] **Step 3: Implement placement helpers and instanced rendering**
+- [x] **Step 3: Implement placement helpers and instanced rendering**
 
 Use seeded hash values from city/file ids. Render trees as instanced trunks/canopies and solar panels as slim roof meshes.
 
-- [ ] **Step 4: Verify and checkpoint**
+- [x] **Step 4: Verify and checkpoint**
 
 Run `pnpm.cmd --filter @canopy/web test -- src/scene/nature.test.ts`, `pnpm.cmd test`, `pnpm.cmd typecheck`, then commit and push `wip: phase 6 nature solar`.
 
