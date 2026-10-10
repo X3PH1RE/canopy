@@ -16,6 +16,7 @@
 - 2026-10-10T22:45:53+05:30: Completed Phase 1 with a static React Three Fiber city from generated sample data, including orbit controls, hover state, click selection, and a minimal inspect panel.
 - 2026-10-10T22:45:53+05:30: Kept Vite dependency optimization enabled for dev and moved its cache into the workspace. Disabling the optimizer made R3F/Zustand load raw CommonJS React modules in the browser; preserving symlinks caused esbuild to attempt reads outside the workspace.
 - 2026-10-10T22:45:53+05:30: Scene objects use the layout's centered `x`/`z` coordinates directly. The renderer derives ground size from city bounds instead of assuming a separate world size.
+- 2026-10-10T23:13:34+05:30: Started Phase 2 with a plan split into interval commits: rate limiting/config, safe repo walking, metrics/build, analyze routes, then web progress UI.
 
 ## Commands
 
