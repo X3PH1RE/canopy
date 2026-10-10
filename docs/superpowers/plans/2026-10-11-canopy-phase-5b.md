@@ -151,23 +151,23 @@ Run `pnpm.cmd --filter @canopy/web test -- src/scene/proximity.test.ts`, `pnpm.c
 - Produces: `isFlyMode`, `setFlyMode(isFlyMode)`, `activeBuildingId`, and `setActiveBuildingId(id)` in the store.
 - Consumes: `useKeyControls`, `canopyWorldState`, `buildSpatialGrid`, and `resolveDroneCollision`.
 
-- [ ] **Step 1: Write failing store/model coverage where practical**
+- [x] **Step 1: Write failing store/model coverage where practical**
 
 Add tests only for pure exported flight helpers if extracted during implementation; otherwise reuse Task 1/2 tests as the contract and keep runtime code minimal.
 
-- [ ] **Step 2: Implement procedural drone and controller**
+- [x] **Step 2: Implement procedural drone and controller**
 
 Create body, arms, rotors, tilt, bob, and blob shadow; implement `F`, WASD, QE, Shift boost, mouse/arrow yaw, bounded movement, collision sliding, and chase camera.
 
-- [ ] **Step 3: Disable orbit controls during fly mode**
+- [x] **Step 3: Disable orbit controls during fly mode**
 
 `CameraRig` should keep default orbit behavior outside fly mode and set controls enabled false during drone chase.
 
-- [ ] **Step 4: Wire Fly button**
+- [x] **Step 4: Wire Fly button**
 
 Add a compact `Fly` toggle next to `Roads` with `aria-pressed`.
 
-- [ ] **Step 5: Verify and checkpoint**
+- [x] **Step 5: Verify and checkpoint**
 
 Run `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, then commit and push `wip: phase 5b drone controller`.
 

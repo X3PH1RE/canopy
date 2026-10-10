@@ -7,6 +7,8 @@ interface CityState {
   selectedId: number | null;
   hoveredId: number | null;
   focusRequest: { fileId: number; nonce: number } | null;
+  isFlyMode: boolean;
+  activeBuildingId: number | null;
   viewMode: ViewMode;
   showRoads: boolean;
   timelineFrame: number;
@@ -16,6 +18,8 @@ interface CityState {
   setSelectedId: (id: number | null) => void;
   setHoveredId: (id: number | null) => void;
   requestFocus: (fileId: number) => void;
+  setFlyMode: (isFlyMode: boolean) => void;
+  setActiveBuildingId: (id: number | null) => void;
   setViewMode: (viewMode: ViewMode) => void;
   setShowRoads: (showRoads: boolean) => void;
   setTimelineFrame: (frame: number) => void;
@@ -28,15 +32,19 @@ export const useCityStore = create<CityState>((set) => ({
   selectedId: null,
   hoveredId: null,
   focusRequest: null,
+  isFlyMode: false,
+  activeBuildingId: null,
   viewMode: "language",
   showRoads: false,
   timelineFrame: 0,
   isTimelinePlaying: false,
   error: null,
-  setCity: (city) => set({ city, selectedId: null, hoveredId: null, focusRequest: null, timelineFrame: 0, isTimelinePlaying: false, error: null }),
+  setCity: (city) => set({ city, selectedId: null, hoveredId: null, focusRequest: null, activeBuildingId: null, timelineFrame: 0, isTimelinePlaying: false, error: null }),
   setSelectedId: (selectedId) => set({ selectedId }),
   setHoveredId: (hoveredId) => set({ hoveredId }),
   requestFocus: (fileId) => set((state) => ({ focusRequest: { fileId, nonce: (state.focusRequest?.nonce ?? 0) + 1 } })),
+  setFlyMode: (isFlyMode) => set(isFlyMode ? { isFlyMode } : { isFlyMode, activeBuildingId: null }),
+  setActiveBuildingId: (activeBuildingId) => set({ activeBuildingId }),
   setViewMode: (viewMode) => set({ viewMode }),
   setShowRoads: (showRoads) => set({ showRoads }),
   setTimelineFrame: (frame) => set((state) => ({ timelineFrame: clampTimelineFrame(frame, state.city) })),

@@ -5,6 +5,7 @@ import { useCityStore } from "../store";
 import { Buildings } from "./Buildings";
 import { CameraRig } from "./CameraRig";
 import { Districts } from "./Districts";
+import { DroneController } from "./DroneController";
 import { sceneWorldSize } from "./model";
 import { Roads } from "./Roads";
 
@@ -41,6 +42,7 @@ export function City() {
           <Districts city={city} worldSize={worldSize} />
           <Roads city={city} />
           <Buildings city={city} />
+          <DroneController city={city} worldSize={worldSize} />
           <CameraRig city={city} worldSize={worldSize} />
         </Suspense>
       </Canvas>

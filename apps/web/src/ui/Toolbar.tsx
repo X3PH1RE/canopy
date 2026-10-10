@@ -16,8 +16,10 @@ const VIEW_MODES: Array<{ value: ViewMode; label: string }> = [
 export function Toolbar({ city }: ToolbarProps) {
   const viewMode = useCityStore((state) => state.viewMode);
   const showRoads = useCityStore((state) => state.showRoads);
+  const isFlyMode = useCityStore((state) => state.isFlyMode);
   const setViewMode = useCityStore((state) => state.setViewMode);
   const setShowRoads = useCityStore((state) => state.setShowRoads);
+  const setFlyMode = useCityStore((state) => state.setFlyMode);
 
   if (!city) {
     return null;
@@ -51,6 +53,14 @@ export function Toolbar({ city }: ToolbarProps) {
         onClick={() => setShowRoads(!showRoads)}
       >
         Roads
+      </button>
+      <button
+        type="button"
+        className={isFlyMode ? "toggle-button is-active" : "toggle-button"}
+        aria-pressed={isFlyMode}
+        onClick={() => setFlyMode(!isFlyMode)}
+      >
+        Fly
       </button>
     </section>
   );

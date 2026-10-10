@@ -23,6 +23,7 @@ interface FocusAnimation {
 export function CameraRig({ city, worldSize }: CameraRigProps) {
   const camera = useThree((state) => state.camera);
   const focusRequest = useCityStore((state) => state.focusRequest);
+  const isFlyMode = useCityStore((state) => state.isFlyMode);
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const animationRef = useRef<FocusAnimation | null>(null);
 
@@ -70,6 +71,7 @@ export function CameraRig({ city, worldSize }: CameraRigProps) {
       <PerspectiveCamera makeDefault position={[82, 72, 94]} fov={42} />
       <OrbitControls
         ref={controlsRef}
+        enabled={!isFlyMode}
         enableDamping
         dampingFactor={0.08}
         maxDistance={170}
