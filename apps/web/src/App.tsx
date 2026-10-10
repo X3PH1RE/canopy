@@ -79,7 +79,6 @@ export function App() {
 
   useEffect(() => {
     void loadCity();
-    void getLimits().then(setLimits).catch(() => setLimits(null));
   }, []);
 
   useEffect(() => {
