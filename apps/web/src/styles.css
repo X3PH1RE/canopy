@@ -36,6 +36,7 @@ main {
 
 .top-bar,
 .stats-banner,
+.search-box,
 .inspect-panel {
   position: absolute;
   z-index: 10;
@@ -187,6 +188,52 @@ button:disabled {
 .toggle-button.is-active {
   background: #18322f;
   color: #fff8e0;
+}
+
+.search-box {
+  top: 92px;
+  left: 430px;
+  width: min(360px, calc(100vw - 760px));
+  min-width: 260px;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.search-box input {
+  width: 100%;
+}
+
+.search-box ol {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.search-box li button {
+  display: grid;
+  width: 100%;
+  min-height: 42px;
+  justify-items: start;
+  border-radius: 6px;
+  padding: 6px 8px;
+  background: rgba(31, 58, 46, 0.12);
+  color: #18322f;
+  text-align: left;
+}
+
+.search-box small {
+  max-width: 100%;
+  overflow: hidden;
+  color: #55705f;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-empty {
+  color: #4d6762;
+  font-size: 0.86rem;
 }
 
 .inspect-panel {

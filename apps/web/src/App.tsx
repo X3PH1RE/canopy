@@ -4,6 +4,7 @@ import { City } from "./scene/City";
 import { useCityStore } from "./store";
 import { InspectPanel } from "./ui/InspectPanel";
 import { ProgressOverlay } from "./ui/ProgressOverlay";
+import { SearchBox } from "./ui/SearchBox";
 import { TimeSlider } from "./ui/TimeSlider";
 import { Toolbar } from "./ui/Toolbar";
 import { UrlBar } from "./ui/UrlBar";
@@ -99,6 +100,7 @@ export function App() {
     <main aria-label="Canopy canvas" data-files={city?.stats.fileCount ?? 0}>
       <UrlBar city={city} isLoading={isLoading} limits={limits} onAnalyze={analyzeRepo} onLoadSample={loadCity} />
       <Toolbar city={city} />
+      <SearchBox city={city} />
       {error ? <div className="scene-placeholder">{error}</div> : <City />}
       <ProgressOverlay job={job} rateLimitMessage={rateLimitMessage} />
       <TimeSlider city={city} />
