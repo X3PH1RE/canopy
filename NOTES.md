@@ -49,6 +49,8 @@
 - 2026-10-11T02:12:00+05:30: Added Phase 5b proximity dwell/release timing so nearby building popups can avoid fast-flyby noise; full tests/typecheck passed.
 - 2026-10-11T02:17:00+05:30: Added Phase 5b procedural drone, fly toggle, keyboard/mouse movement, collision sliding, and chase camera; full tests/typecheck/build passed.
 - 2026-10-11T02:20:00+05:30: Added Phase 5b drone proximity popup, active building highlight, Enter expand, fly HUD, and search glide; full tests/typecheck/build passed.
+- 2026-10-11T03:06:00+05:30: Phase 5b acceptance passed: tests 21 files/81 tests, typecheck, build, and browser preview with clean console plus desktop/mobile screenshots. Startup `/api/limits` fetch was removed so sample/preview load stays quiet; analyze still refreshes limits when needed.
+- 2026-10-11T03:15:00+05:30: Phase 5b review fixes: orbit focus now ignores fly-mode focus requests, OrbitControls target syncs on fly exit, search glide waits for normal proximity dwell, and UI pointer drags no longer rotate the drone; tests 23 files/84 tests, typecheck, and build passed.
 
 ## Commands
 

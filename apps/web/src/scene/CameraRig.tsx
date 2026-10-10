@@ -5,7 +5,9 @@ import { Vector3 } from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import type { CityData } from "@canopy/shared";
 import { useCityStore } from "../store";
+import { droneChaseTarget } from "./droneFlight";
 import { cameraFocusForFile, fileById } from "./model";
+import { canopyWorldState } from "./worldState";
 
 interface CameraRigProps {
   city: CityData;
@@ -26,9 +28,10 @@ export function CameraRig({ city, worldSize }: CameraRigProps) {
   const isFlyMode = useCityStore((state) => state.isFlyMode);
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const animationRef = useRef<FocusAnimation | null>(null);
+  const wasFlyModeRef = useRef(false);
 
   useEffect(() => {
-    if (!focusRequest || !controlsRef.current) {
+    if (!shouldStartOrbitFocus(focusRequest, isFlyMode) || !focusRequest || !controlsRef.current) {
       return;
     }
 
@@ -45,7 +48,20 @@ export function CameraRig({ city, worldSize }: CameraRigProps) {
       toCamera: new Vector3(...focus.camera),
       toTarget: new Vector3(...focus.target),
     };
-  }, [camera, city.files, focusRequest, worldSize]);
+  }, [camera, city.files, focusRequest, isFlyMode, worldSize]);
+
+  useEffect(() => {
+    const controls = controlsRef.current;
+    if (wasFlyModeRef.current && !isFlyMode && controls) {
+      const target = droneChaseTarget(canopyWorldState.drone);
+      controls.target.set(target.x, target.y, target.z);
+      controls.update();
+    }
+    if (isFlyMode) {
+      animationRef.current = null;
+    }
+    wasFlyModeRef.current = isFlyMode;
+  }, [isFlyMode]);
 
   useFrame((_, delta) => {
     const animation = animationRef.current;
@@ -81,4 +97,11 @@ export function CameraRig({ city, worldSize }: CameraRigProps) {
       />
     </>
   );
+}
+
+export function shouldStartOrbitFocus(
+  focusRequest: { fileId: number; nonce: number } | null,
+  isFlyMode: boolean,
+): boolean {
+  return Boolean(focusRequest) && !isFlyMode;
 }

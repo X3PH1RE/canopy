@@ -11,7 +11,6 @@ export function SearchBox({ city }: SearchBoxProps) {
   const [query, setQuery] = useState("");
   const setSelectedId = useCityStore((state) => state.setSelectedId);
   const isFlyMode = useCityStore((state) => state.isFlyMode);
-  const setActiveBuildingId = useCityStore((state) => state.setActiveBuildingId);
   const requestFocus = useCityStore((state) => state.requestFocus);
   const results = useMemo(() => (city ? searchCity(city, query) : []), [city, query]);
 
@@ -35,9 +34,7 @@ export function SearchBox({ city }: SearchBoxProps) {
                 <button
                   type="button"
                   onClick={() => {
-                    if (isFlyMode) {
-                      setActiveBuildingId(result.fileId);
-                    } else {
+                    if (!isFlyMode) {
                       setSelectedId(result.fileId);
                     }
                     requestFocus(result.fileId);

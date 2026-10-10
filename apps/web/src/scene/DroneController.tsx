@@ -2,11 +2,11 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { Vector3 } from "three";
 import type { CityData } from "@canopy/shared";
-import { useKeyControls } from "../input/keys";
+import { isEditableTarget, useKeyControls } from "../input/keys";
 import { useCityStore } from "../store";
-import { droneGlideTargetForFile, droneSpawnForWorld, movementVectorFromKeys } from "./droneFlight";
+import { droneChaseTarget, droneGlideTargetForFile, droneSpawnForWorld, movementVectorFromKeys } from "./droneFlight";
 import { fileById } from "./model";
-import { PROXIMITY_DWELL_MS, initialProximityState, updateProximity, type ProximityState } from "./proximity";
+import { initialProximityState, updateProximity, type ProximityState } from "./proximity";
 import { buildSpatialGrid, querySpatialGrid, resolveDroneCollision } from "./spatialGrid";
 import { canopyWorldState } from "./worldState";
 import { Drone } from "./Drone";
@@ -58,13 +58,8 @@ export function DroneController({ city, worldSize }: DroneControllerProps) {
 
     const height = canopyWorldState.liveHeights.get(file.id) ?? 4;
     glideTargetRef.current = droneGlideTargetForFile(file, height);
-    proximityRef.current = {
-      candidateId: file.id,
-      candidateSinceMs: performance.now() - PROXIMITY_DWELL_MS,
-      activeId: file.id,
-      releaseSinceMs: null,
-    };
-    setActiveBuildingId(file.id);
+    proximityRef.current = initialProximityState();
+    setActiveBuildingId(null);
   }, [city.files, focusRequest, isFlyMode, setActiveBuildingId]);
 
   useEffect(() => {
@@ -73,6 +68,9 @@ export function DroneController({ city, worldSize }: DroneControllerProps) {
     }
 
     function handlePointerDown(event: PointerEvent) {
+      if (!isFlyDragTarget(event.target)) {
+        return;
+      }
       dragRef.current = { active: true, x: event.clientX };
     }
 
@@ -175,7 +173,8 @@ export function DroneController({ city, worldSize }: DroneControllerProps) {
 
 function updateChaseCamera(camera: { position: Vector3; lookAt: (target: Vector3) => void }, drone: typeof canopyWorldState.drone) {
   const forward = new Vector3(Math.sin(drone.yaw), 0, -Math.cos(drone.yaw));
-  const target = new Vector3(drone.x, drone.y + 0.8, drone.z);
+  const chaseTarget = droneChaseTarget(drone);
+  const target = new Vector3(chaseTarget.x, chaseTarget.y, chaseTarget.z);
   const desired = target.clone().addScaledVector(forward, -12).add(new Vector3(0, 5.8, 0));
   camera.position.lerp(desired, 0.16);
   camera.lookAt(target);
@@ -223,4 +222,13 @@ function nearestBuildingId(x: number, y: number, z: number): number | null {
   }
 
   return best?.id ?? null;
+}
+
+export function isFlyDragTarget(target: EventTarget | null): boolean {
+  if (isEditableTarget(target)) {
+    return false;
+  }
+
+  const element = target as { closest?: (selector: string) => unknown } | null;
+  return !element?.closest?.(".top-bar, .stats-banner, .search-box, .inspect-panel, .fly-hud, button");
 }

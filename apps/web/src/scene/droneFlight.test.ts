@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { KeySnapshot } from "../input/keys";
-import { droneGlideTargetForFile, droneSpawnForWorld, movementVectorFromKeys } from "./droneFlight";
+import { droneChaseTarget, droneGlideTargetForFile, droneSpawnForWorld, movementVectorFromKeys } from "./droneFlight";
 
 const baseKeys: KeySnapshot = {
   forward: false,
@@ -42,5 +42,9 @@ describe("drone flight helpers", () => {
     expect(target.x).toBeGreaterThan(10 + 4);
     expect(target.y).toBeGreaterThan(12);
     expect(target.z).toBeGreaterThan(20);
+  });
+
+  it("derives the orbit handoff target from the current drone pose", () => {
+    expect(droneChaseTarget({ x: 4, y: 9, z: -2, yaw: 0, speed: 0 })).toEqual({ x: 4, y: 9.8, z: -2 });
   });
 });

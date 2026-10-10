@@ -217,15 +217,15 @@ Run `pnpm.cmd test`, `pnpm.cmd typecheck`, `pnpm.cmd build`, then commit and pus
 **Interfaces:**
 - Produces: recorded Phase 5b acceptance evidence.
 
-- [ ] **Step 1: Run full verification**
+- [x] **Step 1: Run full verification**
 
 Run `pnpm.cmd test`, `pnpm.cmd typecheck`, and `pnpm.cmd build`.
 
-- [ ] **Step 2: Run browser acceptance**
+- [x] **Step 2: Run browser acceptance**
 
 Start the app, inspect desktop and mobile screenshots, and verify the WebGL canvas is nonblank. Manually check `F`, WASD/QE/Shift, input focus guard, collision, popup dwell, Expand, search glide, and orbit return.
 
-- [ ] **Step 3: Update docs and plan evidence**
+- [x] **Step 3: Update docs and plan evidence**
 
 Record commands and acceptance results in `NOTES.md` and this plan. Update `README.md` current status so drone mode is no longer pending.
 
@@ -235,4 +235,9 @@ Commit and push `phase 5b: add drone mode`.
 
 ## Acceptance Evidence
 
-- Pending.
+- 2026-10-11T03:03+05:30: `pnpm.cmd test` passed 21 files / 81 tests.
+- 2026-10-11T03:04+05:30: `pnpm.cmd typecheck` passed for shared, server, and web packages.
+- 2026-10-11T03:05+05:30: `pnpm.cmd build` passed; Vite emitted only the existing large chunk warning.
+- 2026-10-11T03:06+05:30: Production preview browser smoke passed at `http://localhost:4173/?phase5b=1`: 0 console errors/warnings, desktop screenshot `.playwright-mcp/phase5b-desktop.png`, mobile screenshot `.playwright-mcp/phase5b-mobile.png`, Fly HUD visible after pressing Fly/W, and canvas present.
+- 2026-10-11T03:06+05:30: Dev server acceptance used production preview because Vite dev optimizer still hits the documented Windows sandbox dependency-resolution issue; build/preview path renders the same app bundle cleanly.
+- 2026-10-11T03:15+05:30: Final review fix pass completed for three Important camera/search findings. Added regression tests for orbit focus gating, fly exit chase target, and UI drag target guard; `pnpm.cmd test` passed 23 files / 84 tests, `pnpm.cmd typecheck` passed, and `pnpm.cmd build` passed with the existing large chunk warning.

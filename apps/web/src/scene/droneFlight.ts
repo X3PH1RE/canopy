@@ -55,3 +55,11 @@ export function droneGlideTargetForFile(file: GlideTargetFile, liveHeight: numbe
     speed: 0,
   };
 }
+
+export function droneChaseTarget(drone: DroneWorldState): { x: number; y: number; z: number } {
+  return {
+    x: drone.x,
+    y: drone.y + 0.8,
+    z: drone.z,
+  };
+}
