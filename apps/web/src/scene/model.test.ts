@@ -3,6 +3,7 @@ import type { CityData, FileNode, Timeline } from "@canopy/shared";
 import {
   buildingHeight,
   buildingVisual,
+  cameraFocusForFile,
   edgeMatchesSelection,
   fileById,
   fileCenter,
@@ -168,5 +169,15 @@ describe("scene model helpers", () => {
     expect(edgeMatchesSelection({ from: 1, to: 2, weight: 1 }, 1)).toBe(true);
     expect(edgeMatchesSelection({ from: 1, to: 2, weight: 1 }, 2)).toBe(true);
     expect(edgeMatchesSelection({ from: 1, to: 2, weight: 1 }, 3)).toBe(false);
+  });
+
+  it("computes deterministic camera and target positions for file focus", () => {
+    const focus = cameraFocusForFile(file, 120);
+
+    expect(focus.target).toEqual([10, buildingHeight(file.loc) * 0.5, 30]);
+    expect(focus.camera[0]).toBeGreaterThan(focus.target[0]);
+    expect(focus.camera[1]).toBeGreaterThan(focus.target[1]);
+    expect(focus.camera[2]).toBeGreaterThan(focus.target[2]);
+    expect(cameraFocusForFile(file, 120)).toEqual(focus);
   });
 });

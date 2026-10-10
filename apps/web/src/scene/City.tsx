@@ -41,7 +41,7 @@ export function City() {
           <Districts city={city} worldSize={worldSize} />
           <Roads city={city} />
           <Buildings city={city} />
-          <CameraRig />
+          <CameraRig city={city} worldSize={worldSize} />
         </Suspense>
       </Canvas>
     </div>

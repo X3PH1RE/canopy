@@ -299,6 +299,12 @@ button:disabled {
   color: #4d6762;
 }
 
+.focus-button {
+  min-height: 32px;
+  margin: -4px 0 14px;
+  background: #18322f;
+}
+
 .inspect-panel dl {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

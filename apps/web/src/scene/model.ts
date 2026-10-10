@@ -10,6 +10,11 @@ export interface BuildingVisual {
   emissiveIntensity: number;
 }
 
+export interface CameraFocus {
+  camera: [number, number, number];
+  target: [number, number, number];
+}
+
 export function buildingHeight(loc: number): number {
   return Math.max(0.3, Math.log2(loc + 1) * 1.2);
 }
@@ -79,6 +84,21 @@ export function filePulseIntensity(
 
 export function edgeMatchesSelection(edge: Edge, selectedId: number | null): boolean {
   return selectedId !== null && (edge.from === selectedId || edge.to === selectedId);
+}
+
+export function cameraFocusForFile(file: FileNode, worldSize: number): CameraFocus {
+  const height = buildingHeight(file.loc);
+  const target: [number, number, number] = [file.x, height * 0.5, file.z];
+  const distance = Math.max(18, Math.min(82, worldSize * 0.18 + Math.max(file.w, file.d) * 1.8));
+
+  return {
+    target,
+    camera: [
+      file.x + distance,
+      height + distance * 0.58,
+      file.z + distance,
+    ],
+  };
 }
 
 export function fileCenter(file: FileNode): [number, number] {

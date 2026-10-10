@@ -1,6 +1,7 @@
 import type { CityData } from "@canopy/shared";
 import { buildDependencyIndex, dependenciesForFile } from "../graph";
 import { fileById } from "../scene/model";
+import { useCityStore } from "../store";
 
 interface InspectPanelProps {
   city: CityData | null;
@@ -8,6 +9,7 @@ interface InspectPanelProps {
 }
 
 export function InspectPanel({ city, selectedId }: InspectPanelProps) {
+  const requestFocus = useCityStore((state) => state.requestFocus);
   const file = selectedId === null || !city ? null : fileById(city.files, selectedId) ?? null;
   const dependencies = file && city ? dependenciesForFile(city, file.id, buildDependencyIndex(city)) : null;
 
@@ -24,6 +26,9 @@ export function InspectPanel({ city, selectedId }: InspectPanelProps) {
     <aside className="inspect-panel">
       <h2>{file.name}</h2>
       <p>{file.path}</p>
+      <button className="focus-button" type="button" onClick={() => requestFocus(file.id)}>
+        Focus
+      </button>
       <dl>
         <div><dt>LOC</dt><dd>{file.loc}</dd></div>
         <div><dt>Functions</dt><dd>{file.functionCount}</dd></div>

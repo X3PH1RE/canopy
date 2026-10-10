@@ -40,6 +40,7 @@
 - 2026-10-11T01:40:00+05:30: Added client dependency graph helpers and InspectPanel imports/imported-by lists with deduped, sorted file entries.
 - 2026-10-11T01:43:00+05:30: Added road visibility toggle, lifted dependency arcs, and selected-file road highlighting for incoming and outgoing edges.
 - 2026-10-11T01:46:00+05:30: Added file/function search with ranked results and selection wiring that queues camera focus requests.
+- 2026-10-11T01:50:00+05:30: Added deterministic camera focus math, SearchBox/InspectPanel focus requests, and smooth OrbitControls fly-to animation.
 
 ## Commands
 
