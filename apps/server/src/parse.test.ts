@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { analyzeTextFile } from "./parse";
+import { analyzeTextFile, analyzeTextFileWithParsers } from "./parse";
 
 describe("analyzeTextFile", () => {
   it("extracts basic TypeScript metrics and function summaries", () => {
@@ -38,5 +38,29 @@ const stop = () => {
     expect(metrics.functionCount).toBe(1);
     expect(metrics.complexity).toBeGreaterThanOrEqual(3);
     expect(metrics.functions[0]?.name).toBe("index");
+  });
+});
+
+describe("analyzeTextFileWithParsers", () => {
+  it("uses tree-sitter for TypeScript loc and function metrics when available", async () => {
+    const metrics = await analyzeTextFileWithParsers({
+      path: "src/app.ts",
+      language: "typescript",
+      content: `
+// tree-sitter should remove this from loc
+export function start() {
+  if (ready) {
+    return true;
+  }
+  return false;
+}
+`,
+      loc: 7,
+    });
+
+    expect(metrics.loc).toBe(6);
+    expect(metrics.functionCount).toBe(1);
+    expect(metrics.functions[0]?.name).toBe("start");
+    expect(metrics.complexity).toBeGreaterThanOrEqual(2);
   });
 });

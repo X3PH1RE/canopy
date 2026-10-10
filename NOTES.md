@@ -22,6 +22,8 @@
 - 2026-10-10T23:26:36+05:30: Added fallback metric parsing, relative JS/TS/Python import edges, and `CityData` assembly from walked files. Tree-sitter parsing is still pending inside Phase 2.
 - 2026-10-10T23:31:49+05:30: Added in-memory analyze jobs and API routes for `POST /api/analyze`, `GET /api/jobs/:id`, and `GET /api/city/:id`; tests use an injected analyzer so unit tests never clone public repos.
 - 2026-10-10T23:36:09+05:30: Wired the web URL bar to the analyze API with job polling, `/api/limits`, Vite dev proxying, progress overlay, and friendly rate-limit panel.
+- 2026-10-11T00:27:00+05:30: Pinned `web-tree-sitter@0.25.10` with `tree-sitter-wasms@0.1.13` for Phase 2 because newer `web-tree-sitter@0.26.x` has a known ABI mismatch with the WASM package. Added `@types/emscripten@1.41.6` for strict TypeScript declarations.
+- 2026-10-11T00:27:00+05:30: Switched real city assembly to tree-sitter-backed metrics for TS/JS/Python/Go/Java when grammar loading succeeds, with per-file fallback to heuristics.
 
 ## Commands
 
@@ -34,4 +36,4 @@
 ## Known limitations
 
 - The city currently renders generated sample data only. Real public GitHub repository analysis starts in Phase 2.
-- Phase 2 is in progress: fallback metrics, repo walking, jobs, API routes, and web polling exist; tree-sitter parsing and live Express/Flask acceptance checks are still pending.
+- Phase 2 live checks pass for Express and Flask. Git history, churn/risk scoring, and timeline playback start in Phase 3.

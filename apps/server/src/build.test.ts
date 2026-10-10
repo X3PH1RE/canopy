@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { buildCityFromWalk } from "./build";
 
 describe("buildCityFromWalk", () => {
-  it("assembles CityData with metrics, layout, stats, and edges", () => {
-    const city = buildCityFromWalk({
+  it("assembles CityData with parser metrics, layout, stats, and edges", async () => {
+    const city = await buildCityFromWalk({
       repo: {
         url: "https://github.com/acme/demo.git",
         name: "acme/demo",
@@ -16,7 +16,7 @@ describe("buildCityFromWalk", () => {
           path: "src/app.ts",
           language: "typescript",
           loc: 5,
-          content: "import './router';\nexport function app() { if (ok) return true; }\n",
+          content: "// ignored by tree-sitter loc\nimport './router';\nexport function app() {\n  if (ok) return true;\n}\n",
         },
         {
           path: "src/router.ts",
@@ -29,7 +29,7 @@ describe("buildCityFromWalk", () => {
 
     expect(city.repo.name).toBe("acme/demo");
     expect(city.stats.fileCount).toBe(2);
-    expect(city.stats.totalLoc).toBe(7);
+    expect(city.stats.totalLoc).toBe(5);
     expect(city.stats.languages).toEqual({ typescript: 2 });
     expect(city.files[0]?.x).toEqual(expect.any(Number));
     expect(city.edges).toEqual([{ from: 0, to: 1, weight: 1 }]);

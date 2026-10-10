@@ -135,7 +135,7 @@ async function analyzeRepository(repoUrl: string, cacheRoot: string): Promise<Ci
   }
 
   const walked = await walkRepoFiles(cloned.repoDir);
-  const city = buildCityFromWalk({
+  const city = await buildCityFromWalk({
     repo: {
       url: cloned.repo.url,
       name: cloned.repo.name,

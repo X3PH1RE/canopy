@@ -1,7 +1,7 @@
 import type { CityData, FileNode } from "@canopy/shared";
 import { extractDependencyEdges } from "./imports";
 import { layoutCity } from "./layout";
-import { analyzeTextFile } from "./parse";
+import { analyzeTextFileWithParsers } from "./parse";
 import type { WalkFile } from "./walk";
 
 interface BuildCityInput {
@@ -15,11 +15,13 @@ interface BuildCityInput {
   files: WalkFile[];
 }
 
-export function buildCityFromWalk(input: BuildCityInput): CityData {
-  const parsed = input.files
-    .slice()
-    .sort((a, b) => a.path.localeCompare(b.path))
-    .map((file, id) => analyzeTextFile(file, id));
+export async function buildCityFromWalk(input: BuildCityInput): Promise<CityData> {
+  const parsed = await Promise.all(
+    input.files
+      .slice()
+      .sort((a, b) => a.path.localeCompare(b.path))
+      .map((file, id) => analyzeTextFileWithParsers(file, id)),
+  );
   const layout = layoutCity(parsed.map((file) => ({
     path: file.path,
     loc: file.loc,
