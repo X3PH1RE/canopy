@@ -7,6 +7,7 @@ import {
   fileCenter,
   fileChangedRecently,
   fileLocAtFrame,
+  filePulseIntensity,
   locAtFrame,
   sceneWorldSize,
 } from "./model";
@@ -136,5 +137,19 @@ describe("scene model helpers", () => {
     expect(fileChangedRecently(0, timeline, 12, 5)).toBe(false);
     expect(fileChangedRecently(1, timeline, 10, 5)).toBe(false);
     expect(fileChangedRecently(9, timeline, 10, 5)).toBe(false);
+  });
+
+  it("computes warm pulse intensity for recent timeline changes only", () => {
+    const timeline: Timeline = {
+      frameCount: 20,
+      frameDates: Array.from({ length: 20 }, (_, index) => `2024-02-${String(index + 1).padStart(2, "0")}T00:00:00.000Z`),
+      locSeries: [[], []],
+      changeFrames: [[5, 10], [1]],
+    };
+
+    expect(filePulseIntensity(0, timeline, 12, 5)).toBeCloseTo(0.32, 5);
+    expect(filePulseIntensity(0, timeline, 16, 5)).toBe(0);
+    expect(filePulseIntensity(1, timeline, 12, 5)).toBe(0);
+    expect(filePulseIntensity(0, null, 12, 5)).toBe(0);
   });
 });

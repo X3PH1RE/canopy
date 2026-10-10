@@ -53,6 +53,15 @@ export function fileChangedRecently(
   return (timeline.changeFrames[fileId] ?? []).some((changeFrame) => changeFrame <= frame && changeFrame >= startFrame);
 }
 
+export function filePulseIntensity(
+  fileId: number,
+  timeline: Timeline | null,
+  frame: number,
+  windowSize: number,
+): number {
+  return fileChangedRecently(fileId, timeline, frame, windowSize) ? 0.32 : 0;
+}
+
 export function fileCenter(file: FileNode): [number, number] {
   return [file.x, file.z];
 }
