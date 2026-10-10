@@ -59,6 +59,7 @@
 - 2026-10-11T03:40:00+05:30: Phase 6 review fixes: complete language legend, repeat-safe shortcuts, live-height solar panels, and mobile legend/timeline spacing; tests 27 files/93 tests, typecheck, build, and browser preview passed with clean console.
 - 2026-10-11T03:41:00+05:30: Completed Phase 6 and made the formal phase commit.
 - 2026-10-11T03:52:00+05:30: Fixed analyze-route failures caused by stale/local preview routing: preview now proxies `/api`, API 404s explain the server/proxy issue, and failed analyzes keep the existing city visible with an alert.
+- 2026-10-11T04:05:00+05:30: GitHub analysis works when the dev server is started with network access; cached analyzed repos are excluded from Vitest so tests never execute code from analyzed repos.
 
 ## Commands
 

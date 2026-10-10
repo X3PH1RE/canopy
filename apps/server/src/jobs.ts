@@ -78,6 +78,21 @@ async function runJob(
     job.status = "error";
     job.stage = "error";
     job.progress = 1;
-    job.error = error instanceof Error ? error.message : "Analysis failed";
+    job.error = userFacingAnalysisError(error);
   }
+}
+
+export function userFacingAnalysisError(error: unknown): string {
+  if (!(error instanceof Error)) {
+    return "Analysis failed";
+  }
+
+  if (
+    error.message.includes("github.com") &&
+    (error.message.includes("Failed to connect") || error.message.includes("Couldn't connect to server"))
+  ) {
+    return "Could not reach GitHub while cloning the repository. Check your internet connection, then try again.";
+  }
+
+  return error.message;
 }

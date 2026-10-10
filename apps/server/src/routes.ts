@@ -19,7 +19,7 @@ interface ServerOptions {
 
 export function buildServer(options: ServerOptions = {}): FastifyInstance {
   const config = options.config ?? loadConfig();
-  const cacheRoot = options.cacheRoot ?? path.resolve("apps/server/cache");
+  const cacheRoot = options.cacheRoot ?? defaultCacheRoot();
   const analyzer = options.analyzer ?? ((repoUrl: string) => analyzeRepository(repoUrl, cacheRoot));
   const rateLimiter =
     options.rateLimiter ??
@@ -124,6 +124,10 @@ export function buildServer(options: ServerOptions = {}): FastifyInstance {
   });
 
   return app;
+}
+
+export function defaultCacheRoot(cwd = process.cwd()): string {
+  return path.resolve(cwd, "cache");
 }
 
 async function analyzeRepository(repoUrl: string, cacheRoot: string): Promise<CityData> {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { buildServer } from "./routes";
+import path from "node:path";
+import { buildServer, defaultCacheRoot } from "./routes";
 import { makeFakeCity } from "./fakeCity";
 
 describe("health route", () => {
@@ -43,6 +44,10 @@ describe("limits route", () => {
 });
 
 describe("analyze routes", () => {
+  it("uses a cache path relative to the server package cwd", () => {
+    expect(defaultCacheRoot(path.resolve("apps/server"))).toBe(path.resolve("apps/server/cache"));
+  });
+
   it("rejects invalid URLs without consuming a rate-limit slot", async () => {
     const server = buildServer({
       config: testConfig(),
