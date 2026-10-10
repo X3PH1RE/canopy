@@ -7,6 +7,7 @@ interface CityState {
   selectedId: number | null;
   hoveredId: number | null;
   viewMode: ViewMode;
+  showRoads: boolean;
   timelineFrame: number;
   isTimelinePlaying: boolean;
   error: string | null;
@@ -14,6 +15,7 @@ interface CityState {
   setSelectedId: (id: number | null) => void;
   setHoveredId: (id: number | null) => void;
   setViewMode: (viewMode: ViewMode) => void;
+  setShowRoads: (showRoads: boolean) => void;
   setTimelineFrame: (frame: number) => void;
   setTimelinePlaying: (isPlaying: boolean) => void;
   setError: (message: string | null) => void;
@@ -24,6 +26,7 @@ export const useCityStore = create<CityState>((set) => ({
   selectedId: null,
   hoveredId: null,
   viewMode: "language",
+  showRoads: false,
   timelineFrame: 0,
   isTimelinePlaying: false,
   error: null,
@@ -31,6 +34,7 @@ export const useCityStore = create<CityState>((set) => ({
   setSelectedId: (selectedId) => set({ selectedId }),
   setHoveredId: (hoveredId) => set({ hoveredId }),
   setViewMode: (viewMode) => set({ viewMode }),
+  setShowRoads: (showRoads) => set({ showRoads }),
   setTimelineFrame: (frame) => set((state) => ({ timelineFrame: clampTimelineFrame(frame, state.city) })),
   setTimelinePlaying: (isTimelinePlaying) => set({ isTimelinePlaying }),
   setError: (error) => set({ error }),

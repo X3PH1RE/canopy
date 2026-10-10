@@ -1,4 +1,4 @@
-import type { CityData, FileNode, Timeline } from "@canopy/shared";
+import type { CityData, Edge, FileNode, Timeline } from "@canopy/shared";
 import { languageColors, theme, viewRamps } from "../theme";
 
 export type ViewMode = "language" | "churn" | "complexity" | "risk";
@@ -75,6 +75,10 @@ export function filePulseIntensity(
   windowSize: number,
 ): number {
   return fileChangedRecently(fileId, timeline, frame, windowSize) ? 0.32 : 0;
+}
+
+export function edgeMatchesSelection(edge: Edge, selectedId: number | null): boolean {
+  return selectedId !== null && (edge.from === selectedId || edge.to === selectedId);
 }
 
 export function fileCenter(file: FileNode): [number, number] {

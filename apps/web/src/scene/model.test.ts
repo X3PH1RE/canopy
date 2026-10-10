@@ -3,6 +3,7 @@ import type { CityData, FileNode, Timeline } from "@canopy/shared";
 import {
   buildingHeight,
   buildingVisual,
+  edgeMatchesSelection,
   fileById,
   fileCenter,
   fileChangedRecently,
@@ -160,5 +161,12 @@ describe("scene model helpers", () => {
     expect(nextDisplayHeight(2, 10, 0.016, true)).toBe(10);
     expect(nextDisplayHeight(2, 10, 0.016, false)).toBeGreaterThan(2);
     expect(nextDisplayHeight(2, 10, 0.016, false)).toBeLessThan(10);
+  });
+
+  it("matches incoming and outgoing dependency roads for the selected file", () => {
+    expect(edgeMatchesSelection({ from: 1, to: 2, weight: 1 }, null)).toBe(false);
+    expect(edgeMatchesSelection({ from: 1, to: 2, weight: 1 }, 1)).toBe(true);
+    expect(edgeMatchesSelection({ from: 1, to: 2, weight: 1 }, 2)).toBe(true);
+    expect(edgeMatchesSelection({ from: 1, to: 2, weight: 1 }, 3)).toBe(false);
   });
 });

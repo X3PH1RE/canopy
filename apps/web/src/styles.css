@@ -177,6 +177,18 @@ button:disabled {
   color: #1f3a2e;
 }
 
+.toggle-button {
+  justify-self: start;
+  min-height: 32px;
+  background: rgba(31, 58, 46, 0.16);
+  color: #1f3a2e;
+}
+
+.toggle-button.is-active {
+  background: #18322f;
+  color: #fff8e0;
+}
+
 .inspect-panel {
   right: 18px;
   top: 92px;

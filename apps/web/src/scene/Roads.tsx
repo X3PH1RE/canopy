@@ -1,18 +1,29 @@
 import { Line } from "@react-three/drei";
 import type { CityData } from "@canopy/shared";
 import { theme } from "../theme";
-import { fileById, fileCenter } from "./model";
+import { useCityStore } from "../store";
+import { buildingHeight, edgeMatchesSelection, fileById, fileCenter } from "./model";
 
 interface RoadsProps {
   city: CityData;
 }
 
 export function Roads({ city }: RoadsProps) {
-  const roadEdges = city.edges.slice(0, 140);
+  const showRoads = useCityStore((state) => state.showRoads);
+  const selectedId = useCityStore((state) => state.selectedId);
+  const roadEdges = selectedId === null
+    ? city.edges.slice(0, 320)
+    : city.edges.filter((edge) => edgeMatchesSelection(edge, selectedId)).concat(
+      city.edges.filter((edge) => !edgeMatchesSelection(edge, selectedId)).slice(0, 180),
+    );
+
+  if (!showRoads) {
+    return null;
+  }
 
   return (
     <group>
-      {roadEdges.map((edge, index) => {
+      {roadEdges.slice(0, 420).map((edge, index) => {
         const from = fileById(city.files, edge.from);
         const to = fileById(city.files, edge.to);
 
@@ -22,18 +33,23 @@ export function Roads({ city }: RoadsProps) {
 
         const [fromX, fromZ] = fileCenter(from);
         const [toX, toZ] = fileCenter(to);
+        const isHighlighted = edgeMatchesSelection(edge, selectedId);
+        const fromY = buildingHeight(from.loc) + 0.14;
+        const toY = buildingHeight(to.loc) + 0.14;
+        const lift = Math.max(3, Math.min(12, Math.hypot(fromX - toX, fromZ - toZ) * 0.08));
 
         return (
           <Line
             key={`${edge.from}-${edge.to}-${index}`}
             points={[
-              [fromX, 0.08, fromZ],
-              [toX, 0.08, toZ],
+              [fromX, fromY, fromZ],
+              [(fromX + toX) / 2, Math.max(fromY, toY) + lift, (fromZ + toZ) / 2],
+              [toX, toY, toZ],
             ]}
-            color={theme.ink}
+            color={isHighlighted ? theme.sun : theme.ink}
             transparent
-            opacity={0.16 + Math.min(edge.weight, 3) * 0.05}
-            lineWidth={1}
+            opacity={isHighlighted ? 0.78 : selectedId === null ? 0.26 : 0.08}
+            lineWidth={isHighlighted ? 2.2 : 1}
           />
         );
       })}
