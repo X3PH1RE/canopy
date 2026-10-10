@@ -43,8 +43,8 @@ pnpm build
 
 ## Current Status
 
-- Working features: pnpm workspace, shared `CityData` types, Fastify `/api/health`, deterministic fake city generation, treemap layout tests, generated sample data, a full-screen 3D city scene, district plates, dependency roads, orbit controls, hover highlighting, click selection, inspect panel metrics, strict TypeScript checks, and Vitest setup.
-- Known limitations: The app renders generated sample data only. Real GitHub repository analysis, git history playback, risk hotspot rules, URL submission, and persistence start in later phases.
+- Working features: pnpm workspace, shared `CityData` types, Fastify `/api/health`, `/api/limits`, in-memory analyze jobs, safe GitHub URL validation, repo walking filters, fallback metrics, relative JS/TS/Python dependency edges, deterministic fake city generation, treemap layout tests, generated sample data, a full-screen 3D city scene, district plates, dependency roads, orbit controls, hover highlighting, click selection, inspect panel metrics, URL submission UI, progress overlay, strict TypeScript checks, and Vitest setup.
+- Known limitations: Phase 2 is still in progress. Tree-sitter parsing, live Express/Flask acceptance checks, git history playback, risk hotspot rules, and persisted production-ready cache behavior are not complete yet.
 - Libraries, APIs, and public datasets used: Fastify, Vite, React, React Three Fiber, Drei, Three.js, Zustand, TypeScript, Vitest, d3-hierarchy, and fontsource packages. No external datasets are used in Phase 1.
 
 See [AI_USAGE.md](AI_USAGE.md) for AI assistance and [CHANGELOG.md](CHANGELOG.md) for the development record.

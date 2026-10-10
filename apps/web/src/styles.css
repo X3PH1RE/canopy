@@ -58,6 +58,23 @@ main {
   border-radius: 8px;
 }
 
+.repo-form {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) auto auto;
+  gap: 8px;
+  width: min(680px, 68vw);
+}
+
+input {
+  min-height: 38px;
+  border: 1px solid rgba(24, 50, 47, 0.22);
+  border-radius: 8px;
+  padding: 0 12px;
+  background: rgba(255, 255, 255, 0.62);
+  color: #18322f;
+  font: inherit;
+}
+
 .top-bar strong,
 .inspect-panel h2 {
   display: block;
@@ -103,6 +120,49 @@ button:disabled {
   min-height: 220px;
   padding: 18px;
   border-radius: 8px;
+}
+
+.progress-overlay {
+  position: absolute;
+  z-index: 12;
+  left: 50%;
+  top: 108px;
+  width: 320px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: rgba(255, 248, 224, 0.82);
+  color: #18322f;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 18px 50px rgba(24, 50, 47, 0.18);
+}
+
+.progress-overlay strong {
+  font-family: "Fraunces", Georgia, serif;
+}
+
+.progress-overlay p {
+  margin: 4px 0 12px;
+  color: #4d6762;
+}
+
+.progress-track {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(24, 50, 47, 0.16);
+}
+
+.progress-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #ffc83d;
+}
+
+.rate-limit-panel {
+  border-color: rgba(255, 200, 61, 0.62);
 }
 
 .inspect-panel h2 {

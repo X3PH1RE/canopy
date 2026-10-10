@@ -21,6 +21,7 @@
 - 2026-10-10T23:22:07+05:30: Added safe GitHub URL normalization, argument-array `git` process helpers with prompts disabled, JSON cache helpers, and repo file walking that filters vendored/media/lock/binary/oversize files.
 - 2026-10-10T23:26:36+05:30: Added fallback metric parsing, relative JS/TS/Python import edges, and `CityData` assembly from walked files. Tree-sitter parsing is still pending inside Phase 2.
 - 2026-10-10T23:31:49+05:30: Added in-memory analyze jobs and API routes for `POST /api/analyze`, `GET /api/jobs/:id`, and `GET /api/city/:id`; tests use an injected analyzer so unit tests never clone public repos.
+- 2026-10-10T23:36:09+05:30: Wired the web URL bar to the analyze API with job polling, `/api/limits`, Vite dev proxying, progress overlay, and friendly rate-limit panel.
 
 ## Commands
 
@@ -33,3 +34,4 @@
 ## Known limitations
 
 - The city currently renders generated sample data only. Real public GitHub repository analysis starts in Phase 2.
+- Phase 2 is in progress: fallback metrics, repo walking, jobs, API routes, and web polling exist; tree-sitter parsing and live Express/Flask acceptance checks are still pending.
