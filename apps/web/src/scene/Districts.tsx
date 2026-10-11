@@ -10,10 +10,7 @@ interface DistrictsProps {
 export function Districts({ city, worldSize }: DistrictsProps) {
   return (
     <group>
-      <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.05, 0]}>
-        <planeGeometry args={[worldSize + 18, worldSize + 18]} />
-        <meshStandardMaterial color={theme.ground} roughness={0.86} />
-      </mesh>
+      <Island worldSize={worldSize} />
       {city.districts.map((district) => (
         <group key={`${district.path}-${district.depth}`}>
           <mesh
@@ -43,4 +40,22 @@ export function Districts({ city, worldSize }: DistrictsProps) {
 function districtLabel(path: string): string {
   const label = path.split("/").filter(Boolean).at(-1) ?? path;
   return label || "root";
+}
+
+function Island({ worldSize }: { worldSize: number }) {
+  const radius = worldSize * 0.76 + 14;
+  return (
+    <group>
+      <mesh position={[0, -2.05, 0]} receiveShadow>
+        <cylinderGeometry args={[radius, radius * 0.97, 4, 96]} />
+        <meshStandardMaterial attach="material-0" color="#8a6a45" roughness={0.95} />
+        <meshStandardMaterial attach="material-1" color={theme.ground} roughness={0.9} />
+        <meshStandardMaterial attach="material-2" color="#6e5236" roughness={0.95} />
+      </mesh>
+      <mesh position={[0, -4 - radius * 0.28, 0]} rotation={[Math.PI, 0, 0]}>
+        <coneGeometry args={[radius * 0.97, radius * 0.56, 48]} />
+        <meshStandardMaterial color="#6e5236" roughness={0.95} flatShading />
+      </mesh>
+    </group>
+  );
 }

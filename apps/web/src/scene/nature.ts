@@ -88,3 +88,52 @@ function unit(seed: number): number {
 function round(value: number): number {
   return Math.round(value * 100) / 100;
 }
+
+export interface Pond {
+  x: number;
+  z: number;
+  radius: number;
+}
+
+export function pondsForCity(city: CityData, worldSize: number): Pond[] {
+  const ponds: Pond[] = [];
+  const half = worldSize / 2 + 6;
+  for (let attempt = 0; attempt < 60 && ponds.length < 3; attempt += 1) {
+    const seed = hash(`${city.repo.name}:pond:${attempt}`);
+    const x = (unit(seed) * 2 - 1) * half;
+    const z = (unit(seed * 1664525 + 1013904223) * 2 - 1) * half;
+    const radius = round(2.4 + unit(seed * 31) * 1.8);
+    if (city.files.some((file) => insideBuildingBuffer(file, x, z, radius + 1.5))) {
+      continue;
+    }
+    if (ponds.some((pond) => Math.hypot(pond.x - x, pond.z - z) < pond.radius + radius + 6)) {
+      continue;
+    }
+    ponds.push({ x: round(x), z: round(z), radius });
+  }
+  return ponds;
+}
+
+export function groundcoverForCity(
+  city: CityData,
+  worldSize: number,
+  count: number,
+  tag: string,
+  ponds: Pond[],
+): TreePlacement[] {
+  const half = worldSize / 2 + 8;
+  const spots: TreePlacement[] = [];
+  for (let attempt = 0; attempt < count * 8 && spots.length < count; attempt += 1) {
+    const seed = hash(`${city.repo.name}:${tag}:${attempt}`);
+    const x = (unit(seed) * 2 - 1) * half;
+    const z = (unit(seed * 1664525 + 1013904223) * 2 - 1) * half;
+    if (city.files.some((file) => insideBuildingBuffer(file, x, z, 1.1))) {
+      continue;
+    }
+    if (ponds.some((pond) => Math.hypot(pond.x - x, pond.z - z) < pond.radius + 1)) {
+      continue;
+    }
+    spots.push({ x: round(x), z: round(z), scale: round(0.6 + unit(seed * 31) * 0.8), hue: round(unit(seed * 131)) });
+  }
+  return spots;
+}

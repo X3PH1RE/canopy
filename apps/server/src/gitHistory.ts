@@ -211,8 +211,10 @@ function buildTimeline(
     return null;
   }
 
-  const first = commits[0]!.timestamp;
-  const last = commits[commits.length - 1]!.timestamp;
+  // Author dates are not monotonic after rebases or cherry-picks, so bound the timeline by min/max, not log order.
+  const timestamps = commits.map((commit) => commit.timestamp);
+  const first = Math.min(...timestamps);
+  const last = Math.max(...timestamps);
   const span = last - first;
   if (span <= 0) {
     return null;
