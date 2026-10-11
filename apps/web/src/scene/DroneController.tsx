@@ -22,12 +22,7 @@ export function DroneController({ city, worldSize }: DroneControllerProps) {
   const keys = useKeyControls(true);
   const isFlyMode = useCityStore((state) => state.isFlyMode);
   const focusRequest = useCityStore((state) => state.focusRequest);
-  const setFlyMode = useCityStore((state) => state.setFlyMode);
-  const setSelectedId = useCityStore((state) => state.setSelectedId);
   const setActiveBuildingId = useCityStore((state) => state.setActiveBuildingId);
-  const previousToggle = useRef(false);
-  const previousExpand = useRef(false);
-  const previousEscape = useRef(false);
   const yawRef = useRef(canopyWorldState.drone.yaw);
   const dragRef = useRef<{ active: boolean; x: number }>({ active: false, x: 0 });
   const proximityRef = useRef<ProximityState>(initialProximityState());
@@ -39,12 +34,28 @@ export function DroneController({ city, worldSize }: DroneControllerProps) {
     yawRef.current = next.yaw;
   }, [city, worldSize]);
 
+  // One-shot keys are handled on the event itself; polling held-key state drops quick taps between renders.
   useEffect(() => {
-    if (keys.toggleFly && !previousToggle.current) {
-      setFlyMode(!useCityStore.getState().isFlyMode);
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || isEditableTarget(event.target)) {
+        return;
+      }
+
+      const key = event.key.toLowerCase();
+      const state = useCityStore.getState();
+      if (key === "f") {
+        state.setFlyMode(!state.isFlyMode);
+      } else if (state.isFlyMode && key === "enter" && state.activeBuildingId !== null) {
+        state.setSelectedId(state.activeBuildingId);
+      } else if (state.isFlyMode && key === "escape") {
+        state.setActiveBuildingId(null);
+        proximityRef.current = initialProximityState();
+      }
     }
-    previousToggle.current = keys.toggleFly;
-  }, [keys.toggleFly, setFlyMode]);
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     if (!isFlyMode || !focusRequest) {
@@ -102,17 +113,6 @@ export function DroneController({ city, worldSize }: DroneControllerProps) {
     if (!isFlyMode) {
       return;
     }
-
-    const activeId = useCityStore.getState().activeBuildingId;
-    if (keys.expand && !previousExpand.current && activeId !== null) {
-      setSelectedId(activeId);
-    }
-    if (keys.escape && !previousEscape.current) {
-      setActiveBuildingId(null);
-      proximityRef.current = initialProximityState();
-    }
-    previousExpand.current = keys.expand;
-    previousEscape.current = keys.escape;
 
     const clampedDelta = Math.min(delta, 0.05);
     yawRef.current += ((keys.yawRight ? 1 : 0) - (keys.yawLeft ? 1 : 0)) * clampedDelta * 1.8;
