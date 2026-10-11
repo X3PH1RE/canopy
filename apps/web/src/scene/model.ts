@@ -24,6 +24,13 @@ export interface BuildingArchetype {
   crownInset: number;
 }
 
+export interface BuildingDetailPlan {
+  finCount: number;
+  windowBandCount: number;
+  tierCount: number;
+  showBase: boolean;
+}
+
 export interface CameraFocus {
   camera: [number, number, number];
   target: [number, number, number];
@@ -103,6 +110,62 @@ export function buildingArchetype(file: FileNode): BuildingArchetype {
     windowBandCount: 4 + (seed % 3),
     tierCount: 1,
     crownInset: 0.12,
+  };
+}
+
+export function buildingDetailPlan(
+  file: FileNode,
+  archetype: BuildingArchetype,
+  fileCount: number,
+  isInteractive: boolean,
+): BuildingDetailPlan {
+  const isStandout = file.loc >= 700 || file.complexity >= 14 || file.churn >= 8 || file.risk >= 0.65;
+
+  if (isInteractive) {
+    return {
+      finCount: Math.max(2, Math.ceil(archetype.finCount * 0.7)),
+      windowBandCount: Math.max(2, Math.ceil(archetype.windowBandCount * 0.7)),
+      tierCount: Math.max(1, Math.min(archetype.tierCount, 2)),
+      showBase: true,
+    };
+  }
+
+  if (fileCount >= 260 && !isStandout) {
+    return { finCount: 0, windowBandCount: 0, tierCount: 0, showBase: false };
+  }
+
+  if (fileCount >= 260) {
+    return {
+      finCount: Math.min(2, Math.ceil(archetype.finCount * 0.28)),
+      windowBandCount: Math.min(2, Math.ceil(archetype.windowBandCount * 0.35)),
+      tierCount: Math.min(1, archetype.tierCount),
+      showBase: true,
+    };
+  }
+
+  if (fileCount >= 120 && !isStandout) {
+    return {
+      finCount: Math.min(2, Math.ceil(archetype.finCount * 0.35)),
+      windowBandCount: Math.min(1, Math.ceil(archetype.windowBandCount * 0.35)),
+      tierCount: 0,
+      showBase: true,
+    };
+  }
+
+  if (fileCount >= 120) {
+    return {
+      finCount: Math.min(4, Math.ceil(archetype.finCount * 0.55)),
+      windowBandCount: Math.min(3, Math.ceil(archetype.windowBandCount * 0.6)),
+      tierCount: Math.min(2, archetype.tierCount),
+      showBase: true,
+    };
+  }
+
+  return {
+    finCount: archetype.finCount,
+    windowBandCount: archetype.windowBandCount,
+    tierCount: archetype.tierCount,
+    showBase: true,
   };
 }
 

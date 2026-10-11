@@ -3,6 +3,7 @@ import type { CityData, FileNode, Timeline } from "@canopy/shared";
 import {
   buildingHeight,
   buildingArchetype,
+  buildingDetailPlan,
   buildingVisual,
   cameraFocusForFile,
   edgeMatchesSelection,
@@ -61,6 +62,24 @@ describe("scene model helpers", () => {
     expect(archetype.baseScale).toBeLessThanOrEqual(0.84);
     expect(archetype.bodyScale).toBeGreaterThan(0.5);
     expect(archetype.tierCount).toBeGreaterThanOrEqual(1);
+  });
+
+  it("budgets facade detail for dense cities while preserving interactive buildings", () => {
+    const smallFile = { ...file, id: 18, loc: 80, complexity: 3, churn: 0, risk: 0.1 };
+    const largeFile = { ...file, id: 19, loc: 1600, complexity: 21, churn: 12, risk: 0.8 };
+    const smallArchetype = buildingArchetype(smallFile);
+    const largeArchetype = buildingArchetype(largeFile);
+
+    expect(buildingDetailPlan(smallFile, smallArchetype, 320, false)).toMatchObject({
+      finCount: 0,
+      windowBandCount: 0,
+      tierCount: 0,
+      showBase: false,
+    });
+    expect(buildingDetailPlan(smallFile, smallArchetype, 320, true).finCount).toBeGreaterThan(0);
+    expect(buildingDetailPlan(largeFile, largeArchetype, 320, false).windowBandCount).toBeLessThan(
+      largeArchetype.windowBandCount,
+    );
   });
 
   it("uses layout file centers directly as scene coordinates", () => {

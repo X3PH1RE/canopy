@@ -6,6 +6,7 @@ import { theme } from "../theme";
 import { useCityStore } from "../store";
 import {
   buildingArchetype,
+  buildingDetailPlan,
   buildingHeight,
   buildingVisual,
   fileCenter,
@@ -96,6 +97,7 @@ function Building({
   const [x, z] = fileCenter(file);
   const visual = buildingVisual(file, city.files, viewMode);
   const archetype = buildingArchetype(file);
+  const detailPlan = buildingDetailPlan(file, archetype, city.files.length, isHovered || isSelected || isActive);
   const pulseIntensity = filePulseIntensity(file.id, city.timeline, timelineFrame, 5);
   const bodyWidth = file.w * archetype.bodyScale;
   const bodyDepth = file.d * archetype.bodyScale;
@@ -142,10 +144,12 @@ function Building({
 
   return (
     <group position={[x, 0, z]}>
-      <mesh position={[0, archetype.baseHeight / 2, 0]} receiveShadow>
-        <boxGeometry args={[baseWidth, archetype.baseHeight, baseDepth]} />
-        <meshStandardMaterial color={theme.timber} roughness={0.72} metalness={0.02} />
-      </mesh>
+      {detailPlan.showBase ? (
+        <mesh position={[0, archetype.baseHeight / 2, 0]} receiveShadow>
+          <boxGeometry args={[baseWidth, archetype.baseHeight, baseDepth]} />
+          <meshStandardMaterial color={theme.timber} roughness={0.72} metalness={0.02} />
+        </mesh>
+      ) : null}
       <mesh
         castShadow
         receiveShadow
@@ -171,8 +175,8 @@ function Building({
         />
       </mesh>
       <group ref={detailsRef}>
-        {range(archetype.finCount).map((index) => {
-          const offsetX = distribute(index, archetype.finCount, bodyWidth * 0.76);
+        {range(detailPlan.finCount).map((index) => {
+          const offsetX = distribute(index, detailPlan.finCount, bodyWidth * 0.76);
           return (
             <group key={`fin-${index}`}>
               <mesh position={[offsetX, initialHeight.current * 0.5, bodyDepth / 2 + 0.035]} castShadow>
@@ -186,8 +190,8 @@ function Building({
             </group>
           );
         })}
-        {range(archetype.windowBandCount).map((index) => {
-          const offsetY = ((index + 1) / (archetype.windowBandCount + 1)) * initialHeight.current;
+        {range(detailPlan.windowBandCount).map((index) => {
+          const offsetY = ((index + 1) / (detailPlan.windowBandCount + 1)) * initialHeight.current;
           const bandWidth = bodyWidth * (archetype.kind === "slimTower" ? 0.62 : 0.76);
           return (
             <group key={`band-${index}`}>
@@ -216,8 +220,8 @@ function Building({
             </group>
           );
         })}
-        {range(archetype.tierCount).map((index) => {
-          const t = (index + 1) / (archetype.tierCount + 1);
+        {range(detailPlan.tierCount).map((index) => {
+          const t = (index + 1) / (detailPlan.tierCount + 1);
           const tierScale = 1 - archetype.crownInset * t;
           const offsetY = initialHeight.current * (0.68 + t * 0.22);
           return (
