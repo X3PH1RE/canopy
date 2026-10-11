@@ -261,7 +261,7 @@ button:disabled {
 }
 
 .legend-panel {
-  right: var(--hud-edge);
+  left: var(--hud-edge);
   bottom: 108px;
   width: 276px;
   border-radius: 8px;
@@ -297,10 +297,10 @@ button:disabled {
 }
 
 .fly-hud {
-  left: var(--hud-edge);
+  left: var(--center-left);
   bottom: 108px;
   display: grid;
-  width: 330px;
+  width: min(330px, calc(100vw - var(--center-left) - var(--center-right)));
   gap: 8px;
   border-radius: 8px;
   padding: 12px 14px;
@@ -583,7 +583,7 @@ button:disabled {
   }
 
   .legend-panel {
-    right: 10px;
+    left: 10px;
     bottom: 92px;
     width: 168px;
   }
