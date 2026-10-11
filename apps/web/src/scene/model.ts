@@ -10,6 +10,20 @@ export interface BuildingVisual {
   emissiveIntensity: number;
 }
 
+export type BuildingArchetypeKind = "slimTower" | "steppedBlock" | "terracedBlock" | "glassSlab";
+
+export interface BuildingArchetype {
+  kind: BuildingArchetypeKind;
+  bodyScale: number;
+  roofScale: number;
+  baseScale: number;
+  baseHeight: number;
+  finCount: number;
+  windowBandCount: number;
+  tierCount: number;
+  crownInset: number;
+}
+
 export interface CameraFocus {
   camera: [number, number, number];
   target: [number, number, number];
@@ -17,6 +31,79 @@ export interface CameraFocus {
 
 export function buildingHeight(loc: number): number {
   return Math.max(0.3, Math.log2(loc + 1) * 1.2);
+}
+
+export function buildingArchetype(file: FileNode): BuildingArchetype {
+  const footprint = Math.max(1, file.w * file.d);
+  const density = file.loc / footprint;
+  const seed = hashFile(file);
+  let kind: BuildingArchetypeKind;
+
+  if (density >= 36 && file.loc >= 900) {
+    kind = "slimTower";
+  } else if (file.complexity >= 18 || file.risk >= 0.75) {
+    kind = "steppedBlock";
+  } else if (file.churn >= 10 || file.authorCount >= 4) {
+    kind = "terracedBlock";
+  } else if (Math.max(file.w, file.d) / Math.max(1, Math.min(file.w, file.d)) >= 1.35) {
+    kind = "glassSlab";
+  } else {
+    kind = (["terracedBlock", "glassSlab", "steppedBlock", "slimTower"] as const)[seed % 4];
+  }
+
+  if (kind === "slimTower") {
+    return {
+      kind,
+      bodyScale: 0.58,
+      roofScale: 0.66,
+      baseScale: 0.76,
+      baseHeight: 0.32,
+      finCount: 6 + (seed % 3),
+      windowBandCount: 4 + (seed % 4),
+      tierCount: 1,
+      crownInset: 0.18,
+    };
+  }
+
+  if (kind === "steppedBlock") {
+    return {
+      kind,
+      bodyScale: 0.66,
+      roofScale: 0.72,
+      baseScale: 0.84,
+      baseHeight: 0.28,
+      finCount: 4 + (seed % 3),
+      windowBandCount: 3 + (seed % 3),
+      tierCount: 3,
+      crownInset: 0.28,
+    };
+  }
+
+  if (kind === "terracedBlock") {
+    return {
+      kind,
+      bodyScale: 0.68,
+      roofScale: 0.78,
+      baseScale: 0.84,
+      baseHeight: 0.24,
+      finCount: 3 + (seed % 3),
+      windowBandCount: 2 + (seed % 3),
+      tierCount: 2,
+      crownInset: 0.22,
+    };
+  }
+
+  return {
+    kind,
+    bodyScale: 0.7,
+    roofScale: 0.76,
+    baseScale: 0.82,
+    baseHeight: 0.22,
+    finCount: 5 + (seed % 4),
+    windowBandCount: 4 + (seed % 3),
+    tierCount: 1,
+    crownInset: 0.12,
+  };
 }
 
 export function nextDisplayHeight(
@@ -214,4 +301,14 @@ function rgbToHex([r, g, b]: [number, number, number]): string {
 
 function toHex(value: number): string {
   return value.toString(16).padStart(2, "0");
+}
+
+function hashFile(file: FileNode): number {
+  let result = 2166136261;
+  const value = `${file.id}:${file.path}:${file.loc}:${file.complexity}:${file.churn}`;
+  for (let index = 0; index < value.length; index += 1) {
+    result ^= value.charCodeAt(index);
+    result = Math.imul(result, 16777619);
+  }
+  return result >>> 0;
 }

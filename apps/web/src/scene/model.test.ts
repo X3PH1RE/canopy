@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { CityData, FileNode, Timeline } from "@canopy/shared";
 import {
   buildingHeight,
+  buildingArchetype,
   buildingVisual,
   cameraFocusForFile,
   edgeMatchesSelection,
@@ -38,6 +39,28 @@ describe("scene model helpers", () => {
   it("maps lines of code to a stable logarithmic building height", () => {
     expect(buildingHeight(0)).toBe(0.3);
     expect(buildingHeight(127)).toBeCloseTo(8.4, 5);
+  });
+
+  it("derives deterministic building archetypes from file metrics", () => {
+    const slim = buildingArchetype({ ...file, id: 12, loc: 1800, w: 5, d: 5, complexity: 4, churn: 1 });
+    const active = buildingArchetype({ ...file, id: 13, loc: 220, w: 11, d: 9, complexity: 22, churn: 18 });
+    const repeated = buildingArchetype({ ...file, id: 13, loc: 220, w: 11, d: 9, complexity: 22, churn: 18 });
+
+    expect(slim.kind).toBe("slimTower");
+    expect(slim.finCount).toBeGreaterThanOrEqual(6);
+    expect(slim.windowBandCount).toBeGreaterThanOrEqual(4);
+    expect(active.kind).toBe("steppedBlock");
+    expect(active).toEqual(repeated);
+  });
+
+  it("keeps procedural building parts inside the collision footprint", () => {
+    const archetype = buildingArchetype({ ...file, id: 8, loc: 500, w: 8, d: 10, complexity: 8, churn: 4 });
+
+    expect(archetype.bodyScale).toBeLessThanOrEqual(0.72);
+    expect(archetype.roofScale).toBeLessThanOrEqual(0.78);
+    expect(archetype.baseScale).toBeLessThanOrEqual(0.84);
+    expect(archetype.bodyScale).toBeGreaterThan(0.5);
+    expect(archetype.tierCount).toBeGreaterThanOrEqual(1);
   });
 
   it("uses layout file centers directly as scene coordinates", () => {

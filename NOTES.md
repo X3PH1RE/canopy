@@ -60,6 +60,7 @@
 - 2026-10-11T03:41:00+05:30: Completed Phase 6 and made the formal phase commit.
 - 2026-10-11T03:52:00+05:30: Fixed analyze-route failures caused by stale/local preview routing: preview now proxies `/api`, API 404s explain the server/proxy issue, and failed analyzes keep the existing city visible with an alert.
 - 2026-10-11T04:05:00+05:30: GitHub analysis works when the dev server is started with network access; cached analyzed repos are excluded from Vitest so tests never execute code from analyzed repos.
+- 2026-10-11T06:29:00+05:30: Upgraded buildings from single boxes to deterministic procedural kits with plinths, facade fins, glass bands, roof caps, and stepped/terraced/slab archetypes. Browser screenshot tooling was unavailable in this session; tests, typecheck, and build passed.
 
 ## Commands
 
