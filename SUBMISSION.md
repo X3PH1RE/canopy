@@ -7,7 +7,7 @@ Complete this file during the hackathon and use it to prepare your submission th
 - **Project name:** Canopy
 - **Short description:** Canopy turns a public GitHub repository into a 3D solarpunk city: folders become districts, files become buildings, git history becomes a time slider, and risky code glows. It helps developers and reviewers see structure, churn, complexity and dependencies at a glance.
 - **Code repository URL:** https://github.com/X3PH1RE/canopy
-- **Final submitted implementation commit SHA:** f9f1892f0abd63ff37b359a22a08bd7629835a2d (the last commit before this SHA was recorded)
+- **Final submitted implementation commit SHA:** 48c07680770fab0c784642cdb5217865e9ea75f8 (the last commit before this SHA was recorded)
 - **Demo video link:** https://drive.google.com/file/d/19_4Yk8tpS9wDz5aKTS4FWK5rVLw0-Lc3/view?usp=sharing
 - **Working demo URL or local demo steps:** Live at https://canopy.ashwinmenon.me. To run locally: `pnpm install`, `pnpm dev`, open http://localhost:5173, then load the sample city or paste a public GitHub URL and press Analyze.
 - **Demo access requirements:** Node.js 20.19+ and pnpm 9+. Analysing a GitHub repository needs network access; the sample city works offline. No credentials are needed.
@@ -35,15 +35,15 @@ Participate solo or in a team of up to 4. Remove unused rows.
 
 ## Submission checklist
 
-- [ ] The project implementation started from scratch at the event.
-- [ ] I participated solo or with no more than 4 team members in total.
-- [ ] Codex was used during development and its usage is documented.
-- [ ] The code repository URL, short description, and working demo are provided.
-- [ ] README setup and demo instructions match the submitted code.
-- [ ] Actual checks and known limitations are documented.
-- [ ] Meaningful changes are documented and committed throughout development.
-- [ ] The final implementation is committed and pushed, and its SHA is recorded above.
-- [ ] No credentials or private data are included in the repository or demo instructions.
+- [x] The project implementation started from scratch at the event.
+- [x] I participated solo or with no more than 4 team members in total.
+- [x] Codex was used during development and its usage is documented.
+- [x] The code repository URL, short description, and working demo are provided.
+- [x] README setup and demo instructions match the submitted code.
+- [x] Actual checks and known limitations are documented.
+- [x] Meaningful changes are documented and committed throughout development.
+- [x] The final implementation is committed and pushed, and its SHA is recorded above.
+- [x] No credentials or private data are included in the repository or demo instructions.
 - [ ] The organizers' announced submission method and timing have been followed.
 
 Event reference: [DevDay Exchange Community: Kochi on Luma](https://luma.com/z10nz8gp). The event wraps up by **10:00 AM IST on 11 October 2026**.
