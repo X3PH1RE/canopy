@@ -1,10 +1,19 @@
 import { useFrame, type ThreeEvent } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
-import type { Group, Mesh } from "three";
+import { MeshStandardMaterial, type Group, type Mesh } from "three";
 import type { CityData, FileNode } from "@canopy/shared";
 import { theme } from "../theme";
 import { useCityStore } from "../store";
-import { bladeGeometry, makeBuildingShaderPatch, poleGeometry, sharedMaterials, shrubGeometry, unitBox } from "./assets";
+import {
+  bladeGeometry,
+  domeGeometry,
+  makeBuildingShaderPatch,
+  poleGeometry,
+  sharedMaterials,
+  shrubGeometry,
+  tipGeometry,
+  unitBox,
+} from "./assets";
 import {
   buildingArchetype,
   buildingDetailPlan,
@@ -120,6 +129,19 @@ function Building({
   const vine = useMemo(() => ({ value: 1 }), []);
   vine.value = viewMode === "language" ? 1 : 0;
   const onBeforeCompile = useMemo(() => makeBuildingShaderPatch(seed, vine), [seed, vine]);
+  const bodyMaterial = useMemo(() => {
+    const material = new MeshStandardMaterial({ roughness: 0.6, metalness: 0.05 });
+    material.customProgramCacheKey = () => "canopy-building-v2";
+    material.onBeforeCompile = onBeforeCompile;
+    return material;
+  }, [onBeforeCompile]);
+  useEffect(() => () => bodyMaterial.dispose(), [bodyMaterial]);
+  bodyMaterial.color.set(isSelected ? theme.sun : isActive ? theme.gold : visual.color);
+  bodyMaterial.emissive.set(isHovered || isSelected || isActive ? theme.glass : pulseIntensity > 0 ? theme.sun : visual.emissive);
+  bodyMaterial.emissiveIntensity = isSelected ? 0.28 : isActive ? 0.22 : isHovered ? 0.16 : Math.max(visual.emissiveIntensity, pulseIntensity);
+  const showExtras = detailPlan.finCount > 0 || detailPlan.tierCount > 0;
+  const capHeight = archetype.kind === "steppedBlock" ? 1.7 : archetype.kind === "terracedBlock" ? 1.2 : 0;
+  const domeRadius = Math.max(0.5, Math.min(roofWidth, roofDepth) * 0.26);
   const shrubs = useMemo(
     () => shrubLayout(seed, detailPlan.finCount, roofWidth, roofDepth),
     [seed, detailPlan.finCount, roofWidth, roofDepth],
@@ -181,6 +203,7 @@ function Building({
         castShadow
         receiveShadow
         geometry={unitBox}
+        material={bodyMaterial}
         onClick={(event) => {
           event.stopPropagation();
           onSelect(file.id);
@@ -193,15 +216,6 @@ function Building({
         ref={bodyRef}
         scale={[bodyWidth, initialHeight.current, bodyDepth]}
       >
-        <meshStandardMaterial
-          color={isSelected ? theme.sun : isActive ? theme.gold : visual.color}
-          customProgramCacheKey={() => "canopy-building-v1"}
-          emissive={isHovered || isSelected || isActive ? theme.glass : pulseIntensity > 0 ? theme.sun : visual.emissive}
-          emissiveIntensity={isSelected ? 0.28 : isActive ? 0.22 : isHovered ? 0.16 : Math.max(visual.emissiveIntensity, pulseIntensity)}
-          onBeforeCompile={onBeforeCompile}
-          roughness={0.6}
-          metalness={0.05}
-        />
       </mesh>
       <group ref={detailsRef}>
         {range(detailPlan.tierCount).map((index) => {
@@ -221,20 +235,45 @@ function Building({
         })}
       </group>
       <group ref={crownRef} position={[0, targetHeight, 0]}>
-        <mesh geometry={unitBox} position={[0, 0.07, 0]} receiveShadow scale={[roofWidth, 0.14, roofDepth]}>
-          <meshStandardMaterial color={visual.roofColor} roughness={0.88} />
+        <mesh
+          castShadow
+          geometry={unitBox}
+          material={sharedMaterials.rim}
+          position={[0, 0.1, 0]}
+          scale={[roofWidth + 0.12, 0.2, roofDepth + 0.12]}
+        />
+        <mesh geometry={unitBox} position={[0, 0.21, 0]} receiveShadow scale={[roofWidth - 0.16, 0.06, roofDepth - 0.16]}>
+          <meshStandardMaterial color={visual.roofColor} roughness={0.9} />
         </mesh>
+        {showExtras && capHeight > 0 ? (
+          <mesh
+            castShadow
+            geometry={unitBox}
+            material={bodyMaterial}
+            position={[0, 0.24 + capHeight / 2, 0]}
+            scale={[bodyWidth * 0.62, capHeight, bodyDepth * 0.62]}
+          />
+        ) : null}
+        {showExtras && archetype.kind === "slimTower" ? (
+          <group position={[0, 0.2, 0]}>
+            <mesh geometry={poleGeometry} material={sharedMaterials.spire} position={[0, 1.2, 0]} scale={[0.07, 2.4, 0.07]} />
+            <mesh geometry={tipGeometry} material={sharedMaterials.beacon} position={[0, 2.45, 0]} scale={0.12} />
+          </group>
+        ) : null}
+        {showExtras && archetype.kind === "glassSlab" ? (
+          <mesh geometry={domeGeometry} material={sharedMaterials.glass} position={[0, 0.22, 0]} scale={[domeRadius, domeRadius * 0.8, domeRadius]} />
+        ) : null}
         {shrubs.map((shrub, index) => (
           <mesh
             geometry={shrubGeometry}
             key={`shrub-${index}`}
             material={index % 2 === 0 ? sharedMaterials.shrubA : sharedMaterials.shrubB}
-            position={[shrub.x, 0.14 + shrub.size * 0.55, shrub.z]}
+            position={[shrub.x, 0.22 + shrub.size * 0.55, shrub.z]}
             scale={[shrub.size, shrub.size * 0.8, shrub.size]}
           />
         ))}
         {hasSolar ? (
-          <group position={[0, 0.34, 0]} rotation={[-0.22, 0, 0]}>
+          <group position={[0, 0.4, 0]} rotation={[-0.22, 0, 0]}>
             <mesh geometry={unitBox} material={sharedMaterials.frame} scale={[panelWidth + 0.14, 0.05, panelDepth + 0.14]} />
             <mesh geometry={unitBox} material={sharedMaterials.solar} position={[0, 0.04, 0]} scale={[panelWidth, 0.05, panelDepth]} />
           </group>
