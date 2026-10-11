@@ -62,6 +62,7 @@
 - 2026-10-11T04:05:00+05:30: GitHub analysis works when the dev server is started with network access; cached analyzed repos are excluded from Vitest so tests never execute code from analyzed repos.
 - 2026-10-11T06:29:00+05:30: Upgraded buildings from single boxes to deterministic procedural kits with plinths, facade fins, glass bands, roof caps, and stepped/terraced/slab archetypes. Browser screenshot tooling was unavailable in this session; tests, typecheck, and build passed.
 - 2026-10-11T06:36:00+05:30: Optimized procedural building detail for smoother movement: dense cities now simplify non-interactive background buildings while keeping richer details on selected/hovered/standout towers.
+- 2026-10-11T06:40:00+05:30: Fixed desktop HUD spacing by reserving separate left, center, and right overlay lanes so stats, search, inspector, legend, progress, and error panels do not overlap.
 
 ## Commands
 
