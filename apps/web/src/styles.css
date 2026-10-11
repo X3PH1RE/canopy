@@ -121,10 +121,11 @@ button:disabled {
   left: var(--hud-edge);
   top: calc(var(--hud-top) + var(--top-bar-height) + 12px);
   display: grid;
-  gap: 10px;
+  gap: 12px;
   width: var(--left-panel-width);
-  padding: 10px 14px;
-  border-radius: 8px;
+  padding: 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 250, 232, 0.86), rgba(226, 244, 224, 0.78));
 }
 
 .time-slider {
@@ -163,8 +164,10 @@ button:disabled {
 }
 
 .stats-line {
-  display: flex;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
 }
 
 .segmented-control {
@@ -172,35 +175,114 @@ button:disabled {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
   min-width: 360px;
-  border-radius: 8px;
+  border-radius: 999px;
   background: rgba(31, 58, 46, 0.1);
   padding: 4px;
 }
 
 .segmented-control button {
   min-height: 30px;
-  border-radius: 6px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   padding: 0 10px;
   background: transparent;
   color: #1f3a2e;
   font-size: 0.86rem;
 }
 
+.segmented-control button:not(.is-active):hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
 .segmented-control button.is-active {
-  background: #f2a900;
+  background: linear-gradient(135deg, #ffc83d, #f2a900);
   color: #1f3a2e;
+  box-shadow: 0 4px 10px rgba(242, 169, 0, 0.35);
 }
 
 .toggle-button {
-  justify-self: start;
-  min-height: 32px;
-  background: rgba(31, 58, 46, 0.16);
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-radius: 999px;
+  background: rgba(31, 58, 46, 0.1);
   color: #1f3a2e;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.toggle-button svg {
+  width: 15px;
+  height: 15px;
+}
+
+.toggle-button kbd {
+  min-width: 18px;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  padding: 0 4px;
+  font-family: inherit;
+  font-size: 0.68rem;
+  line-height: 16px;
+  opacity: 0.55;
+  text-align: center;
+}
+
+.toggle-button:hover {
+  transform: translateY(-1px);
 }
 
 .toggle-button.is-active {
-  background: #18322f;
+  background: linear-gradient(135deg, #2f6b4a, #18322f);
   color: #fff8e0;
+}
+
+.toggle-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.control-group {
+  display: grid;
+  gap: 6px;
+}
+
+.control-label {
+  padding-left: 4px;
+  color: #6f8580;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1px;
+  border: 1px solid rgba(47, 107, 74, 0.14);
+  border-radius: 10px;
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.stat dd {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.15;
+}
+
+.stat dt {
+  color: #6f8580;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .search-box {
