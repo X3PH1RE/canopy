@@ -774,3 +774,78 @@ button:disabled {
 .district-label {
   background: linear-gradient(135deg, rgba(47, 107, 74, 0.72), rgba(24, 50, 47, 0.62));
 }
+
+/* Legend info buttons and explainer card */
+.legend-panel li em {
+  flex: 1;
+  font-style: normal;
+}
+
+.legend-panel li .legend-swatch,
+.legend-card .legend-swatch {
+  width: 18px;
+  height: 10px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(24, 50, 47, 0.18);
+  border-radius: 999px;
+}
+
+.legend-info {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  min-height: 0;
+  padding: 0;
+  place-items: center;
+  border: 1px solid rgba(24, 50, 47, 0.32);
+  border-radius: 50%;
+  background: transparent;
+  color: #3d5a54;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.7rem;
+  font-style: italic;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.legend-info:hover,
+.legend-info.is-open {
+  background: #18322f;
+  color: #fff8e0;
+}
+
+.legend-card {
+  position: absolute;
+  left: calc(100% + 12px);
+  bottom: 0;
+  width: 250px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: linear-gradient(160deg, rgba(255, 250, 232, 0.94), rgba(226, 244, 224, 0.88));
+  color: #18322f;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 18px 50px rgba(24, 50, 47, 0.2);
+}
+
+.legend-card header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-card p {
+  margin: 8px 0 0;
+  color: #4d6762;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .legend-card {
+    left: 0;
+    bottom: calc(100% + 8px);
+    width: min(250px, calc(100vw - 20px));
+  }
+}

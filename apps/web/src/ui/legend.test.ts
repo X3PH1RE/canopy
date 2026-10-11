@@ -16,4 +16,12 @@ describe("legend helpers", () => {
     expect(legendForViewMode("complexity").map((item) => item.label)).toContain("High complexity");
     expect(legendForViewMode("risk").map((item) => item.label)).toContain("High risk");
   });
+
+  it("explains every legend item", () => {
+    for (const mode of ["language", "churn", "complexity", "risk"] as const) {
+      for (const item of legendForViewMode(mode)) {
+        expect(item.info.length).toBeGreaterThan(10);
+      }
+    }
+  });
 });
