@@ -63,6 +63,13 @@
 - 2026-10-11T06:29:00+05:30: Upgraded buildings from single boxes to deterministic procedural kits with plinths, facade fins, glass bands, roof caps, and stepped/terraced/slab archetypes. Browser screenshot tooling was unavailable in this session; tests, typecheck, and build passed.
 - 2026-10-11T06:36:00+05:30: Optimized procedural building detail for smoother movement: dense cities now simplify non-interactive background buildings while keeping richer details on selected/hovered/standout towers.
 - 2026-10-11T06:40:00+05:30: Fixed desktop HUD spacing by reserving separate left, center, and right overlay lanes so stats, search, inspector, legend, progress, and error panels do not overlap.
+- 2026-10-11T06:55:00+05:30: Scene polish: building windows, lit panes, vines, corner pillars and balconies are painted in a shared fragment shader patched into `MeshStandardMaterial` (see `apps/web/src/scene/assets.ts`), so they add no meshes. Shared geometry and materials keep draw calls low. Routes are one merged fat-line draw call. Added a floating island, gradient sky, clouds, ponds, bushes, flowers, monorail and a quadcopter drone model.
+- 2026-10-11T06:55:00+05:30: Timeline bounds now use the min and max commit timestamps, not log order, because author dates are not monotonic after rebases or cherry-picks.
+- 2026-10-11T06:58:00+05:30: Drone movement had a sign error in the yaw rotation (W/S slid sideways when turned). Camera forward is `(sin yaw, -cos yaw)` and right is `(cos yaw, sin yaw)`. The drone model faces +z, so it is rotated by `PI - yaw`.
+- 2026-10-11T07:00:00+05:30: F, Enter and Esc are handled on the keydown event. Reading held-key state through React dropped quick taps.
+- 2026-10-11T07:02:00+05:30: Renamed Roads to Routes in the UI and turned them on by default. Internal names (`showRoads`, `Roads.tsx`) were left alone to keep the diff small.
+- 2026-10-11T07:05:00+05:30: Legend moved to the bottom-left and the fly HUD to the centre lane so the inspect card never overlaps them. Legend items have "i" explainer cards.
+- 2026-10-11T07:14:00+05:30: Controls panel redesigned and buildings gained parapet roofs, set-back tops, spires and greenhouse domes. Last full run: 28 test files, 101 tests, typecheck clean. Frame rate has not been measured.
 
 ## Commands
 
@@ -76,3 +83,7 @@
 
 - Public GitHub analysis needs network access and a fresh `pnpm dev` server on port 8787; restricted networks can still fail during `git fetch`.
 - Phase 5b deferred one polish item: spatial grid rebuild frequency during fly mode.
+- Frame rate on large cities has not been measured; distant buildings are simplified above 120 and 260 files as a budget.
+- Analyses cached before the timeline fix keep their old frame dates until re-analysed.
+- After leaving fly mode the orbit camera sits close to the buildings (minimum orbit distance).
+- The narrow-window and phone layouts were not re-checked after the latest panel changes.
