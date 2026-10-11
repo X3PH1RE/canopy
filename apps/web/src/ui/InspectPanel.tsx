@@ -69,7 +69,7 @@ function DependencyLists({ imports, importedBy }: DependencyListsProps) {
     return (
       <section className="dependency-list" aria-label="Dependencies">
         <h3>Dependencies</h3>
-        <p>No relative dependency roads for this file yet.</p>
+        <p>No relative dependency routes for this file yet.</p>
       </section>
     );
   }

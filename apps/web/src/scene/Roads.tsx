@@ -1,7 +1,7 @@
 import { Line } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
-import { BufferAttribute, BufferGeometry, Color, type Mesh } from "three";
+import { Color, Object3D, type InstancedMesh, type Mesh } from "three";
 import type { CityData } from "@canopy/shared";
 import { theme } from "../theme";
 import { useCityStore } from "../store";
@@ -16,8 +16,9 @@ type Vec3 = [number, number, number];
 const ARC_SEGMENTS = 14;
 const MAX_ROUTES = 420;
 const MAX_HIGHLIGHTED = 36;
-const ROUTE_LOW = new Color("#3f9a8a");
-const ROUTE_HIGH = new Color("#f2c04a");
+const ROUTE_LOW = new Color("#19c7a6");
+const ROUTE_HIGH = new Color("#ffd23f");
+const MAX_FLOW_PULSES = 90;
 
 export function Roads({ city }: RoadsProps) {
   const showRoads = useCityStore((state) => state.showRoads);
@@ -46,31 +47,22 @@ export function Roads({ city }: RoadsProps) {
     return result;
   }, [city]);
 
-  // One merged line geometry for every dependency route keeps this to a single draw call.
-  const geometry = useMemo(() => {
-    const positions = new Float32Array(arcs.length * ARC_SEGMENTS * 6);
-    const colors = new Float32Array(arcs.length * ARC_SEGMENTS * 6);
+  // Every route is one fat-line segment list, so the whole network stays a single draw call.
+  const { segmentPoints, segmentColors } = useMemo(() => {
+    const points: Vec3[] = [];
+    const colors: Array<[number, number, number]> = [];
     const color = new Color();
-    arcs.forEach((arc, arcIndex) => {
+    for (const arc of arcs) {
       for (let step = 0; step < ARC_SEGMENTS; step += 1) {
-        const offset = (arcIndex * ARC_SEGMENTS + step) * 6;
-        const a = arc.points[step]!;
-        const b = arc.points[step + 1]!;
-        positions.set(a, offset);
-        positions.set(b, offset + 3);
+        points.push(arc.points[step]!, arc.points[step + 1]!);
         color.copy(ROUTE_LOW).lerp(ROUTE_HIGH, step / ARC_SEGMENTS);
-        colors.set([color.r, color.g, color.b], offset);
+        colors.push([color.r, color.g, color.b]);
         color.copy(ROUTE_LOW).lerp(ROUTE_HIGH, (step + 1) / ARC_SEGMENTS);
-        colors.set([color.r, color.g, color.b], offset + 3);
+        colors.push([color.r, color.g, color.b]);
       }
-    });
-    const result = new BufferGeometry();
-    result.setAttribute("position", new BufferAttribute(positions, 3));
-    result.setAttribute("color", new BufferAttribute(colors, 3));
-    return result;
+    }
+    return { segmentPoints: points, segmentColors: colors };
   }, [arcs]);
-
-  useEffect(() => () => geometry.dispose(), [geometry]);
 
   const highlighted = useMemo(
     () =>
@@ -86,12 +78,21 @@ export function Roads({ city }: RoadsProps) {
 
   return (
     <group>
-      <lineSegments geometry={geometry}>
-        <lineBasicMaterial depthWrite={false} opacity={selectedId === null ? 0.5 : 0.12} transparent vertexColors />
-      </lineSegments>
+      {segmentPoints.length > 0 ? (
+        <Line
+          depthWrite={false}
+          lineWidth={selectedId === null ? 2.4 : 1.2}
+          opacity={selectedId === null ? 0.9 : 0.22}
+          points={segmentPoints}
+          segments
+          transparent
+          vertexColors={segmentColors}
+        />
+      ) : null}
+      {selectedId === null ? <FlowPulses arcs={arcs} /> : null}
       {highlighted.map((arc) => (
         <group key={arc.edgeKey}>
-          <Line color={theme.gold} lineWidth={2.6} opacity={0.9} points={arc.points} transparent />
+          <Line color={theme.gold} lineWidth={4.2} opacity={1} points={arc.points} transparent />
           <RoutePulse points={arc.points} seed={arc.from * 7 + arc.to} />
         </group>
       ))}
@@ -136,4 +137,41 @@ function sampleArc(from: Vec3, control: Vec3, to: Vec3): Vec3[] {
     ]);
   }
   return points;
+}
+
+// Light packets travelling along a sample of routes make the dependency network read as live traffic.
+function FlowPulses({ arcs }: { arcs: Array<{ points: Vec3[]; from: number; to: number }> }) {
+  const ref = useRef<InstancedMesh>(null);
+  const dummy = useMemo(() => new Object3D(), []);
+  const sample = useMemo(() => {
+    const stride = Math.max(1, Math.floor(arcs.length / MAX_FLOW_PULSES));
+    return arcs.filter((_, index) => index % stride === 0).slice(0, MAX_FLOW_PULSES);
+  }, [arcs]);
+
+  useFrame((state) => {
+    const mesh = ref.current;
+    if (!mesh) {
+      return;
+    }
+    sample.forEach((arc, index) => {
+      const t = (state.clock.elapsedTime * 0.3 + ((arc.from * 31 + arc.to * 17) % 100) / 100) % 1;
+      const position = t * ARC_SEGMENTS;
+      const step = Math.min(ARC_SEGMENTS - 1, Math.floor(position));
+      const mix = position - step;
+      const a = arc.points[step]!;
+      const b = arc.points[step + 1]!;
+      dummy.position.set(a[0] + (b[0] - a[0]) * mix, a[1] + (b[1] - a[1]) * mix, a[2] + (b[2] - a[2]) * mix);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(index, dummy.matrix);
+    });
+    mesh.count = sample.length;
+    mesh.instanceMatrix.needsUpdate = true;
+  });
+
+  return (
+    <instancedMesh ref={ref} args={[undefined, undefined, MAX_FLOW_PULSES]} frustumCulled={false}>
+      <sphereGeometry args={[0.38, 8, 6]} />
+      <meshBasicMaterial color="#fff6c9" fog={false} />
+    </instancedMesh>
+  );
 }

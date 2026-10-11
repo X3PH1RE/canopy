@@ -2,7 +2,7 @@
 
 Your codebase, as a city you can fly through.
 
-Paste a public GitHub repository URL and Canopy will analyze its files, dependencies, churn, risk hotspots, and history, then render the result as a navigable 3D city with timeline playback, dependency roads, and search fly-to.
+Paste a public GitHub repository URL and Canopy will analyze its files, dependencies, churn, risk hotspots, and history, then render the result as a navigable 3D city with timeline playback, dependency routes, and search fly-to.
 
 ## Project Overview
 
@@ -43,7 +43,7 @@ pnpm build
 
 ## Current Status
 
-- Working features: pnpm workspace, shared `CityData` types, Fastify `/api/health`, `/api/limits`, in-memory analyze jobs, safe GitHub URL validation, repo clone/fetch cache, repo walking filters, tree-sitter metrics with heuristic fallback, relative JS/TS/Python dependency edges, git history parsing, timeline data, churn/risk scoring, Language/Churn/Complexity/Risk view modes, deterministic fake city generation, treemap layout tests, generated sample data, a full-screen 3D city scene, district plates, instanced trees, roof solar panels, light rail pulse, district labels, view legend, focus-safe keyboard shortcuts, toggleable dependency roads with selection highlights, orbit controls, camera fly-to, file/function search, drone fly mode with collision, chase camera, proximity popups, fly HUD, hover highlighting, click selection, live time-slider playback with smooth building growth and changed-file pulses, inspect panel metrics and dependency lists, URL submission UI, polished progress overlay, friendly rate-limit panel, strict TypeScript checks, and Vitest setup.
+- Working features: pnpm workspace, shared `CityData` types, Fastify `/api/health`, `/api/limits`, in-memory analyze jobs, safe GitHub URL validation, repo clone/fetch cache, repo walking filters, tree-sitter metrics with heuristic fallback, relative JS/TS/Python dependency edges, git history parsing, timeline data, churn/risk scoring, Language/Churn/Complexity/Risk view modes, deterministic fake city generation, treemap layout tests, generated sample data, a full-screen 3D city scene, district plates, instanced trees, roof solar panels, light rail pulse, district labels, view legend, focus-safe keyboard shortcuts, toggleable dependency routes with selection highlights, orbit controls, camera fly-to, file/function search, drone fly mode with collision, chase camera, proximity popups, fly HUD, hover highlighting, click selection, live time-slider playback with smooth building growth and changed-file pulses, inspect panel metrics and dependency lists, URL submission UI, polished progress overlay, friendly rate-limit panel, strict TypeScript checks, and Vitest setup.
 - Known limitations: Offline pre-baked real samples are a later phase.
 - Libraries, APIs, and public datasets used: Fastify, Vite, React, React Three Fiber, Drei, Three.js, Zustand, TypeScript, Vitest, d3-hierarchy, web-tree-sitter, tree-sitter-wasms, and fontsource packages. No external datasets are used.
 

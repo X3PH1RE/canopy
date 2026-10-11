@@ -35,7 +35,7 @@ export const useCityStore = create<CityState>((set) => ({
   isFlyMode: false,
   activeBuildingId: null,
   viewMode: "language",
-  showRoads: false,
+  showRoads: true,
   timelineFrame: 0,
   isTimelinePlaying: false,
   error: null,

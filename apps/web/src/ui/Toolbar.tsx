@@ -52,7 +52,7 @@ export function Toolbar({ city }: ToolbarProps) {
         aria-pressed={showRoads}
         onClick={() => setShowRoads(!showRoads)}
       >
-        Roads
+        Routes
       </button>
       <button
         type="button"
