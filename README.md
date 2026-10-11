@@ -10,7 +10,7 @@ Paste a public GitHub repository URL and Canopy will analyze its files, dependen
 - **Short description:** A visual codebase explorer where folders become districts, files become buildings, git history becomes a time slider, and risky code glows.
 - **Team:** Ashwin Menon ([@X3PH1RE](https://github.com/X3PH1RE))
 - **Demo video:** [Watch the demo](https://drive.google.com/file/d/19_4Yk8tpS9wDz5aKTS4FWK5rVLw0-Lc3/view?usp=sharing)
-- **Working demo:** Local demo with `pnpm dev`; open `http://localhost:5173`, paste a public GitHub URL, or load the sample city.
+- **Working demo:** [canopy.ashwinmenon.me](https://canopy.ashwinmenon.me). Or run locally with `pnpm dev`; open `http://localhost:5173`, paste a public GitHub URL, or load the sample city.
 - **Technology stack:** TypeScript, pnpm workspaces, Fastify, Vite, React 18, React Three Fiber, Drei, Three.js, Zustand, d3-hierarchy, web-tree-sitter, tree-sitter-wasms, Vitest.
 
 ## Screenshots
