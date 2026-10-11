@@ -1,0 +1,7 @@
+{
+  "buildCommand": "pnpm --filter @canopy/web build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://canopy-o94l.onrender.com/api/:path*" }
+  ]
+}

@@ -1,5 +1,8 @@
 {
   "installCommand": "pnpm install",
   "buildCommand": "pnpm --filter @canopy/web build",
-  "outputDirectory": "apps/web/dist"
+  "outputDirectory": "apps/web/dist",
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://canopy-o94l.onrender.com/api/:path*" }
+  ]
 }
