@@ -8,6 +8,8 @@ Complete this file during the hackathon and use it to prepare your submission th
 - **Short description:** Canopy turns a public GitHub repository into a 3D solarpunk city: folders become districts, files become buildings, git history becomes a time slider, and risky code glows. It helps developers and reviewers see structure, churn, complexity and dependencies at a glance.
 - **Code repository URL:** https://github.com/X3PH1RE/canopy
 - **Final submitted implementation commit SHA:** TODO
+- **Live link:** TODO — add the live URL here
+- **Demo video link:** TODO — add the video link here
 - **Working demo URL or local demo steps:** Local demo: `pnpm install`, `pnpm dev`, open http://localhost:5173, then load the sample city or paste a public GitHub URL and press Analyze.
 - **Demo access requirements:** Node.js 20.19+ and pnpm 9+. Analysing a GitHub repository needs network access; the sample city works offline. No credentials are needed.
 
