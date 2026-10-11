@@ -115,7 +115,7 @@ export function DroneController({ city, worldSize }: DroneControllerProps) {
     previousEscape.current = keys.escape;
 
     const clampedDelta = Math.min(delta, 0.05);
-    yawRef.current += ((keys.yawLeft ? 1 : 0) - (keys.yawRight ? 1 : 0)) * clampedDelta * 1.8;
+    yawRef.current += ((keys.yawRight ? 1 : 0) - (keys.yawLeft ? 1 : 0)) * clampedDelta * 1.8;
 
     const glideTarget = glideTargetRef.current;
     const movement = glideTarget ? glideMovementToward(glideTarget) : movementVectorFromKeys(keys, yawRef.current);

@@ -36,7 +36,8 @@ export function Drone({ visible }: DroneProps) {
     }
 
     group.position.set(drone.x, drone.y + Math.sin(state.clock.elapsedTime * 2.4) * 0.06, drone.z);
-    group.rotation.set(0, drone.yaw, 0);
+    // The model faces +z, while yaw 0 travels toward -z.
+    group.rotation.set(0, Math.PI - drone.yaw, 0);
     if (bodyRef.current) {
       // Pitch forward and bank into motion like a real quad.
       bodyRef.current.rotation.set(Math.min(0.3, drone.speed * 0.02), 0, Math.min(0.12, drone.speed * 0.008));

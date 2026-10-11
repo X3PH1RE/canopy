@@ -33,6 +33,21 @@ describe("drone flight helpers", () => {
     expect(movement.speed).toBe(16);
   });
 
+  it("moves along the camera heading at any yaw", () => {
+    const yaw = Math.PI / 2;
+    const forward = movementVectorFromKeys({ ...baseKeys, forward: true }, yaw);
+    const right = movementVectorFromKeys({ ...baseKeys, right: true }, yaw);
+
+    expect(forward.x).toBeCloseTo(1, 5);
+    expect(forward.z).toBeCloseTo(0, 5);
+    expect(right.x).toBeCloseTo(0, 5);
+    expect(right.z).toBeCloseTo(1, 5);
+
+    const diagonal = movementVectorFromKeys({ ...baseKeys, backward: true }, Math.PI / 4);
+    expect(diagonal.x).toBeCloseTo(-Math.sin(Math.PI / 4), 5);
+    expect(diagonal.z).toBeCloseTo(Math.cos(Math.PI / 4), 5);
+  });
+
   it("places search glide targets outside the building footprint above the roof", () => {
     const target = droneGlideTargetForFile(
       { id: 1, x: 10, z: 20, w: 8, d: 6, loc: 127 },

@@ -38,7 +38,8 @@ export function movementVectorFromKeys(keys: KeySnapshot, yaw: number): DroneMov
   const cos = Math.cos(yaw);
 
   return {
-    x: normalizedX * cos + normalizedZ * sin,
+    // Camera forward is (sin yaw, -cos yaw) and right is (cos yaw, sin yaw); local z is negative when moving forward.
+    x: normalizedX * cos - normalizedZ * sin,
     y: (keys.up ? 1 : 0) - (keys.down ? 1 : 0),
     z: normalizedX * sin + normalizedZ * cos,
     speed: keys.boost ? 16 : 9,
